@@ -1,15 +1,113 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { Redirect } from 'react-router-dom';
+import { auth, signInWithGoogle, signInWithFacebook } from '../../Firebase';
+import { connect } from 'react-redux';
+import { setUser } from '../../Redux/User/userActionGenerator';
+import validator from 'validator';
+import Swal from 'sweetalert2';
 
-const SignUp = () => {
-  return (
+const SignUp = ({ setUser, currentUser }) => {
+  const handleSignUp = async (event) => {
+    event.preventDefault();
+    let { name, email, password, confirm_password } = event.target.elements;
+    name = name.value;
+    email = email.value;
+    password = password.value;
+    confirm_password = confirm_password.value;
+    if (name.length > 3) {
+      if (password.length > 8) {
+        if (validator.isEmail(email)) {
+          if (validator.isAlphanumeric(password)) {
+            if (password === confirm_password) {
+              try {
+                await auth.createUserWithEmailAndPassword(email, password);
+                return auth.currentUser.updateProfile({
+                  displayName: name,
+                });
+              } catch (error) {
+                Swal.fire({
+                  position: 'center',
+                  icon: 'error',
+                  title: error,
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+              }
+            } else {
+              Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: 'password dont match',
+                showConfirmButton: false,
+                timer: 1500,
+              });
+            }
+          } else {
+            Swal.fire({
+              position: 'center',
+              icon: 'error',
+              title: 'Password Should be Alphanumeric',
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          }
+        } else {
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Email Is Invalid',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      } else {
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Password Should be more than 8 characters ',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    } else {
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Name Should be more than 3 characters ',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+  };
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      setUser(user);
+    });
+  }, [setUser]);
+  return currentUser ? (
+    <Redirect to='/' />
+  ) : (
     <div>
-      <form>
-        <input type='email' />
-        <input type='password' />
-        <button>Sign Up</button>
+      <form onSubmit={handleSignUp}>
+        <input name='name' type='text' placeholder='Name' />
+        <input name='email' type='email' placeholder='Email' />
+        <input type='password' name='password' placeholder='Password' />
+        <input
+          type='password'
+          name='confirm_password'
+          placeholder='Confirm Password'
+        />
+        <button type='submit'>Sign Up</button>
       </form>
+      <button onClick={() => signInWithFacebook()}>Facebook</button>
+      <button onClick={() => signInWithGoogle()}>Google</button>
     </div>
   );
 };
-
-export default SignUp;
+const mapDispatchToProps = (dispatch) => ({
+  setUser: (user) => dispatch(setUser(user)),
+});
+const mapStateToProps = ({ currentUser }) => ({
+  currentUser: currentUser,
+});
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
