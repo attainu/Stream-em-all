@@ -1,3 +1,1 @@
-export const userAction = {
-  login: 'LOG_IN',
-};
+export const userAction = 'LOG_IN';

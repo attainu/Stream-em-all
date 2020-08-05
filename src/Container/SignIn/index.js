@@ -56,14 +56,16 @@ const SignIn = ({ history, setUser, currentUser }) => {
     }
   };
   useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      setUser(user);
+    auth.onAuthStateChanged((userdata) => {
+      setUser(userdata);
     });
-  }, [history, setUser]);
+  }, [setUser]);
   return currentUser ? (
     <Redirect to='/' />
   ) : (
     <div>
+      
+
       <form onSubmit={handleSignIn}>
         <input name='email' type='email' placeholder='Email' />
         <input type='password' name='password' placeholder='Password' />
@@ -77,7 +79,7 @@ const SignIn = ({ history, setUser, currentUser }) => {
 const mapDispatchToProps = (dispatch) => ({
   setUser: (user) => dispatch(setUser(user)),
 });
-const mapStateToProps = ({ currentUser }) => ({
-  currentUser: currentUser,
+const mapStateToProps = (state) => ({
+  currentUser: state.user.currentUser,
 });
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SignIn));

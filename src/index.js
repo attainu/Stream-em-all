@@ -8,7 +8,9 @@ import { Provider } from 'react-redux';
 import ConfigStore from './Redux/Store';
 
 const store = ConfigStore();
-
+store.subscribe(() => {
+  console.log(store.getState());
+});
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

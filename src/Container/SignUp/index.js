@@ -107,7 +107,7 @@ const SignUp = ({ setUser, currentUser }) => {
 const mapDispatchToProps = (dispatch) => ({
   setUser: (user) => dispatch(setUser(user)),
 });
-const mapStateToProps = ({ currentUser }) => ({
-  currentUser: currentUser,
+const mapStateToProps = ({ user }) => ({
+  currentUser: user.currentUser,
 });
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
