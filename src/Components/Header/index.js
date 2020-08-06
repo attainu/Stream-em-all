@@ -16,7 +16,7 @@ const Header = () => {
 
       <div className='header-content'>
         <Tittle>See what's next</Tittle>
-        <SubTittle>WATCH ANYWHERE. CANCLE ANYWHERE</SubTittle>
+        <SubTittle>WATCH ANYWHERE. CANCEL ANYWHERE</SubTittle>
         <Link className='try-now-btn'>
           Try it now
           <Icon className='Icon' icon={ic_keyboard_arrow_right} size={38} />
