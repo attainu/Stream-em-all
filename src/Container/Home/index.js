@@ -1,16 +1,25 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { auth } from '../../Firebase';
-import Movie from '../../Components/Movies';
-import TvShow from '../../Components/TvShows';
-import Search from '../../Components/Search';
-import MyList from '../MyList';
+// import Movie from '../../Components/Movies';
+import Header from '../../Components/Header';
+import Hero from '../../Components/Hero';
 
 const Home = () => {
   return (
     <div>
-      Home
+      <Header />
+      <Hero
+        url={
+          'https://image.tmdb.org/t/p/original//yJPI9e3H5fGNTWNzW2p4iSG5qdc.jpg'
+        }
+        title={'Narcos'}
+        desc={
+          'A gritty chronicle of the war against Colombia"s infamously violent and powerful drug cartels.'
+        }
+        url2={'http://www.returndates.com/backgrounds/narcos.logo.png'}
+      />
       <div>
+        Home
         <button>
           <Link to='/sdfsdf'>Not found</Link>
         </button>
@@ -24,14 +33,14 @@ const Home = () => {
         <button>
           <Link to='/signup'>signup</Link>
         </button>
+        <button>
+          <Link to='/'>manageprofile</Link>
+        </button>
+        <button>
+          <Link to='/tvshow'>tvShow</Link>
+        </button>
       </div>
-      <div>
-        <button onClick={() => auth.signOut()}>Sign Out</button>
-      </div>
-      <Movie />
-      <TvShow />
-      <Search />
-      <MyList />
+      {/* <Movie /> */}
     </div>
   );
 };

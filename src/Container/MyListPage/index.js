@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { firestore } from '../../Firebase';
+import Header from '../../Components/Header';
 
 const MyList = () => {
   const [listItems, setListItems] = useState('');
@@ -8,7 +9,12 @@ const MyList = () => {
       setListItems(snapshot.docs.map((doc) => doc.data().list));
     });
   }, []);
-  return <div>{listItems}</div>;
+  return (
+    <div>
+      <Header />
+      {listItems}
+    </div>
+  );
 };
 
 export default MyList;

@@ -1,14 +1,20 @@
-import { SearchActionTypes } from './searchActionTypes';
+import SearchActionTypes from './searchActionTypes';
 
 const INITIAL_STATE = {
   searchItems: [],
 };
-
+const { makeRequest, setSearchData, error } = SearchActionTypes;
 const searchReducer = (state = INITIAL_STATE, action) => {
   const { type, payload } = action;
   switch (type) {
-    case SearchActionTypes: {
-      return { ...state, searchItems: payload };
+    case makeRequest: {
+      return { ...state, loading: true };
+    }
+    case setSearchData: {
+      return { ...state, searchItems: payload, loading: false };
+    }
+    case error: {
+      return { ...state, error: payload, loading: false };
     }
     default:
       return state;

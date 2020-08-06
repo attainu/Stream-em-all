@@ -64,8 +64,6 @@ const SignIn = ({ history, setUser, currentUser }) => {
     <Redirect to='/' />
   ) : (
     <div>
-      
-
       <form onSubmit={handleSignIn}>
         <input name='email' type='email' placeholder='Email' />
         <input type='password' name='password' placeholder='Password' />
@@ -79,7 +77,7 @@ const SignIn = ({ history, setUser, currentUser }) => {
 const mapDispatchToProps = (dispatch) => ({
   setUser: (user) => dispatch(setUser(user)),
 });
-const mapStateToProps = (state) => ({
-  currentUser: state.user.currentUser,
+const mapStateToProps = ({ user }) => ({
+  currentUser: user.currentUser,
 });
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SignIn));
