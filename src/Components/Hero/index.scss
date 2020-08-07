@@ -9,7 +9,7 @@
   z-index: 4;
   width: 500px;
   left: 10vw;
-  top: 10vw;
+  top: 15vw;
 }
 .Hero .content .logo {
   max-width: 400px;
@@ -45,23 +45,28 @@
   transform: rotate(180deg);
 }
 .Button {
-  background: transparent;
+  background: #e1e1e1;
   display: flex;
   height: 44px;
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  color: #ffffff;
+  color: #000;
   padding: 20px;
   box-sizing: border-box;
   border: 2px solid rgba(245, 245, 241, 0.2);
-  border-radius: 44px;
+  border-radius: 4px;
   font-size: 14px;
   font-weight: 600;
   transition: border 0.125s ease, background 0.125s ease;
+  img {
+    width: 1vw;
+    margin-right: 1rem;
+  }
 }
 .Button:hover {
-  border: 2px solid #f5f5f1;
+  border: 2px solid #e50914;
+  color: #e50914;
 }
 .Button[data-primary='true'] {
   border: 2px solid #e50914;

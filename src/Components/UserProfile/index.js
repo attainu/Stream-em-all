@@ -2,12 +2,14 @@ import React from 'react';
 import './index.scss';
 import { connect } from 'react-redux';
 import { auth } from '../../Firebase';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-import Grow from '@material-ui/core/Grow';
-import Paper from '@material-ui/core/Paper';
-import Popper from '@material-ui/core/Popper';
-import MenuItem from '@material-ui/core/MenuItem';
-import MenuList from '@material-ui/core/MenuList';
+import {
+  ClickAwayListener,
+  Grow,
+  Paper,
+  Popper,
+  MenuItem,
+  MenuList,
+} from '@material-ui/core';
 
 const UserProfile = ({ img, profileName }) => {
   const [open, setOpen] = React.useState(false);
@@ -97,31 +99,3 @@ const mapStateToProps = ({ user }) => ({
   profileName: user.userProfile.profile,
 });
 export default connect(mapStateToProps)(UserProfile);
-
-//        <div className='UserProfile-menu'>
-//         <div className='UserProfileSwitch'>
-//           <ul>
-//             <li>
-//               <div className='UserProfile-image'>
-//                 <img src={img} alt='' />
-//               </div>
-//               <div className='UserProfile-name'>Alexander</div>
-//             </li>
-//             <li>
-//               <div className='UserProfile-image'>
-//                 <img src='' alt='' />
-//               </div>
-//               <div className='UserProfile-name'>Mattias</div>
-//             </li>
-//           </ul>
-//         </div>
-//         <div className='UserNavigation'>
-//           <ul>
-//             <li>Your Account</li>
-//             <li>Help Center</li>
-//             <li>Sign out of Netflix</li>
-//           </ul>
-//         </div>
-//       </div>
-
-//     </div>

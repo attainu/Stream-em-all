@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ManageProfile = ({ history, setUserProfile }) => {
+const ManageProfile = ({ history, setUserProfile, currentUser }) => {
   const classes = useStyles();
   const [profile, setProfile] = useState('');
 
@@ -70,7 +70,7 @@ const ManageProfile = ({ history, setUserProfile }) => {
             { img: 'https://i.ibb.co/zHLQ73n/profile-1.png', profile: 'Cat' },
             {
               img: 'https://i.ibb.co/TkgbZxd/profile-2.png',
-              profile: 'Person',
+              profile: currentUser.displayName,
             },
             { img: 'https://i.ibb.co/xC2p5TT/profile-3.png', profile: 'Bird' },
             { img: 'https://i.ibb.co/xJqw8sC/profile-4.png', profile: 'Dog' },
@@ -104,5 +104,10 @@ const ManageProfile = ({ history, setUserProfile }) => {
 const mapDispatchToProps = (dispatch) => ({
   setUserProfile: (user) => dispatch(setUserProfile(user)),
 });
-
-export default connect(null, mapDispatchToProps)(withRouter(ManageProfile));
+const mapStateToProps = ({ user }) => ({
+  currentUser: user.currentUser,
+});
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(ManageProfile));

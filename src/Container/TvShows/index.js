@@ -1,5 +1,5 @@
 import React from 'react';
-// import TvShow from '../../Components/TvShows';
+import TvShow from '../../Components/TvShows';
 import Header from '../../Components/Header';
 import Hero from '../../Components/Hero';
 
@@ -17,7 +17,7 @@ const TvShows = () => {
       {/* it will conatin the search result */}
       {/* <SearchResult />  */}
       TvShows
-      {/* <TvShow /> */}
+      <TvShow />
     </div>
   );
 };
