@@ -1,0 +1,29 @@
+// poster_path
+.swiper-button-prev {
+  color: #fff !important;
+}
+.swiper-button-next {
+  color: #fff !important;
+}
+.swiper-wrapper {
+  padding: 20px 0;
+  .swiper-slide {
+    transition: 250ms all;
+
+    &:first-child:hover {
+      margin: 0 30px;
+    }
+    &:last-child:hover {
+      margin: 0 -30px;
+    }
+  }
+}
+
+.swiper-wrapper:hover .swiper-slide {
+  opacity: 0.3;
+  &:hover {
+    transform: scale(1.3);
+    opacity: 1;
+    z-index: 1;
+  }
+}

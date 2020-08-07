@@ -1,28 +1,29 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { getTvShow } from '../../Redux/TvShows/tvshowActionGenerator';
+import TitleList from '../../Components/TitleList';
 
 const TvShows = ({ TvShows, getTvShow }) => {
-  const TvShowData1_10 = TvShows.slice(1, 11);
-  const TvShowData11_20 = TvShows.slice(11, 21);
-  const TvShowData21_30 = TvShows.slice(21, 31);
-  const TvShowData31_40 = TvShows.slice(31, 41);
-  const TvShowData41_50 = TvShows.slice(41, 51);
-  const TvShowData51_60 = TvShows.slice(51, 60);
-  console.log(TvShowData1_10);
-  console.log(TvShowData11_20);
-  console.log(TvShowData21_30);
-  console.log(TvShowData31_40);
-  console.log(TvShowData41_50);
-  console.log(TvShowData51_60);
+  const TvShowData1_10 = TvShows.slice(0, 10);
+  const TvShowData11_20 = TvShows.slice(10, 20);
+  const TvShowData21_30 = TvShows.slice(20, 30);
+  const TvShowData31_40 = TvShows.slice(30, 40);
+  const TvShowData41_50 = TvShows.slice(40, 50);
+  const TvShowData51_60 = TvShows.slice(50, 60);
+
   useEffect(() => {
     getTvShow();
   }, [getTvShow]);
-  return TvShowData1_10.map((data, index) => (
-    <h1 key={index}>
-      {index + 1} {data.name}
-    </h1>
-  ));
+  return (
+    <Fragment>
+      <TitleList title='Popular' slide={TvShowData1_10} />
+      <TitleList title='Top Rated' slide={TvShowData11_20} />
+      <TitleList title='Highest Grosing' slide={TvShowData21_30} />
+      <TitleList title='New Releases' slide={TvShowData31_40} />
+      <TitleList title='Most Liked' slide={TvShowData41_50} />
+      <TitleList title='Trending Now' slide={TvShowData51_60} />
+    </Fragment>
+  );
 };
 const mapDispatchToProps = (dispatch) => ({
   getTvShow: () => dispatch(getTvShow()),

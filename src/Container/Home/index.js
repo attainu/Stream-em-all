@@ -1,8 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-// import Movie from '../../Components/Movies';
+import Movie from '../../Components/Movies';
 import Header from '../../Components/Header';
 import Hero from '../../Components/Hero';
+import Footer from '../../Components/Footer';
 
 const Home = () => {
   return (
@@ -18,29 +18,8 @@ const Home = () => {
         }
         url2={'http://www.returndates.com/backgrounds/narcos.logo.png'}
       />
-      <div>
-        Home
-        <button>
-          <Link to='/sdfsdf'>Not found</Link>
-        </button>
-      </div>
-      <div>
-        <button>
-          <Link to='/signin'>signin</Link>
-        </button>
-      </div>
-      <div>
-        <button>
-          <Link to='/signup'>signup</Link>
-        </button>
-        <button>
-          <Link to='/'>manageprofile</Link>
-        </button>
-        <button>
-          <Link to='/tvshow'>tvShow</Link>
-        </button>
-      </div>
-      {/* <Movie /> */}
+      <Movie />
+      <Footer />
     </div>
   );
 };
