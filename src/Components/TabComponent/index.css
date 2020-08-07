@@ -29,6 +29,18 @@ ul li:hover {
 ul li :hover svg path {
   fill: #fff;
 }
+
+/* Active navs */
+.active {
+  border-bottom: 4px solid var(--main-red);
+}
+.tab-selected {
+  color: #fff;
+}
+.tab-selected svg path {
+  fill: #fff;
+}
+
 /* ALL NAV BARS */
 /* TabNavDoor */
 
@@ -51,4 +63,8 @@ ul li :hover svg path {
   width: 4rem;
   height: 4rem;
   fill: var(--main-grey);
+}
+
+.tab-door {
+  margin-bottom: 1.8rem;
 }
