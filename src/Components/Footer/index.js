@@ -28,7 +28,7 @@ const Footer = () => {
           />
 
           <h1 className='footer__text footer__text--2'>
-            Copyright©2019,{' '}
+            Copyright©2020,{' '}
             <span className='react'>
               {' '}
               ReactJS is
@@ -39,7 +39,9 @@ const Footer = () => {
 
         <div
           className='footer__end'
-          onClick={() => window.open(`https://github.com/`, '_blank')}
+          onClick={() =>
+            window.open(`https://github.com/attainu/Stream-em-all`, '_blank')
+          }
         >
           <img src={github} alt='github' className='footer__logo-github' />
 

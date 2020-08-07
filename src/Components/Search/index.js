@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('sm')]: {
       width: '10ch',
       '&:focus': {
-        width: '30ch',
+        width: '20ch',
       },
     },
   },
@@ -60,7 +60,7 @@ const Search = ({ getSearchData }) => {
     return value ? getSearchData(value) : null;
   };
   return (
-    <div className='Search' style={{ marginLeft: '40vw' }}>
+    <div className='Search' style={{ paddingLeft: '40vw' }}>
       <form onSubmit={handleSubmit}>
         <div className={classes.search}>
           <div className={classes.searchIcon}>
