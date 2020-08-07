@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import TabNavDoor from './TabNavDoor';
-import TabNavDevice from './TabNavDevice/TabNav';
-import TabNavPrice from './TabNavPrice';
+// Tab Navs
+import TabNavDoor from './TabNavDoor/TabNavDoor';
+import TabNavDevice from './TabNavDevice/TabNavDevice';
+import TabNavPrice from './TabNavPrice/TabNavPrice';
+// Tab contents
 import TabContentDevice from './TabNavDevice/TabContentDevice';
+import TabContentDoor from './TabNavDoor/TabContentDoor';
+import TabContentPrice from './TabNavPrice/TabContentPrice';
+// Css
 import './index.css';
 
 const TabComponent = () => {
@@ -48,7 +53,13 @@ const TabComponent = () => {
 
         {/*Tab Content*/}
         <TabPanel>
+          <TabContentDoor />
+        </TabPanel>
+        <TabPanel>
           <TabContentDevice />
+        </TabPanel>
+        <TabPanel>
+          <TabContentPrice />
         </TabPanel>
       </Tabs>
     </div>
