@@ -9,8 +9,6 @@ import {
 import { connect } from 'react-redux';
 import { setUser } from '../../Redux/User/userActionGenerator';
 import validator from 'validator';
-// import {} from '../../Firebase';
-
 import Swal from 'sweetalert2';
 
 const SignUp = ({ setUser, currentUser }) => {

@@ -42,7 +42,6 @@ const useStyles = makeStyles((theme) => ({
 const ManageProfile = ({ history, setUserProfile, currentUser }) => {
   const classes = useStyles();
   const [profile, setProfile] = useState('');
-  const [listItems, setListItems] = useState('');
 
   useEffect(() => {
     setUserProfile(profile);

@@ -13,15 +13,22 @@ const MyList = ({ currentUser, userProfile }) => {
         .collection(currentUser.uid)
         .doc(person)
         .get()
-        .then((doc) => setListItems(doc.data()));
+        .then((doc) => setListItems(doc.data().list));
     };
     fethcdata();
   }, [currentUser.uid, person]);
   console.log(listItems);
+  const handleClick = () =>
+    firestore
+      .collection(currentUser.uid)
+      .doc(person)
+      .collection('list')
+      .add({ user: 'anish' });
   return (
     <div>
       {/* {listItems} */}
       <Header />
+
       {/* <TitleList /> */}
       <div>
         Home
@@ -45,6 +52,9 @@ const MyList = ({ currentUser, userProfile }) => {
           <Link to='/tvshow'>tvShow</Link>
         </button>
       </div>
+      <button style={{ marginTop: '10vh' }} onClick={handleClick}>
+        handleClick
+      </button>
     </div>
   );
 };
