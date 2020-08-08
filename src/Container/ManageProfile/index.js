@@ -42,11 +42,13 @@ const useStyles = makeStyles((theme) => ({
 const ManageProfile = ({ history, setUserProfile, currentUser }) => {
   const classes = useStyles();
   const [profile, setProfile] = useState('');
+  const [listItems, setListItems] = useState('');
 
   useEffect(() => {
     setUserProfile(profile);
     profile && history.push('/movie');
   }, [history, profile, setUserProfile]);
+
   const handleClick = (img, data) => {
     setProfile({ img: img, profile: data });
   };

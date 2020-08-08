@@ -1,37 +1,28 @@
-import React from 'react'; //, { useEffect, useState }
-// import { firestore } from '../../Firebase';
+import React, { useEffect, useState } from 'react'; //
+import { firestore } from '../../Firebase';
 import { Link } from 'react-router-dom';
 import Header from '../../Components/Header';
-import TitleList from '../../Components/TitleList';
 import { connect } from 'react-redux';
 
-const MyList = ({ currentUser }) => {
-  console.log(currentUser.uid);
-  // const [listItems, setListItems] = useState('');
-  // useEffect(() => {
-  //   return (
-  //     // listItems === ''
-  //     //   ? firestore.collection(currentUser.uid).add({
-  //     //       list: 'avenger',
-  //     //       profiles: [
-  //     //         { cat: { list: { a: 1, b: 2, c: 3, d: 4, e: 5 } } },
-  //     //         { person: { list: { a: 1, b: 2, c: 3, d: 4, e: 5 } } },
-  //     //         { dog: { list: { a: 1, b: 2, c: 3, d: 4, e: 5 } } },
-  //     //         { bird: { list: { a: 1, b: 2, c: 3, d: 4, e: 5 } } },
-  //     //       ],
-  //     //       subscriptionStatus: false,
-  //     //     })
-  //     //   : null,
-  //     // firestore.collection(currentUser.uid).onSnapshot((snapshot) => {
-  //     //   setListItems(snapshot.docs.map((doc) => doc.data().list));
-  //     // })
-  //   );
-  // }, [currentUser.uid, listItems]);
-
+const MyList = ({ currentUser, userProfile }) => {
+  const [listItems, setListItems] = useState('');
+  const person = userProfile.profile;
+  useEffect(() => {
+    const fethcdata = () => {
+      firestore
+        .collection(currentUser.uid)
+        .doc(person)
+        .get()
+        .then((doc) => setListItems(doc.data()));
+    };
+    fethcdata();
+  }, [currentUser.uid, person]);
+  console.log(listItems);
   return (
     <div>
+      {/* {listItems} */}
       <Header />
-      <TitleList />
+      {/* <TitleList /> */}
       <div>
         Home
         <button>
@@ -59,5 +50,6 @@ const MyList = ({ currentUser }) => {
 };
 const mapStateToProps = ({ user }) => ({
   currentUser: user.currentUser,
+  userProfile: user.userProfile,
 });
 export default connect(mapStateToProps)(MyList);
