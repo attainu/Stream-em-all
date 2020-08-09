@@ -83,7 +83,5 @@ const Search = ({ getSearchData }) => {
 const mapDispatchToProps = (dispatch) => ({
   getSearchData: (value) => dispatch(getSearchData(value)),
 });
-// const mapStateToProps = ({ search }) => ({
-//   search: search.searchItems,
-// });
+
 export default connect(null, mapDispatchToProps)(Search);

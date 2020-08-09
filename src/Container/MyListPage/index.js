@@ -1,61 +1,46 @@
-import React, { useEffect, useState } from 'react'; //
+import React, { useEffect, useState, Fragment } from 'react'; //
 import { firestore } from '../../Firebase';
-import { Link } from 'react-router-dom';
 import Header from '../../Components/Header';
 import { connect } from 'react-redux';
+import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import GridCard from '../../Components/GridCard';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+    margin: '10vh',
+  },
+}));
 
 const MyList = ({ currentUser, userProfile }) => {
-  const [listItems, setListItems] = useState('');
+  const [movie, setMovie] = useState([]);
+  const classes = useStyles();
   const person = userProfile.profile;
+
   useEffect(() => {
     const fethcdata = () => {
       firestore
         .collection(currentUser.uid)
         .doc(person)
-        .get()
-        .then((doc) => setListItems(doc.data().list));
+        .collection('list')
+        .onSnapshot((snapshot) => {
+          setMovie(snapshot.docs.map((doc) => doc.data()));
+        });
     };
     fethcdata();
   }, [currentUser.uid, person]);
-  console.log(listItems);
-  const handleClick = () =>
-    firestore
-      .collection(currentUser.uid)
-      .doc(person)
-      .collection('list')
-      .add({ user: 'anish' });
   return (
-    <div>
-      {/* {listItems} */}
+    <Fragment>
       <Header />
-
-      {/* <TitleList /> */}
-      <div>
-        Home
-        <button>
-          <Link to='/sdfsdf'>Not found</Link>
-        </button>
+      <div className={classes.root}>
+        <Grid container spacing={3}>
+          {movie.map((data) => (
+            <GridCard movie={data} />
+          ))}
+        </Grid>
       </div>
-      <div>
-        <button>
-          <Link to='/signin'>signin</Link>
-        </button>
-      </div>
-      <div>
-        <button>
-          <Link to='/signup'>signup</Link>
-        </button>
-        <button>
-          <Link to='/'>manageprofile</Link>
-        </button>
-        <button>
-          <Link to='/tvshow'>tvShow</Link>
-        </button>
-      </div>
-      <button style={{ marginTop: '10vh' }} onClick={handleClick}>
-        handleClick
-      </button>
-    </div>
+    </Fragment>
   );
 };
 const mapStateToProps = ({ user }) => ({

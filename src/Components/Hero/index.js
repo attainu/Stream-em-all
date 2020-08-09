@@ -1,8 +1,7 @@
 import React from 'react';
-import './index.scss';
-import { Link } from 'react-router-dom';
 import Add from '../../Assets/image/add.svg';
 import Play from '../../Assets/image/play-button.svg';
+import './index.scss';
 
 const Hero = ({ url, url2, title, desc }) => {
   return (
@@ -26,14 +25,14 @@ const Hero = ({ url, url2, title, desc }) => {
 
         <p>{desc}</p>
         <div className='button-wrapper'>
-          <Link to='/' className='Button primary'>
+          <span className='Button primary'>
             <img src={Play} alt='' />
             Play
-          </Link>
-          <Link to='/' className='Button'>
+          </span>
+          <span className='Button'>
             <img src={Add} alt='' />
             Add To List
-          </Link>
+          </span>
         </div>
       </div>
       <div className='overlay'></div>

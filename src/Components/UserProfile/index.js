@@ -2,6 +2,7 @@ import React from 'react';
 import './index.scss';
 import { connect } from 'react-redux';
 import { auth } from '../../Firebase';
+import { useHistory } from 'react-router-dom';
 import {
   ClickAwayListener,
   Grow,
@@ -12,6 +13,7 @@ import {
 } from '@material-ui/core';
 
 const UserProfile = ({ img, profileName }) => {
+  const history = useHistory();
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
 
@@ -82,7 +84,9 @@ const UserProfile = ({ img, profileName }) => {
                   id='menu-list-grow'
                   onKeyDown={handleListKeyDown}
                 >
-                  <MenuItem onClick={handleClose}>Manage Profile</MenuItem>
+                  <MenuItem onClick={() => history.push('/')}>
+                    Manage Profile
+                  </MenuItem>
                   <MenuItem onClick={() => auth.signOut()}>Logout</MenuItem>
                 </MenuList>
               </ClickAwayListener>

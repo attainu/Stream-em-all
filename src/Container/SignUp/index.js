@@ -1,11 +1,6 @@
 import React, { useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
-import {
-  auth,
-  signInWithGoogle,
-  signInWithFacebook,
-  firestore,
-} from '../../Firebase';
+import { auth, signInWithGoogle, signInWithFacebook } from '../../Firebase';
 import { connect } from 'react-redux';
 import { setUser } from '../../Redux/User/userActionGenerator';
 import validator from 'validator';
@@ -25,33 +20,10 @@ const SignUp = ({ setUser, currentUser }) => {
           if (validator.isAlphanumeric(password)) {
             if (password === confirm_password) {
               try {
-                const data = await auth.createUserWithEmailAndPassword(
-                  email,
-                  password
-                );
+                await auth.createUserWithEmailAndPassword(email, password);
                 await auth.currentUser.updateProfile({
                   displayName: name,
                 });
-                firestore
-                  .collection(data.user.uid)
-                  .doc('Cat')
-                  .set({ user: 'amar' });
-                firestore
-                  .collection(data.user.uid)
-                  .doc(data.user.displayName)
-                  .set({ user: 'amar' });
-                firestore
-                  .collection(data.user.uid)
-                  .doc('Dog')
-                  .set({ user: 'amar' });
-                firestore
-                  .collection(data.user.uid)
-                  .doc('Bird')
-                  .set({ user: 'amar' });
-                firestore
-                  .collection(data.user.uid)
-                  .doc('SubscriptionStatus')
-                  .set({ status: 'false' });
               } catch (error) {
                 Swal.fire({
                   position: 'center',

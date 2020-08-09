@@ -1,13 +1,31 @@
 import React from 'react';
 import Header from '../../Components/Header';
-
-const SearchPage = () => {
+import { connect } from 'react-redux';
+import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import GridCard from '../../Components/GridCard';
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+    margin: '10vh',
+  },
+}));
+const SearchPage = ({ movie }) => {
+  const classes = useStyles();
   return (
     <div>
       <Header />
-      Search Page
+      <div className={classes.root}>
+        <Grid container spacing={3}>
+          {movie.map((data) => (
+            <GridCard movie={data} />
+          ))}
+        </Grid>
+      </div>
     </div>
   );
 };
-
-export default SearchPage;
+const mapStateToProps = ({ search }) => ({
+  movie: search.searchItems,
+});
+export default connect(mapStateToProps)(SearchPage);
