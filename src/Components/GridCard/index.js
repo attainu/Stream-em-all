@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { IMAGE_BASE_URL, POSTER_SIZE } from '../../Config';
 import Modal from '../Modal';
 import { Grid, Card, CardActionArea, CardMedia } from '@material-ui/core';
+import './index.scss';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -39,6 +40,8 @@ const GridCard = ({ movie }) => {
           </CardActionArea>
         </Card>
       </Grid>
+      <h4 className='playText'>{movie.title || movie.name}</h4>
+      <div className='myoverlay'></div>
     </Fragment>
   );
 };

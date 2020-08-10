@@ -6,5 +6,9 @@
     margin: 1rem;
     transform: scale(1.15);
     z-index: 1;
+    .myoverlay {
+      display: block;
+      z-index: 0;
+    }
   }
 }
