@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import ImgTv from '../../../assets/images/tab-tv.png';
-import ImgMacBook from '../../../assets/images/tab-macbook.png';
-import ImgTab from '../../../assets/images/tab-tablet.png';
+import ImgTv from '../../../Assets/images/tab-tv.png';
+import ImgMacBook from '../../../Assets/images/tab-macbook.png';
+import ImgTab from '../../../Assets/images/tab-tablet.png';
 const TabContentDoor = () => {
   return (
     <TabContainer>

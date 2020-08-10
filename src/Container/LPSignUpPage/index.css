@@ -3,7 +3,7 @@
   height: 100%;
   position: relative;
   background: radial-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.4)),
-    url(../../assets/images/bg.jpg) no-repeat center center/cover;
+    url(../../Assets/images/bg.jpg) no-repeat center center/cover;
 }
 
 .main-login-container::after {

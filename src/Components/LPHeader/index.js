@@ -1,6 +1,6 @@
 import React from 'react';
 import './index.css';
-import logo from '../../assets/svg/logo.svg';
+import logo from '../../Assets/svg/logo.svg';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Icon } from 'react-icons-kit';

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Img from '../../../assets/images/tab-1-pic.png';
+import Img from '../../../Assets/images/tab-1-pic.png';
 const TabContentDevice = () => {
   return (
     <TabContentContainer>

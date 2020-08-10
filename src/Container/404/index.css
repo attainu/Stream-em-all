@@ -3,7 +3,7 @@
   height: 90vh;
   position: relative;
   background: radial-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7)),
-    url(../../assets/images/404.png) no-repeat center center/cover;
+    url(../../Assets/images/404.png) no-repeat center center/cover;
 }
 
 .header-container::after {
