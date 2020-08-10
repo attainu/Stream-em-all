@@ -28,7 +28,7 @@ const AppRouter = () => {
         <Route component={NotFound} />
         <Route exact path='/landingpage' component={LandingPage} />
         <Route exact path='/login' component={LPSignInPage} />
-        <Route exact path='/signup' component={LPSignUpPage} />
+        <Route exact path='/register' component={LPSignUpPage} />
         <Route exact path='/error404' component={ErrorPage404} />
       </Switch>
     </div>
