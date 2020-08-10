@@ -10,7 +10,9 @@ const Header = () => {
     <HeaderComponent className='header-container'>
       <div className='header-top'>
         <Logo src={logo} />
-        <Link className='signIn-btn'>Sign In</Link>
+        <Link to='login' className='signIn-btn'>
+          Sign In
+        </Link>
       </div>
       {/*Header content*/}
 

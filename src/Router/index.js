@@ -1,21 +1,17 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import PrivateRoute from './Private';
-const Home = React.lazy(() => import('../Container/Home'));
 const LandingPage = React.lazy(() => import('../Container/LandingPage'));
-const SignIn = React.lazy(() => import('../Container/SignIn'));
-const SignUp = React.lazy(() => import('../Container/SignUp'));
-const NotFound = React.lazy(() => import('../Container/NotFound'));
-
+const LPSignInPage = React.lazy(() => import('../Container/LPSignInPage'));
+const LPSignUpPage = React.lazy(() => import('../Container/LPSignUpPage'));
+const ErrorPage404 = React.lazy(() => import('../Container/404'));
 const AppRouter = () => {
   return (
     <div>
       <Switch>
         <Route exact path='/landingpage' component={LandingPage} />
-        <Route exact path='/signin' component={SignIn} />
-        <Route exact path='/signup' component={SignUp} />
-        <PrivateRoute exact path='/' component={Home} />
-        <Route component={NotFound} />
+        <Route exact path='/login' component={LPSignInPage} />
+        <Route exact path='/signup' component={LPSignUpPage} />
+        <Route exact path='/error404' component={ErrorPage404} />
       </Switch>
     </div>
   );
