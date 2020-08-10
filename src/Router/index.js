@@ -9,11 +9,11 @@ const SearchData = lazy(() => import('../Container/SearchPage'));
 const SignIn = lazy(() => import('../Container/SignIn'));
 const SignUp = lazy(() => import('../Container/SignUp'));
 const NotFound = lazy(() => import('../Container/NotFound'));
-
 const LandingPage = React.lazy(() => import('../Container/LandingPage'));
 const LPSignInPage = React.lazy(() => import('../Container/LPSignInPage'));
 const LPSignUpPage = React.lazy(() => import('../Container/LPSignUpPage'));
 const ErrorPage404 = React.lazy(() => import('../Container/404'));
+
 const AppRouter = () => {
   return (
     <div>
