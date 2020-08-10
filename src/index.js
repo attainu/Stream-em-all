@@ -2,9 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './app';
 import './index.scss';
-//React router dom
 import { BrowserRouter } from 'react-router-dom';
-//=> redux
 import { Provider } from 'react-redux';
 import ConfigStore from './Redux/Store';
 
@@ -14,11 +12,11 @@ store.subscribe(() => {
 });
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <BrowserRouter>
+    <BrowserRouter>
+      <Provider store={store}>
         <App />
-      </BrowserRouter>
-    </Provider>
+      </Provider>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );

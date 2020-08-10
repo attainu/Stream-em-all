@@ -20,7 +20,7 @@ const Hero = ({ url, url2, title, desc }) => {
         {url2 ? (
           <img className='logo' src={url2} alt='' />
         ) : (
-          <h1 style={{ fontSize: '6rem' }}>Stranger Things</h1>
+          <h1 style={{ fontSize: '6rem' }}>{title}</h1>
         )}
 
         <p>{desc}</p>

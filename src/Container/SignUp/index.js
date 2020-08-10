@@ -1,6 +1,11 @@
 import React, { useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
-import { auth, signInWithGoogle, signInWithFacebook } from '../../Firebase';
+import {
+  auth,
+  signInWithGoogle,
+  signInWithFacebook,
+  firestore,
+} from '../../Firebase';
 import { connect } from 'react-redux';
 import { setUser } from '../../Redux/User/userActionGenerator';
 import validator from 'validator';
@@ -20,10 +25,46 @@ const SignUp = ({ setUser, currentUser }) => {
           if (validator.isAlphanumeric(password)) {
             if (password === confirm_password) {
               try {
-                await auth.createUserWithEmailAndPassword(email, password);
+                const data = await auth.createUserWithEmailAndPassword(
+                  email,
+                  password
+                );
                 await auth.currentUser.updateProfile({
                   displayName: name,
                 });
+                firestore
+                  .collection(data.user.uid)
+                  .doc('userprofile')
+                  .collection('profiles')
+                  .add({
+                    img:
+                      data.user.photoURL || 'https://i.ibb.co/vvK8FX6/iu-3.jpg',
+                    profile: data.user.displayName || currentUser.displayName,
+                  });
+                firestore
+                  .collection(data.user.uid)
+                  .doc('userprofile')
+                  .collection('profiles')
+                  .add({
+                    img: 'https://i.ibb.co/WKrPzZd/iu.jpg',
+                    profile: 'Mommy',
+                  });
+                firestore
+                  .collection(data.user.uid)
+                  .doc('userprofile')
+                  .collection('profiles')
+                  .add({
+                    img: 'https://i.ibb.co/JpdSW1q/iu-4.jpg',
+                    profile: 'Jack',
+                  });
+                firestore
+                  .collection(data.user.uid)
+                  .doc('userprofile')
+                  .collection('profiles')
+                  .add({
+                    img: 'https://i.ibb.co/ZGwhrNH/iu-2.jpg',
+                    profile: 'Dad',
+                  });
               } catch (error) {
                 Swal.fire({
                   position: 'center',
@@ -84,7 +125,7 @@ const SignUp = ({ setUser, currentUser }) => {
       setUser(user);
     });
   }, [setUser]);
-  return currentUser ? (
+  return !!currentUser ? (
     <Redirect to='/' />
   ) : (
     <div>
@@ -111,3 +152,7 @@ const mapStateToProps = ({ user }) => ({
   currentUser: user.currentUser,
 });
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
+//
+// https://i.ibb.co/JpdSW1q/iu-4.jpg
+// https://i.ibb.co/vvK8FX6/iu-3.jpg
+//

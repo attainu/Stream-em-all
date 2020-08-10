@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import GridCard from '../../Components/GridCard';
+import Footer from '../../Components/Footer';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -22,6 +23,7 @@ const SearchPage = ({ movie }) => {
           ))}
         </Grid>
       </div>
+      <Footer />
     </div>
   );
 };

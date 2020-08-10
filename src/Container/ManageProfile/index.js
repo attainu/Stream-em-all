@@ -3,7 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Typography } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { setUserProfile } from '../../Redux/User/userActionGenerator';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
+import { firestore } from '../../Firebase';
 import Logo from '../../Components/Logo';
 import './index.scss';
 
@@ -39,9 +40,84 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ManageProfile = ({ history, setUserProfile, currentUser }) => {
+const ManageProfile = ({
+  history,
+  setUserProfile,
+  currentUser,
+  userProfile,
+}) => {
   const classes = useStyles();
   const [profile, setProfile] = useState('');
+  const [user, setUser] = useState([]);
+  useEffect(() => {
+    const fethcdata = () => {
+      firestore
+        .collection(currentUser.uid)
+        .doc('userprofile')
+        .collection('profiles')
+        .onSnapshot((snapshot) => {
+          const data = snapshot.docs.map((doc) => doc.data());
+          if (data.length === 0) {
+            if (
+              currentUser.providerData[0].providerId === 'facebook.com' ||
+              currentUser.providerData[0].providerId === 'google.com'
+            ) {
+              firestore
+                .collection(currentUser.uid)
+                .doc('userprofile')
+                .collection('profiles')
+                .add({
+                  img:
+                    currentUser.photoURL || 'https://i.ibb.co/vvK8FX6/iu-3.jpg',
+                  profile: currentUser.displayName,
+                });
+              firestore
+                .collection(currentUser.uid)
+                .doc('userprofile')
+                .collection('profiles')
+                .add({
+                  img: 'https://i.ibb.co/WKrPzZd/iu.jpg',
+                  profile: 'Mommy',
+                });
+              firestore
+                .collection(currentUser.uid)
+                .doc('userprofile')
+                .collection('profiles')
+                .add({
+                  img: 'https://i.ibb.co/JpdSW1q/iu-4.jpg',
+                  profile: 'Jack',
+                });
+              firestore
+                .collection(currentUser.uid)
+                .doc('userprofile')
+                .collection('profiles')
+                .add({
+                  img: 'https://i.ibb.co/ZGwhrNH/iu-2.jpg',
+                  profile: 'Dad',
+                });
+            }
+          }
+        });
+    };
+    fethcdata();
+  }, [
+    currentUser.displayName,
+    currentUser.photoURL,
+    currentUser.providerData,
+    currentUser.uid,
+  ]);
+  useEffect(() => {
+    const fethcdata = () => {
+      firestore
+        .collection(currentUser.uid)
+        .doc('userprofile')
+        .collection('profiles')
+        .onSnapshot((snapshot) => {
+          setUser(snapshot.docs.map((doc) => doc.data()));
+        });
+    };
+    fethcdata();
+  }, [currentUser.uid]);
 
   useEffect(() => {
     setUserProfile(profile);
@@ -51,6 +127,10 @@ const ManageProfile = ({ history, setUserProfile, currentUser }) => {
   const handleClick = (img, data) => {
     setProfile({ img: img, profile: data });
   };
+
+  if (!currentUser) {
+    return <Redirect to='/signin' />;
+  }
   return (
     <div className={classes.root}>
       <Logo />
@@ -67,15 +147,7 @@ const ManageProfile = ({ history, setUserProfile, currentUser }) => {
           </Typography>
         </Grid>
         <Grid container item lg={8} sm={8} className={classes.row}>
-          {[
-            { img: 'https://i.ibb.co/zHLQ73n/profile-1.png', profile: 'Cat' },
-            {
-              img: 'https://i.ibb.co/TkgbZxd/profile-2.png',
-              profile: currentUser.displayName,
-            },
-            { img: 'https://i.ibb.co/xC2p5TT/profile-3.png', profile: 'Bird' },
-            { img: 'https://i.ibb.co/xJqw8sC/profile-4.png', profile: 'Dog' },
-          ].map((data, index) => (
+          {user.map((data, index) => (
             <Grid
               item
               lg={3}
@@ -107,8 +179,13 @@ const mapDispatchToProps = (dispatch) => ({
 });
 const mapStateToProps = ({ user }) => ({
   currentUser: user.currentUser,
+  userProfile: user.userProfile,
 });
 export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(withRouter(ManageProfile));
+// https://i.ibb.co/ZGwhrNH/iu-2.jpg
+// https://i.ibb.co/JpdSW1q/iu-4.jpg
+// https://i.ibb.co/vvK8FX6/iu-3.jpg
+// https://i.ibb.co/WKrPzZd/iu.jpg

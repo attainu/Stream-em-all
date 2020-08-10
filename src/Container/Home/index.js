@@ -3,8 +3,14 @@ import Movie from '../../Components/Movies';
 import Header from '../../Components/Header';
 import Hero from '../../Components/Hero';
 import Footer from '../../Components/Footer';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
-const Home = () => {
+const Home = ({ currentUser }) => {
+  
+  if (!currentUser) {
+    return <Redirect to='/signin' />;
+  }
   return (
     <div>
       <Header />
@@ -23,5 +29,7 @@ const Home = () => {
     </div>
   );
 };
-
-export default Home;
+const mapStateToProps = ({ user }) => ({
+  currentUser: user.currentUser,
+});
+export default connect(mapStateToProps)(Home);

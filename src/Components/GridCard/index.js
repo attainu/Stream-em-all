@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { IMAGE_BASE_URL, POSTER_SIZE } from '../../Config';
 import Modal from '../Modal';
@@ -11,7 +11,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const GridCard = ({ movie }) => {
-  console.log(movie);
   const classes = useStyles();
   const [myMovie, setMovie] = useState('');
   const [isToggle, settoggle] = useState(false);
@@ -20,33 +19,27 @@ const GridCard = ({ movie }) => {
     settoggle(true);
   };
   return (
-    <Grid item xs={4} lg={3} sm={6}>
+    <Fragment>
       {myMovie && (
         <Modal show={isToggle} modalClosed={settoggle} movie={movie} />
       )}
-      <Card className={classes.card}>
-        <CardActionArea>
-          <CardMedia
-            component='img'
-            onClick={() => handleClick(movie)}
-            alt={movie.title || movie.name}
-            height='400'
-            image={`${IMAGE_BASE_URL}${POSTER_SIZE}${
-              movie.backdrop_path || movie.poster_path
-            }`}
-            title={movie.title || movie.name}
-          />
-        </CardActionArea>
-        {/* <CardActions>
-        <Button size='small' color='primary'>
-          Share
-        </Button>
-        <Button size='small' color='primary'>
-          Learn More
-        </Button>
-      </CardActions> */}
-      </Card>
-    </Grid>
+      <Grid className='gridItem' item xs={4} lg={3} sm={6}>
+        <Card className={classes.card}>
+          <CardActionArea>
+            <CardMedia
+              component='img'
+              onClick={() => handleClick(movie)}
+              alt={movie.title || movie.name}
+              height='400'
+              image={`${IMAGE_BASE_URL}${POSTER_SIZE}${
+                movie.backdrop_path || movie.poster_path
+              }`}
+              title={movie.title || movie.name}
+            />
+          </CardActionArea>
+        </Card>
+      </Grid>
+    </Fragment>
   );
 };
 
