@@ -1,0 +1,27 @@
+/* Global Var */
+
+:root {
+  --main-red: rgba(211, 9, 19);
+  --main-red-hover: rgb(163, 35, 41);
+  --main-dark: rgba(20, 20, 20);
+  --main-deep-dark: rgba(0, 0, 0);
+  --main-grey: rgba(153, 153, 153);
+}
+
+* {
+  /* box-sizing: border-box; */
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  background: var(--main-dark);
+  color: #fff;
+  overflow-x: hidden;
+}
+
+a {
+  text-decoration: none;
+}
