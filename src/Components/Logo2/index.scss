@@ -1,0 +1,20 @@
+.Logo2 {
+  img {
+    position: absolute;
+    left: 7px;
+    top: 10px;
+    width: 60px;
+    transition: margin 0.125s ease;
+  }
+  img svg path {
+    fill: #e50914;
+    transition: fill 0.125s ease;
+  }
+  img:hover {
+    cursor: pointer;
+    margin-top: 2px;
+  }
+  img:hover svg path {
+    fill: #ffffff !important;
+  }
+}
