@@ -7,60 +7,35 @@ import { circleDown } from 'react-icons-kit/icomoon/circleDown';
 const Footer = () => {
   return (
     <FooterContainer>
-      <span className='contact'>
+      <div className='contact'>
         Question ? <Link>Call +91-9876543210 </Link>
-      </span>
+      </div>
       <div className='footer-columns'>
         <ul>
           <li>
             <Link>Gift Card Terms</Link>
           </li>
         </ul>
-
         <ul>
           <li>
             <Link>Term of Use</Link>
           </li>
         </ul>
-
         <ul>
           <li>
             <Link>Privacy Statement</Link>
           </li>
         </ul>
-
         <ul>
           <li></li>
         </ul>
         {/*button */}
-        <div className='lang-btn'>
-          <Icon classname='Icon' icon={earth} />
-          &nbsp;&nbsp;English &nbsp;
-          <Icon classname='Icon' icon={circleDown} />
-        </div>
       </div>
-      {/*Toogle Language */}
-      {/*<div className='toggle-lang'>
-        <ul>
-          <li>English</li>
-        </ul>
-        <ul>
-          <li>French</li>
-        </ul>
-        <ul>
-          <li>German</li>
-        </ul>
-        <ul>
-          <li>Bengali</li>
-        </ul>
-        <ul>
-          <li>Hindi</li>
-        </ul>
-  </div>*/}
-      {/* <span className='developers'>
-        Developed by <Link className='name'>Akash Dutta</Link> &{' '}
-        <Link className='name'>Amar Gupta</Link>
-      </span> */}
+      <div className='lang-btn'>
+        <Icon classname='Icon' icon={earth} />
+        &nbsp;&nbsp;English &nbsp;
+        <Icon classname='Icon' icon={circleDown} />
+      </div>
     </FooterContainer>
   );
 };
@@ -94,7 +69,7 @@ const FooterContainer = styled.div`
     cursor: pointer;
   }
   .contact {
-    margin-left: 17.5%;
+    margin-left: 15%;
     font-size: 1rem;
   }
 
@@ -108,6 +83,7 @@ const FooterContainer = styled.div`
 
   //Language button
   .lang-btn {
+    margin-top: 1%;
     margin-left: 15%;
     margin-right: 1rem;
     background: transparent;
