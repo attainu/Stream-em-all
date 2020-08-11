@@ -1,10 +1,15 @@
 import React, { useEffect } from 'react';
-import { withRouter, Redirect, Link } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 import { auth, signInWithGoogle, signInWithFacebook } from '../../Firebase';
 import { connect } from 'react-redux';
 import { setUser } from '../../Redux/User/userActionGenerator';
 import validator from 'validator';
 import Swal from 'sweetalert2';
+import logo from '../../Assets/svg/logo.svg';
+import styled from 'styled-components';
+import './index.css';
+import Footer from '../../Components/LPFooter';
+import SignInForm from '../../Components/SignInForm';
 
 const SignIn = ({ history, setUser, currentUser }) => {
   const handleSignIn = async (event) => {
@@ -17,7 +22,7 @@ const SignIn = ({ history, setUser, currentUser }) => {
         if (validator.isAlphanumeric(password)) {
           try {
             await auth.signInWithEmailAndPassword(email, password);
-            history.push('/');
+            history.push('/manage');
           } catch (error) {
             Swal.fire({
               position: 'center',
@@ -61,20 +66,20 @@ const SignIn = ({ history, setUser, currentUser }) => {
     });
   }, [setUser]);
   return !!currentUser ? (
-    <Redirect to='/' />
+    <Redirect to='/manage' />
   ) : (
     <div>
-      <form onSubmit={handleSignIn}>
-        <input name='email' type='email' placeholder='Email' />
-        <input type='password' name='password' placeholder='Password' />
-        <button type='submit'>Sign In</button>
-      </form>
-      <button onClick={() => signInWithFacebook()}>Facebook</button>
-      <button onClick={() => signInWithGoogle()}>Google</button>
-      <button>
-        {' '}
-        <Link to='/signup'>Sign up</Link>
-      </button>
+      <div className='main-login-container'>
+        <div className='header-top'>
+          <Logo src={logo} alt='' className='logo' />
+        </div>{' '}
+        <SignInForm
+          onSubmit={handleSignIn}
+          onggClick={() => signInWithGoogle()}
+          onfbClick={() => signInWithFacebook()}
+        />
+        <Footer />
+      </div>
     </div>
   );
 };
@@ -85,3 +90,11 @@ const mapStateToProps = ({ user }) => ({
   currentUser: user.currentUser,
 });
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SignIn));
+const Logo = styled.img`
+  width: 11rem;
+  position: absolute;
+  top: 25%;
+  left: 11%;
+  transform: translate(-50%, -50%);
+  margin-left: 0;
+`;

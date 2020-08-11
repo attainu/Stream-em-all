@@ -10,6 +10,11 @@ import { connect } from 'react-redux';
 import { setUser } from '../../Redux/User/userActionGenerator';
 import validator from 'validator';
 import Swal from 'sweetalert2';
+import logo from '../../Assets/svg/logo.svg';
+import styled from 'styled-components';
+import './index.css';
+import Footer from '../../Components/LPFooter';
+import SignUpForm from '../../Components/SignUpForm';
 
 const SignUp = ({ setUser, currentUser }) => {
   const handleSignUp = async (event) => {
@@ -126,22 +131,20 @@ const SignUp = ({ setUser, currentUser }) => {
     });
   }, [setUser]);
   return !!currentUser ? (
-    <Redirect to='/' />
+    <Redirect to='/manage' />
   ) : (
     <div>
-      <form onSubmit={handleSignUp}>
-        <input name='name' type='text' placeholder='Name' />
-        <input name='email' type='email' placeholder='Email' />
-        <input type='password' name='password' placeholder='Password' />
-        <input
-          type='password'
-          name='confirm_password'
-          placeholder='Confirm Password'
+      <div className='main-login-container'>
+        <div className='header-top'>
+          <Logo src={logo} alt='' className='logo' />
+        </div>{' '}
+        <SignUpForm
+          onSubmit={handleSignUp}
+          onfbClick={() => signInWithFacebook()}
+          onggClick={() => signInWithGoogle()}
         />
-        <button type='submit'>Sign Up</button>
-      </form>
-      <button onClick={() => signInWithFacebook()}>Facebook</button>
-      <button onClick={() => signInWithGoogle()}>Google</button>
+      </div>
+      <Footer />
     </div>
   );
 };
@@ -152,7 +155,12 @@ const mapStateToProps = ({ user }) => ({
   currentUser: user.currentUser,
 });
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
-//
-// https://i.ibb.co/JpdSW1q/iu-4.jpg
-// https://i.ibb.co/vvK8FX6/iu-3.jpg
-//
+
+const Logo = styled.img`
+  width: 11rem;
+  position: absolute;
+  top: 25%;
+  left: 11%;
+  transform: translate(-50%, -50%);
+  margin-left: 0;
+`;

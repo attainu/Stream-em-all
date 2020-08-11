@@ -4,38 +4,54 @@ import { Link } from 'react-router-dom';
 import { Icon } from 'react-icons-kit';
 import { facebook } from 'react-icons-kit/icomoon/facebook';
 import { googlePlus } from 'react-icons-kit/icomoon/googlePlus';
-const SignUpForm = () => {
+const SignUpForm = ({ onSubmit, onfbClick, onggClick }) => {
   return (
     <FormContainer>
       <div className='form-container'>
-        <form>
+        <form onSubmit={onSubmit}>
           <h1>Sign Up</h1>
           <div className='input-container'>
-            <input className='input-empty' type='email' required />
+            <input className='input-empty' type='text' name='name' required />
+            <label>Name</label>
+          </div>
+          <div className='input-container'>
+            <input className='input-empty' name='email' type='email' required />
             <label>Email or Phone Number</label>
           </div>
 
           <div className='input-container'>
-            <input className='input-empty' type='password' required />
+            <input
+              className='input-empty'
+              name='password'
+              type='password'
+              required
+            />
             <label>Password</label>
           </div>
 
           <div className='input-container'>
-            <input className='input-empty' type='password' required />
+            <input
+              className='input-empty'
+              name='confirm_password'
+              type='password'
+              required
+            />
             <label>Confirm Password</label>
           </div>
-          <Button type='submit'>Sign Up</Button>
+          <div className='input-container'>
+            <Button type='submit'>Sign Up</Button>
+          </div>
 
           <Link className='need-help' to='/home'>
             Need help ?
           </Link>
 
           <div className='social-login'>
-            <Link className='facebook'>
+            <Link className='facebook' onClick={onfbClick}>
               <Icon size={20} icon={facebook} />
               <span className='facebook-span'>Login with Facebook ?</span>
             </Link>
-            <Link className='google'>
+            <Link className='google' onClick={onggClick}>
               <Icon size={25} icon={googlePlus} />
               <span className='google-span'>Login with Google+ ?</span>
             </Link>
@@ -57,13 +73,13 @@ const FormContainer = styled.div`
   z-index: 5;
 
   .form-container {
-    background: rgba(0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.5);
     position: relative;
-    width: 25rem;
-    height: 35rem;
+    width: 20rem;
+    height: 70vh;
     padding: 4rem;
     margin-bottom: 3rem;
-    border-radius: 1rem;
+    border-radius: 0.6rem;
   }
 
   .input-container {
@@ -94,7 +110,6 @@ const FormContainer = styled.div`
   form div {
     position: relative;
   }
-
   input:focus ~ label {
     top: 0.45rem;
     font-size: 0.7rem;

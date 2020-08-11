@@ -10,7 +10,7 @@ const Header = () => {
     <HeaderComponent className='header-container'>
       <div className='header-top'>
         <Logo src={logo} />
-        <Link to='login' className='signIn-btn'>
+        <Link to='signin' className='signIn-btn'>
           Sign In
         </Link>
       </div>
@@ -19,7 +19,7 @@ const Header = () => {
       <div className='header-content'>
         <Tittle>See what's next</Tittle>
         <SubTittle>WATCH ANYWHERE. CANCEL ANYWHERE</SubTittle>
-        <Link className='try-now-btn'>
+        <Link to='signup' className='try-now-btn'>
           Try it now
           <Icon className='Icon' icon={ic_keyboard_arrow_right} size={38} />
         </Link>
@@ -38,7 +38,7 @@ const Logo = styled.img`
   height: 3.5rem;
   position: absolute;
   top: 25%;
-  left: 50%;
+  left: 10%;
   transform: translate(-50%, -50%);
   z-index: 1;
 `;

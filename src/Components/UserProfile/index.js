@@ -84,7 +84,7 @@ const UserProfile = ({ img, profileName }) => {
                   id='menu-list-grow'
                   onKeyDown={handleListKeyDown}
                 >
-                  <MenuItem onClick={() => history.push('/')}>
+                  <MenuItem onClick={() => history.push('/manage')}>
                     Manage Profile
                   </MenuItem>
                   <MenuItem onClick={() => auth.signOut()}>Logout</MenuItem>
