@@ -1,52 +1,99 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { Icon } from 'react-icons-kit';
-import { facebook } from 'react-icons-kit/icomoon/facebook';
-import { googlePlus } from 'react-icons-kit/icomoon/googlePlus';
+import facebook from '../../Assets/images/fb.svg';
+import google from '../../Assets/images/google.svg';
 const SignInForm = ({ onSubmit, onfbClick, onggClick }) => {
+  const [email, setEmail] = useState(null);
+  const [password, setPassword] = useState(null);
   return (
     <FormContainer>
       <div className='form-container'>
         <form onSubmit={onSubmit}>
           <h1>Sign In</h1>
           <div className='input-container'>
-            <input className='input-empty' name='email' type='email' required />
-            <label>Email or Phone Number</label>
+            <input
+              className='input-empty'
+              id={email === '' && 'btm_border'}
+              name='email'
+              type='email'
+              value={email}
+              required
+              onChange={(e) => setEmail(e.target.value)}
+              onClick={(e) => setEmail(e.target.value)}
+            />
+            <label>Email </label>
           </div>
+          {email === '' && (
+            <span
+              className='ifemailempty'
+              style={{
+                color: '#E87D38',
+                fontSize: '0.8rem',
+                marginTop: '5px',
+              }}
+            >
+              Please enter a valid email address.
+            </span>
+          )}
 
           <div className='input-container'>
             <input
               className='input-empty'
               type='password'
               name='password'
+              id={password === '' && 'btm_border'}
               required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              onClick={(e) => setPassword(e.target.value)}
             />
             <label>Password</label>
           </div>
+          {password === '' && (
+            <span
+              className='ifemailempty'
+              style={{
+                color: '#E87D38',
+                fontSize: '0.8rem',
+                marginTop: '5px',
+              }}
+            >
+              Your password must contain between 4 and 60 characters.
+            </span>
+          )}
+
           <div className='input-container'>
             <Button type='submit'>Sign In</Button>
           </div>
-
-          <Link className='forgot-password'>Forgot password ?</Link>
           <label className='checkbox-container'>
+            <input type='checkbox' className='check' />
             Remember me
-            <input type='checkbox' />
             <span className='checkmark'></span>
           </label>
-          <Link className='need-help' to='/home'>
+          <Link className='need-help' to='/'>
             Need help ?
           </Link>
-
-          <div className='social-login'>
-            <Link className='facebook' onClick={onfbClick}>
-              <Icon size={20} icon={facebook} />
-              <span className='facebook-span'>Login with Facebook ?</span>
-            </Link>
-            <Link className='google' onClick={onggClick}>
-              <Icon size={25} icon={googlePlus} />
-              <span className='google-span'>Login with Google+ ?</span>
-            </Link>
+          <div className='fb-container' onClick={onfbClick}>
+            <img src={facebook} style={{ width: '4vh' }} alt='' />
+            <span className='facebook-span'>Login with Facebook</span>
+          </div>
+          <div className='fb-container' onClick={onggClick}>
+            <img src={google} style={{ width: '4vh' }} alt='' />
+            <span className='facebook-span'>Login with Google</span>
+          </div>
+          <div>
+            <span className='textmute'>
+              New to Netflix?
+              <Link to='/signup' className='texton'>
+                {' '}
+                Sign up now.{' '}
+              </Link>
+              <br />
+              <br />
+              This page is protected by Google reCAPTCHA to ensure you're not a
+              bot. <span className='textblue'>Learn more.</span>
+            </span>
           </div>
         </form>
       </div>
@@ -65,10 +112,11 @@ const FormContainer = styled.div`
   z-index: 5;
 
   .form-container {
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.7);
     position: relative;
     width: 20rem;
-    height: 60vh;
+    min-height: 60vh;
+    max-height: 80vh;
     padding: 4rem;
     margin-bottom: 3rem;
     border-radius: 0.6rem;
@@ -82,19 +130,20 @@ const FormContainer = styled.div`
 
   .input-empty {
     color: #fff;
-    background: var(--main-grey);
+    background: #444;
     border: 0;
     height: 2.7rem;
     padding: 0.9rem 1.25rem 0;
     text-align: left;
+    border-radius: 5px;
   }
 
   form div label {
     position: absolute;
-    top: 0.62rem;
+    top: 40%;
     left: 1.25rem;
     pointer-events: none;
-    color: black;
+    color: #999;
     font-size: 1rem;
     transition: transform 150ms ease-out, font-size 150ms ease-out;
   }
@@ -102,25 +151,25 @@ const FormContainer = styled.div`
   form div {
     position: relative;
   }
-
   input:focus ~ label {
     top: 0.45rem;
-    font-size: 0.7rem;
+    font-size: 1rem;
+  }
+  input:valid ~ label {
+    top: 0.45rem !important;
+    font-size: 1rem;
   }
   input:focus {
     outline: none;
+    font-size: 1.2rem;
   }
-  .need-help,
-  .forgot-password {
-    color: var(--main-grey);
-  }
-  .need-help {
-    margin-left: 4.3rem;
-  }
-  .forgot-password {
-    margin-left: 1.6rem;
+  #btm_border {
+    border-bottom: 3px solid #e87d38;
   }
 
+  .need-help {
+    color: var(--main-grey);
+  }
   // checkbox
   .checkbox-container {
     margin-left: 0.1rem;
@@ -130,9 +179,32 @@ const FormContainer = styled.div`
     cursor: pointer;
     color: var(--main-grey);
   }
-
+  .check {
+    margin-right: 0.3rem;
+  }
+  .need-help {
+    margin-left: 8rem;
+    padding-left: 1.875;
+    margin-bottom: 1rem;
+    position: relative;
+    font-size: 0.9rem;
+    cursor: pointer;
+    color: var(--main-grey);
+  }
+  .fb-container {
+    margin-left: 0.1rem;
+    margin-top: 0.7rem !important;
+    margin-bottom: 0.7rem;
+    padding-left: 1.875;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    cursor: pointer;
+    color: var(--main-grey);
+  }
   .checkbox-container .checkmark {
-    margi-top: 0.5rem;
+    margin-top: 0.5rem;
   }
 
   .social-login {
@@ -160,6 +232,24 @@ const FormContainer = styled.div`
   .google-span {
     color: var(--main-grey);
     margin-left: 0.5rem;
+  }
+  .textmute {
+    color: var(--main-grey);
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+  .texton {
+    font-size: 1rem;
+    margin-top: 0.5rem;
+    color: #fff;
+    cursor: pointer;
+  }
+  .textblue {
+    color: rgb(0, 132, 255);
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+    }
   }
 `;
 

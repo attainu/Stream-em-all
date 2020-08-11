@@ -8,22 +8,22 @@ const Footer = () => {
   return (
     <FooterContainer>
       <div className='contact'>
-        Question ? <Link>Call +91-9876543210 </Link>
+        Question ? <Link to='/'>Call +91-9876543210 </Link>
       </div>
       <div className='footer-columns'>
         <ul>
           <li>
-            <Link>Gift Card Terms</Link>
+            <Link to='/'>Gift Card Terms</Link>
           </li>
         </ul>
         <ul>
           <li>
-            <Link>Term of Use</Link>
+            <Link to='/'>Term of Use</Link>
           </li>
         </ul>
         <ul>
           <li>
-            <Link>Privacy Statement</Link>
+            <Link to='/'>Privacy Statement</Link>
           </li>
         </ul>
         <ul>
