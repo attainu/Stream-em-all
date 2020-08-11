@@ -154,6 +154,12 @@ const ManageProfile = ({
               className={classes.row}
               sm={12}
               key={index}
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
               onClick={() => handleClick(data.img, data.profile)}
             >
               <img className={classes.img} src={data.img} alt='' />
@@ -165,7 +171,12 @@ const ManageProfile = ({
         </Grid>
         <Grid container className={classes.row} item lg={8}>
           <Grid container item className={classes.manageButton} lg={3}>
-            <Typography align='center' variant='h6' gutterBottom>
+            <Typography
+              align='center'
+              onClick={() => history.push('/editpro1')}
+              variant='h6'
+              gutterBottom
+            >
               Manage profile
             </Typography>
           </Grid>
