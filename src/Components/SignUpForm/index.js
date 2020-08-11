@@ -136,7 +136,7 @@ const SignUpForm = ({ onSubmit, onfbClick, onggClick }) => {
 
           <div>
             <span className='textmute'>
-              Already have a Account?
+              Already Signed Up?
               <Link to='/signin' className='texton'>
                 {' '}
                 Sign In.{' '}
