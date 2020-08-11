@@ -143,8 +143,8 @@ const SignUp = ({ setUser, currentUser }) => {
           onfbClick={() => signInWithFacebook()}
           onggClick={() => signInWithGoogle()}
         />
+        <Footer />
       </div>
-      <Footer />
     </div>
   );
 };
@@ -159,7 +159,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
 const Logo = styled.img`
   width: 11rem;
   position: absolute;
-  top: 25%;
+  top: 50%;
   left: 11%;
   transform: translate(-50%, -50%);
   margin-left: 0;
