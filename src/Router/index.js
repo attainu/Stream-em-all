@@ -10,7 +10,7 @@ const SignIn = lazy(() => import('../Container/SignIn'));
 const SignUp = lazy(() => import('../Container/SignUp'));
 const NotFound = lazy(() => import('../Container/NotFound'));
 const LandingPage = lazy(() => import('../Container/LandingPage'));
-const EditProOne = lazy(() => import('../Container/EditProOne'));
+const EditManageProfile = lazy(() => import('../Container/EditManageProfile'));
 
 const AppRouter = () => {
   return (
@@ -19,7 +19,7 @@ const AppRouter = () => {
         <Route exact path='/' component={LandingPage} />
         <Route exact path='/signin' component={SignIn} />
         <Route exact path='/signup' component={SignUp} />
-        <Route exact path='/editpro1' component={EditProOne} />
+        <PrivateRoute exact path='/editpro1' component={EditManageProfile} />
         <PrivateRoute exact path='/manage' component={ManageProfile} />
         <PrivateRoute exact path='/movie' component={Movie} />
         <PrivateRoute exact path='/tvshow' component={TvShow} />

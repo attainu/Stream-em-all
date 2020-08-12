@@ -11,6 +11,8 @@ import {
 import Logo from '../Logo';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { firestore } from '../../Firebase';
+import { connect } from 'react-redux';
+import ChooseProfile from '../ChooseProfile';
 import './index.scss';
 
 const useStyles = makeStyles((theme) => ({
@@ -27,8 +29,8 @@ const useStyles = makeStyles((theme) => ({
     color: '#fff',
   },
   image: {
-    width: 110,
-    height: 110,
+    width: 170,
+    height: 170,
   },
   img: {
     margin: 'auto',
@@ -38,61 +40,48 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ComplexGrid({ props, setProfile }) {
+const EditProfile = ({ props, setProfile, currentUser }) => {
+  const [open, setOpen] = useState(false);
   const { img, profile, docid } = props;
-  console.log(profile);
-  console.log(docid);
   const [title, setTitle] = useState(profile);
   const updateProfile = () => {
-    return title !== profile
+    return title !== profile && title !== ''
       ? firestore
-          .collection('7w2An1j0ldYHczig7ORQRkSB3et2')
+          .collection(currentUser.uid)
           .doc('userprofile')
           .collection('profiles')
           .doc(docid)
           .update({
             profile: title,
           })
-          .then(function () {
-            console.log('Document successfully updated!');
+          .then(() => {
             setProfile('');
-          })
-          .catch(function (error) {
-            // The document probably doesn't exist.
-            console.error('Error updating document: ', error);
           })
       : setProfile('');
   };
   const deleteProfile = () => {
-    const deleteData = () => {
-      firestore
-        .collection('7w2An1j0ldYHczig7ORQRkSB3et2')
-        .doc(profile)
-        .delete()
-        .then(() => setProfile(''));
-    };
     firestore
-      .collection('7w2An1j0ldYHczig7ORQRkSB3et2')
+      .collection(currentUser.uid)
       .doc('userprofile')
       .collection('profiles')
       .doc(docid)
       .delete()
-      .then(function () {
-        console.log('Document successfully deleted');
-        deleteData();
-      })
-      .catch(function (error) {
-        // The document probably doesn't exist.
-        console.error('Error updating document: ', error);
+      .then(() => {
+        firestore
+          .collection(currentUser.uid)
+          .doc(profile)
+          .delete()
+          .then(() => setProfile(''));
       });
   };
   const classes = useStyles();
   return (
     <div className='epMainDiv'>
+      <ChooseProfile open={open} setOpen={setOpen} />
       <Logo />
       <div>
         <div>
-          <Typography variant='h5' gutterBottom>
+          <Typography variant='h3' gutterBottom>
             Edit Profile
           </Typography>
           <Divider variant='middle' className='divider' />
@@ -111,9 +100,29 @@ export default function ComplexGrid({ props, setProfile }) {
                   <Grid item xs>
                     <input
                       value={title}
+                      className='editTitle'
                       onChange={(e) => setTitle(e.target.value)}
                       type='text'
                     />
+                  </Grid>
+                  <Grid item>
+                    <Grid item xs>
+                      <Button
+                        variant='contained'
+                        onClick={() => setOpen(true)}
+                        color='secondary'
+                      >
+                        Choose
+                      </Button>
+                    </Grid>
+                    <Grid item xs>
+                      <p>or</p>
+                    </Grid>
+                    <Grid item xs>
+                      <Button variant='contained' color='secondary'>
+                        upload
+                      </Button>
+                    </Grid>
                   </Grid>
                   <Grid item>
                     <Button
@@ -130,18 +139,19 @@ export default function ComplexGrid({ props, setProfile }) {
             </Grid>
           </Paper>
         </div>
-        <div>
-          <Divider variant='middle' className='divider' />
+        <Divider variant='middle' className='divider' />
+        <div style={{ marginTop: '5vh' }}>
           <Button
             variant='contained'
-            color='secondary'
+            color='default'
             onClick={() => updateProfile()}
           >
             SAVE
           </Button>
           <Button
-            variant='contained'
-            color='primary'
+            variant='outlined'
+            color='default'
+            className='cancelButton'
             onClick={() => setProfile('')}
           >
             CANCEL
@@ -150,4 +160,10 @@ export default function ComplexGrid({ props, setProfile }) {
       </div>
     </div>
   );
-}
+};
+
+const mapStateToProps = ({ user }) => ({
+  currentUser: user.currentUser,
+  userProfile: user.userProfile,
+});
+export default connect(mapStateToProps)(EditProfile);

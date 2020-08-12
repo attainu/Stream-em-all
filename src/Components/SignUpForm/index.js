@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom';
 import facebook from '../../Assets/images/fb.svg';
 import google from '../../Assets/images/google.svg';
 const SignUpForm = ({ onSubmit, onfbClick, onggClick }) => {
-  const [name, setName] = useState(null);
-  const [email, setEmail] = useState(null);
-  const [password, setPassword] = useState(null);
-  const [conpassword, setConpassword] = useState(null);
+  const [name, setName] = useState([]);
+  const [email, setEmail] = useState([]);
+  const [password, setPassword] = useState([]);
+  const [conpassword, setConpassword] = useState([]);
   return (
     <FormContainer>
       <div className='form-container'>
@@ -19,7 +19,7 @@ const SignUpForm = ({ onSubmit, onfbClick, onggClick }) => {
               type='text'
               name='name'
               required
-              id={name === '' && 'btm_border'}
+              id={name === '' ? 'btm_border' : undefined}
               value={name}
               onChange={(e) => setName(e.target.value)}
               onClick={(e) => setName(e.target.value)}
@@ -41,7 +41,7 @@ const SignUpForm = ({ onSubmit, onfbClick, onggClick }) => {
           <div className='input-container'>
             <input
               className='input-empty'
-              id={email === '' && 'btm_border'}
+              id={email === '' ? 'btm_border' : undefined}
               name='email'
               type='email'
               value={email}
@@ -68,7 +68,7 @@ const SignUpForm = ({ onSubmit, onfbClick, onggClick }) => {
               className='input-empty'
               type='password'
               name='password'
-              id={password === '' && 'btm_border'}
+              id={password === '' ? 'btm_border' : undefined}
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -94,7 +94,7 @@ const SignUpForm = ({ onSubmit, onfbClick, onggClick }) => {
               name='confirm_password'
               type='password'
               required
-              id={conpassword === '' && 'btm_border'}
+              id={conpassword === '' ? 'btm_border' : undefined}
               value={conpassword}
               onChange={(e) => setConpassword(e.target.value)}
               onClick={(e) => setConpassword(e.target.value)}
