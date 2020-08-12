@@ -1,23 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import { FormControl, InputLabel, NativeSelect } from '@material-ui/core';
-import ButtonBase from '@material-ui/core/ButtonBase';
-import Logo from '../../Components/Logo';
+import {
+  Button,
+  Typography,
+  Paper,
+  Grid,
+  ButtonBase,
+  Divider,
+} from '@material-ui/core';
+import Logo from '../Logo';
+import DeleteIcon from '@material-ui/icons/Delete';
 import { firestore } from '../../Firebase';
 import './index.scss';
-import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    background: '#221f1f',
   },
   paper: {
     padding: theme.spacing(2),
     margin: 'auto',
     minWidth: 500,
+    minHeight: 200,
+    background: '#221f1f',
+    color: '#fff',
   },
   image: {
     width: 110,
@@ -32,7 +39,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ComplexGrid({ props, setProfile }) {
-  const history = useHistory();
   const { img, profile, docid } = props;
   console.log(profile);
   console.log(docid);
@@ -85,7 +91,12 @@ export default function ComplexGrid({ props, setProfile }) {
     <div className='epMainDiv'>
       <Logo />
       <div>
-        <div>Edit Profile</div>
+        <div>
+          <Typography variant='h5' gutterBottom>
+            Edit Profile
+          </Typography>
+          <Divider variant='middle' className='divider' />
+        </div>
 
         <div className={classes.root}>
           <Paper className={classes.paper}>
@@ -104,59 +115,15 @@ export default function ComplexGrid({ props, setProfile }) {
                       type='text'
                     />
                   </Grid>
-                  <FormControl className={classes.formControl} disabled>
-                    <InputLabel htmlFor='name-native-disabled'>
-                      Allowed Movies:
-                    </InputLabel>
-                    <NativeSelect
-                      inputProps={{
-                        name: 'name',
-                        id: 'name-native-disabled',
-                      }}
-                    >
-                      <optgroup label='Author'>
-                        <option value='hai'>All Maturity Level</option>
-                      </optgroup>
-                      <optgroup label='Contributors'>
-                        <option value='olivier'>Olivier</option>
-                        <option value='kevin'>Kevin</option>
-                      </optgroup>
-                    </NativeSelect>
-                  </FormControl>
-                  <FormControl className={classes.formControl} disabled>
-                    <InputLabel htmlFor='name-native-disabled'>
-                      Language
-                    </InputLabel>
-                    <NativeSelect
-                      inputProps={{
-                        name: 'Language',
-                        id: 'name-native-disabled',
-                      }}
-                    >
-                      <optgroup label='Author'>
-                        <option value='hai'>English</option>
-                      </optgroup>
-                      <optgroup label='Contributors'>
-                        <option value='olivier'>Olivier</option>
-                        <option value='kevin'>Kevin</option>
-                      </optgroup>
-                    </NativeSelect>
-                  </FormControl>
-                  {/* <Typography variant='body2' gutterBottom>
-                    Full resolution 1920x1080 • JPEG
-                  </Typography>
-                  <Typography variant='body2' color='textSecondary'>
-                    ID: 1030114
-                  </Typography> */}
-
                   <Grid item>
-                    <Typography
-                      variant='body2'
+                    <Button
+                      variant='contained'
+                      color='secondary'
+                      startIcon={<DeleteIcon />}
                       onClick={() => deleteProfile()}
-                      style={{ cursor: 'pointer' }}
                     >
-                      Remove
-                    </Typography>
+                      Delete
+                    </Button>
                   </Grid>
                 </Grid>
               </Grid>
@@ -164,9 +131,21 @@ export default function ComplexGrid({ props, setProfile }) {
           </Paper>
         </div>
         <div>
-          <button onClick={() => updateProfile()}>SAVE</button>
-          <button onClick={() => setProfile('')}>CANCEL</button>
-          and
+          <Divider variant='middle' className='divider' />
+          <Button
+            variant='contained'
+            color='secondary'
+            onClick={() => updateProfile()}
+          >
+            SAVE
+          </Button>
+          <Button
+            variant='contained'
+            color='primary'
+            onClick={() => setProfile('')}
+          >
+            CANCEL
+          </Button>
         </div>
       </div>
     </div>
