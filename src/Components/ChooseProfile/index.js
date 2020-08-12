@@ -22,16 +22,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function DialogSelect({ open, setOpen }) {
+export default function DialogSelect({ open, setOpen, Image, setImage }) {
   const classes = useStyles();
-  const [age, setAge] = React.useState('');
+
   const handleChange = (event) => {
-    setAge(Number(event.target.value) || '');
+    setImage(event.target.value);
   };
   const handleClose = () => {
     setOpen(false);
   };
-
+  console.log(Image);
   return (
     <div>
       <Dialog
@@ -40,24 +40,54 @@ export default function DialogSelect({ open, setOpen }) {
         open={open}
         onClose={handleClose}
       >
-        <DialogTitle>Fill the form</DialogTitle>
+        <DialogTitle>Select from the Default photos</DialogTitle>
         <DialogContent>
           <form className={classes.container}>
             <FormControl className={classes.formControl}>
-              <InputLabel htmlFor='demo-dialog-native'>Age</InputLabel>
+              <InputLabel id='demo-controlled-open-select-label'>
+                Image
+              </InputLabel>
               <Select
-                native
-                value={age}
+                labelId='demo-controlled-open-select-label'
+                id='demo-controlled-open-select'
+                value={Image}
                 onChange={handleChange}
-                input={<Input id='demo-dialog-native' />}
               >
-                <option aria-label='None' value='' />
-                <option value={10}>Ten</option>
-                <option value={20}>Twenty</option>
-                <option value={30}>Thirty</option>
+                <MenuItem value={'https://i.ibb.co/ZGwhrNH/iu-2.jpg'}>
+                  <img
+                    src='https://i.ibb.co/ZGwhrNH/iu-2.jpg'
+                    style={{ maxWidth: '4rem' }}
+                    alt='data'
+                  />
+                  <h3>A</h3>
+                </MenuItem>
+                <MenuItem value={'https://i.ibb.co/JpdSW1q/iu-4.jpg'}>
+                  <img
+                    src='https://i.ibb.co/JpdSW1q/iu-4.jpg'
+                    style={{ maxWidth: '4rem' }}
+                    alt='data'
+                  />
+                  <h3>B</h3>
+                </MenuItem>
+                <MenuItem value={'https://i.ibb.co/WKrPzZd/iu.jpg'}>
+                  <img
+                    src='https://i.ibb.co/WKrPzZd/iu.jpg'
+                    style={{ maxWidth: '4rem' }}
+                    alt='data'
+                  />
+                  <h3>C</h3>
+                </MenuItem>
+                <MenuItem value={'https://i.ibb.co/vvK8FX6/iu-3.jpg'}>
+                  <img
+                    src='https://i.ibb.co/vvK8FX6/iu-3.jpg'
+                    style={{ maxWidth: '4rem' }}
+                    alt='data'
+                  />
+                  <h3>D</h3>
+                </MenuItem>
               </Select>
             </FormControl>
-            <FormControl className={classes.formControl}>
+            {/* <FormControl className={classes.formControl}>
               <InputLabel id='demo-dialog-select-label'>Age</InputLabel>
               <Select
                 labelId='demo-dialog-select-label'
@@ -73,7 +103,7 @@ export default function DialogSelect({ open, setOpen }) {
                 <MenuItem value={20}>Twenty</MenuItem>
                 <MenuItem value={30}>Thirty</MenuItem>
               </Select>
-            </FormControl>
+            </FormControl> */}
           </form>
         </DialogContent>
         <DialogActions>

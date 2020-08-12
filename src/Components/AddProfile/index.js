@@ -14,6 +14,7 @@ import { firestore } from '../../Firebase';
 import { connect } from 'react-redux';
 import ChooseProfile from '../ChooseProfile';
 import upload from '../../Assets/images/upload.svg';
+import Swal from 'sweetalert2';
 import './index.scss';
 
 const useStyles = makeStyles((theme) => ({
@@ -45,22 +46,56 @@ const AddProfile = ({ props, setProfile, currentUser }) => {
   const classes = useStyles();
   const [title, setTitle] = useState('');
   const [open, setOpen] = useState(false);
+  const [Image, setImage] = useState('https://i.ibb.co/WKrPzZd/iu.jpg');
+  const [file, setFile] = useState(null);
+  const [error, setError] = useState(null);
+
+  const types = ['image/png', 'image/jpeg'];
+  const handleChange = (e) => {
+    const selected = e.target.files[0];
+    return selected && types.includes(selected.type)
+      ? (setFile(selected), setError(''))
+      : (setFile(null), setError('please select an image file (png/jpeg)'));
+  };
   const AddProfile = () => {
-    firestore
-      .collection(currentUser.uid)
-      .doc('userprofile')
-      .collection('profiles')
-      .add({
-        img: 'https://i.ibb.co/WKrPzZd/iu.jpg',
-        profile: title,
-      })
-      .then(() => {
-        setProfile('');
-      });
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'Your Profile will be added!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, Add it!',
+    }).then((result) => {
+      if (result.value) {
+        firestore
+          .collection(currentUser.uid)
+          .doc('userprofile')
+          .collection('profiles')
+          .add({
+            img: Image,
+            profile: title,
+          })
+          .then(() => {
+            Swal.fire({
+              showConfirmButton: false,
+              icon: 'success',
+              timer: 1000,
+              title: 'Your Profile has been Added.',
+            });
+            setProfile('');
+          });
+      }
+    });
   };
   return (
     <div className='apMainDiv'>
-      <ChooseProfile open={open} setOpen={setOpen} />
+      <ChooseProfile
+        open={open}
+        Image={Image}
+        setImage={setImage}
+        setOpen={setOpen}
+      />
       <Logo />
       <div>
         <div>
@@ -89,18 +124,32 @@ const AddProfile = ({ props, setProfile, currentUser }) => {
                       placeholder='Add Your Name'
                     />
                   </Grid>
+                  {!file && (
+                    <Grid item>
+                      <Button
+                        variant='contained'
+                        onClick={() => setOpen(true)}
+                        color='secondary'
+                      >
+                        Choose from Default
+                      </Button>
+                    </Grid>
+                  )}
+
                   <Grid item>
-                    <Button
-                      variant='contained'
-                      onClick={() => setOpen(true)}
-                      color='secondary'
-                    >
-                      Choose
-                    </Button>
-                  </Grid>
-                  <Grid item>
+                    {error && <h2>{error}</h2>}
+                    {file && <h2>{file.name}</h2>}
+                    {file && <h2>{file.name}</h2>}
                     <Button variant='contained' color='secondary'>
-                      upload
+                      <form>
+                        upload
+                        <input
+                          type='file'
+                          onChange={handleChange}
+                          name=''
+                          id=''
+                        />
+                      </form>
                     </Button>
                   </Grid>
                 </Grid>
