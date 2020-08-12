@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ComplexGrid({ props, setProfile }) {
+const EditProfile = ({ props, setProfile }) => {
   const { img, profile, docid } = props;
   console.log(profile);
   console.log(docid);
@@ -150,4 +150,5 @@ export default function ComplexGrid({ props, setProfile }) {
       </div>
     </div>
   );
-}
+};
+export default EditProfile;

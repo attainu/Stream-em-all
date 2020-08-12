@@ -39,19 +39,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ComplexGrid({ props, setProfile }) {
+const AddProfile = ({ props, setProfile }) => {
   const [title, setTitle] = useState('');
   const AddProfile = () => {
     firestore
-      .collection('7w2An1j0ldYHczig7ORQRkSB3et2')
+      .collection(currentUser.uid)
       .doc('userprofile')
       .collection('profiles')
-      .doc('a')
-      .update({
-        profile: title,
+      .add({
+        img: 'https://i.ibb.co/WKrPzZd/iu.jpg',
+        profile: 'Mommy',
       })
       .then(function () {
-        console.log('Document successfully updated!');
+        console.log('Document successfully added!');
         setProfile('');
       })
       .catch(function (error) {
@@ -114,4 +114,5 @@ export default function ComplexGrid({ props, setProfile }) {
       </div>
     </div>
   );
-}
+};
+export default AddProfile;

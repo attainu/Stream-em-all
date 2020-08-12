@@ -7,7 +7,7 @@ import { firestore } from '../../Firebase';
 import addicon from '../../Assets/images/addicon2.svg';
 import Logo from '../../Components/Logo';
 import EditIcon from '../../Components/Editoption';
-import EditProTwo from '../../Components/EditProTwo';
+import EditProTwo from '../../Components/EditProfile';
 import AddProfile from '../../Components/AddProfile';
 
 const useStyles = makeStyles((theme) => ({
@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ManageProfile = ({ history, currentUser, userProfile }) => {
+const EditManageProfile = ({ history, currentUser, userProfile }) => {
   const classes = useStyles();
   const [profile, setProfile] = useState('');
   const [user, setUser] = useState([]);
@@ -152,7 +152,7 @@ const mapStateToProps = ({ user }) => ({
   currentUser: user.currentUser,
   userProfile: user.userProfile,
 });
-export default connect(mapStateToProps)(withRouter(ManageProfile));
+export default connect(mapStateToProps)(withRouter(EditManageProfile));
 // https://i.ibb.co/ZGwhrNH/iu-2.jpg
 // https://i.ibb.co/JpdSW1q/iu-4.jpg
 // https://i.ibb.co/vvK8FX6/iu-3.jpg
