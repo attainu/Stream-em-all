@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import facebook from '../../Assets/images/fb.svg';
 import google from '../../Assets/images/google.svg';
 const SignInForm = ({ onSubmit, onfbClick, onggClick }) => {
-  const [email, setEmail] = useState(null);
-  const [password, setPassword] = useState(null);
+  const [email, setEmail] = useState([]);
+  const [password, setPassword] = useState([]);
   return (
     <FormContainer>
       <div className='form-container'>
@@ -14,7 +14,7 @@ const SignInForm = ({ onSubmit, onfbClick, onggClick }) => {
           <div className='input-container'>
             <input
               className='input-empty'
-              id={email === '' && 'btm_border'}
+              id={email === '' ? 'btm_border' : undefined}
               name='email'
               type='email'
               value={email}
@@ -42,7 +42,7 @@ const SignInForm = ({ onSubmit, onfbClick, onggClick }) => {
               className='input-empty'
               type='password'
               name='password'
-              id={password === '' && 'btm_border'}
+              id={password === '' ? 'btm_border' : undefined}
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}

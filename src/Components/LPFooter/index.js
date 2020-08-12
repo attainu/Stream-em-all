@@ -32,9 +32,9 @@ const Footer = () => {
         {/*button */}
       </div>
       <div className='lang-btn'>
-        <Icon classname='Icon' icon={earth} />
+        <Icon className='Icon' icon={earth} />
         &nbsp;&nbsp;English &nbsp;
-        <Icon classname='Icon' icon={circleDown} />
+        <Icon className='Icon' icon={circleDown} />
       </div>
     </FooterContainer>
   );

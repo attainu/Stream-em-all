@@ -11,6 +11,8 @@ import {
 import Logo from '../Logo';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import { firestore } from '../../Firebase';
+import { connect } from 'react-redux';
+import ChooseProfile from '../ChooseProfile';
 import upload from '../../Assets/images/upload.svg';
 import './index.scss';
 
@@ -28,8 +30,8 @@ const useStyles = makeStyles((theme) => ({
     color: '#fff',
   },
   image: {
-    width: 110,
-    height: 110,
+    width: 170,
+    height: 170,
   },
   img: {
     margin: 'auto',
@@ -39,8 +41,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AddProfile = ({ props, setProfile }) => {
+const AddProfile = ({ props, setProfile, currentUser }) => {
+  const classes = useStyles();
   const [title, setTitle] = useState('');
+  const [open, setOpen] = useState(false);
   const AddProfile = () => {
     firestore
       .collection(currentUser.uid)
@@ -48,24 +52,19 @@ const AddProfile = ({ props, setProfile }) => {
       .collection('profiles')
       .add({
         img: 'https://i.ibb.co/WKrPzZd/iu.jpg',
-        profile: 'Mommy',
+        profile: title,
       })
-      .then(function () {
-        console.log('Document successfully added!');
+      .then(() => {
         setProfile('');
-      })
-      .catch(function (error) {
-        console.error('Error updating document: ', error);
       });
   };
-
-  const classes = useStyles();
   return (
-    <div className='epMainDiv'>
+    <div className='apMainDiv'>
+      <ChooseProfile open={open} setOpen={setOpen} />
       <Logo />
       <div>
         <div>
-          <Typography variant='h5' gutterBottom>
+          <Typography variant='h3' gutterBottom>
             Add Profile
           </Typography>
           <Divider variant='middle' className='divider' />
@@ -84,17 +83,33 @@ const AddProfile = ({ props, setProfile }) => {
                   <Grid item xs>
                     <input
                       value={title}
+                      className='editTitle'
                       onChange={(e) => setTitle(e.target.value)}
                       type='text'
+                      placeholder='Add Your Name'
                     />
+                  </Grid>
+                  <Grid item>
+                    <Button
+                      variant='contained'
+                      onClick={() => setOpen(true)}
+                      color='secondary'
+                    >
+                      Choose
+                    </Button>
+                  </Grid>
+                  <Grid item>
+                    <Button variant='contained' color='secondary'>
+                      upload
+                    </Button>
                   </Grid>
                 </Grid>
               </Grid>
             </Grid>
           </Paper>
         </div>
-        <div>
-          <Divider variant='middle' className='divider' />
+        <Divider variant='middle' className='divider' />
+        <div style={{ marginTop: '5vh' }}>
           <Button
             variant='contained'
             color='default'
@@ -104,8 +119,9 @@ const AddProfile = ({ props, setProfile }) => {
             Upload
           </Button>
           <Button
-            variant='contained'
-            color='primary'
+            variant='outlined'
+            className='cancelButton'
+            color='default'
             onClick={() => setProfile('')}
           >
             CANCEL
@@ -115,4 +131,9 @@ const AddProfile = ({ props, setProfile }) => {
     </div>
   );
 };
-export default AddProfile;
+
+const mapStateToProps = ({ user }) => ({
+  currentUser: user.currentUser,
+  userProfile: user.userProfile,
+});
+export default connect(mapStateToProps)(AddProfile);

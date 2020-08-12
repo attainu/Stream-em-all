@@ -18,8 +18,8 @@ const SearchPage = ({ movie }) => {
       <Header />
       <div className={classes.root}>
         <Grid container spacing={3}>
-          {movie.map((data) => (
-            <GridCard movie={data} />
+          {movie.map((data, index) => (
+            <GridCard key={index} movie={data} />
           ))}
         </Grid>
       </div>

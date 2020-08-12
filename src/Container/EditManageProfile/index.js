@@ -90,7 +90,6 @@ const EditManageProfile = ({ history, currentUser, userProfile }) => {
               onClick={() => handleClick(data.img, data.profile, docid)}
             >
               <EditIcon class={classes.img} src={data.img} />
-              {/* <img className={classes.img} src={data.img} alt='' /> */}
               <Typography align='center' variant='h6' gutterBottom>
                 {data.profile}
               </Typography>
