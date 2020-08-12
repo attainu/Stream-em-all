@@ -7,7 +7,8 @@ import { firestore } from '../../Firebase';
 import addicon from '../../Assets/images/addicon2.svg';
 import Logo from '../../Components/Logo';
 import EditIcon from '../../Components/Editoption';
-import EditProTwo from '../EditProTwo';
+import EditProTwo from '../../Components/EditProTwo';
+import AddProfile from '../../Components/AddProfile';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -111,6 +112,7 @@ const ManageProfile = ({ history, currentUser, userProfile }) => {
                   alignItems: 'center',
                 }}
                 className='editicon'
+                onClick={() => setProfile('add')}
               >
                 <img
                   src={addicon}
@@ -140,6 +142,8 @@ const ManageProfile = ({ history, currentUser, userProfile }) => {
         </Grid>
       </Grid>
     </div>
+  ) : profile === 'add' ? (
+    <AddProfile setProfile={setProfile} />
   ) : (
     <EditProTwo props={profile} setProfile={setProfile} />
   );
