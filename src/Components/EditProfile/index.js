@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Button,
@@ -13,6 +13,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import { firestore } from '../../Firebase';
 import { connect } from 'react-redux';
 import ChooseProfile from '../ChooseProfile';
+import Swal from 'sweetalert2';
 import './index.scss';
 
 const useStyles = makeStyles((theme) => ({
@@ -44,40 +45,101 @@ const EditProfile = ({ props, setProfile, currentUser }) => {
   const [open, setOpen] = useState(false);
   const { img, profile, docid } = props;
   const [title, setTitle] = useState(profile);
+  const [Image, setImage] = useState(img);
+  const [remove, setDelete] = useState(true);
+  useEffect(() => {
+    const fethcdata = () => {
+      firestore
+        .collection(currentUser.uid)
+        .doc('userprofile')
+        .collection('profiles')
+        .onSnapshot((snapshot) => {
+          const data = snapshot.docs.map((doc) => doc.data());
+          if (data.length === 1) {
+            setDelete(false);
+          }
+        });
+    };
+    fethcdata();
+  }, [currentUser.uid]);
   const updateProfile = () => {
-    return title !== profile && title !== ''
-      ? firestore
+    return (Image !== img || title !== profile) && title !== ''
+      ? Swal.fire({
+          title: 'Are you sure?',
+          text: 'Your Profile will be Updated!',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, Update it!',
+        }).then((result) => {
+          if (result.value) {
+            firestore
+              .collection(currentUser.uid)
+              .doc('userprofile')
+              .collection('profiles')
+              .doc(docid)
+              .update({
+                profile: title,
+                img: Image,
+              })
+              .then(() => {
+                Swal.fire({
+                  showConfirmButton: false,
+                  icon: 'success',
+                  timer: 1000,
+                  title: 'Your Profile has been Updated.',
+                });
+                setProfile('');
+              });
+          }
+        })
+      : setProfile('');
+  };
+  const deleteProfile = () => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.value) {
+        firestore
           .collection(currentUser.uid)
           .doc('userprofile')
           .collection('profiles')
           .doc(docid)
-          .update({
-            profile: title,
-          })
-          .then(() => {
-            setProfile('');
-          })
-      : setProfile('');
-  };
-  const deleteProfile = () => {
-    firestore
-      .collection(currentUser.uid)
-      .doc('userprofile')
-      .collection('profiles')
-      .doc(docid)
-      .delete()
-      .then(() => {
-        firestore
-          .collection(currentUser.uid)
-          .doc(profile)
           .delete()
-          .then(() => setProfile(''));
-      });
+          .then(() => {
+            firestore
+              .collection(currentUser.uid)
+              .doc(profile)
+              .delete()
+              .then(() => {
+                Swal.fire({
+                  showConfirmButton: false,
+                  icon: 'success',
+                  timer: 1000,
+                  title: 'Your file has been deleted.',
+                });
+                setProfile('');
+              });
+          });
+      }
+    });
   };
   const classes = useStyles();
   return (
     <div className='epMainDiv'>
-      <ChooseProfile open={open} setOpen={setOpen} />
+      <ChooseProfile
+        Image={Image}
+        setImage={setImage}
+        open={open}
+        setOpen={setOpen}
+      />
       <Logo />
       <div>
         <div>
@@ -124,16 +186,18 @@ const EditProfile = ({ props, setProfile, currentUser }) => {
                       </Button>
                     </Grid>
                   </Grid>
-                  <Grid item>
-                    <Button
-                      variant='contained'
-                      color='secondary'
-                      startIcon={<DeleteIcon />}
-                      onClick={() => deleteProfile()}
-                    >
-                      Delete
-                    </Button>
-                  </Grid>
+                  {remove && (
+                    <Grid item>
+                      <Button
+                        variant='contained'
+                        color='secondary'
+                        startIcon={<DeleteIcon />}
+                        onClick={() => deleteProfile()}
+                      >
+                        Delete
+                      </Button>
+                    </Grid>
+                  )}
                 </Grid>
               </Grid>
             </Grid>
