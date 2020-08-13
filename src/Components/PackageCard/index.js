@@ -9,7 +9,7 @@ const PackageCard = () => {
     <Fragment>
       <div className='package-card'>
         <HeaderComponent className='header-container'>
-          <div className='header-top'>
+          <div className='header-top-package'>
             <Logo src={logo} />
             <Link to='signin' className='signIn-btn'>
               Sign Out

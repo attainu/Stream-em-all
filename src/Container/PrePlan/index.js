@@ -6,10 +6,10 @@ import logo from '../../Assets/svg/logo.svg';
 import { Link } from 'react-router-dom';
 const PrePlan = () => {
   return (
-    <div>
+    <div className='pre-plan'>
       <HeaderComponent>
         <div className='header-container'>
-          <div className='header-top'>
+          <div className='pre-plan-header-top'>
             <Logo src={logo} />
             <Link to='signin' className='signIn-btn'>
               Sign Out
