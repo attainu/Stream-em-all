@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import './index.scss';
 import { connect } from 'react-redux';
-import { auth } from '../../Firebase';
+import { auth, firestore } from '../../Firebase';
+import { setUserProfile } from '../../Redux/User/userActionGenerator';
 import { useHistory } from 'react-router-dom';
 import {
   ClickAwayListener,
@@ -12,10 +13,11 @@ import {
   MenuList,
 } from '@material-ui/core';
 
-const UserProfile = ({ img, profileName }) => {
+const UserProfile = ({ img, profileName, setUserProfile, currentUser }) => {
   const history = useHistory();
-  const [open, setOpen] = React.useState(false);
-  const anchorRef = React.useRef(null);
+  const [profile, setProfile] = useState([]);
+  const [open, setOpen] = useState(false);
+  const anchorRef = useRef(null);
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -37,15 +39,34 @@ const UserProfile = ({ img, profileName }) => {
   }
 
   // return focus to the button when we transitioned from !open -> open
-  const prevOpen = React.useRef(open);
-  React.useEffect(() => {
+  const prevOpen = useRef(open);
+
+  useEffect(() => {
     if (prevOpen.current === true && open === false) {
       anchorRef.current.focus();
     }
 
     prevOpen.current = open;
   }, [open]);
-
+  useEffect(() => {
+    const fethcdata = () => {
+      firestore
+        .collection(currentUser.uid)
+        .doc('userprofile')
+        .collection('profiles')
+        .onSnapshot((snapshot) => {
+          setProfile(snapshot.docs.map((doc) => doc.data()));
+        });
+    };
+    fethcdata();
+  }, [currentUser.uid]);
+  const handleClick = (data) => {
+    setUserProfile(data);
+  };
+  // useEffect(() => {
+  //   setUserProfile(profile);
+  //   profile && history.push('/movie');
+  // }, [history, profile, setUserProfile]);
   return (
     <div className='UserProfile'>
       <div>
@@ -84,6 +105,14 @@ const UserProfile = ({ img, profileName }) => {
                   id='menu-list-grow'
                   onKeyDown={handleListKeyDown}
                 >
+                  {profile.map((data, index) => (
+                    <MenuItem key={index} onClick={() => handleClick(data)}>
+                      <img src={data.img} style={{ width: '35px' }} alt='' />
+                      &nbsp;
+                      <h4 onClick={() => setOpen(false)}>{data.profile}</h4>
+                    </MenuItem>
+                  ))}
+
                   <MenuItem onClick={() => history.push('/manage')}>
                     Manage Profile
                   </MenuItem>
@@ -97,9 +126,12 @@ const UserProfile = ({ img, profileName }) => {
     </div>
   );
 };
-
+const mapDispatchToProps = (dispatch) => ({
+  setUserProfile: (user) => dispatch(setUserProfile(user)),
+});
 const mapStateToProps = ({ user }) => ({
+  currentUser: user.currentUser,
   img: user.userProfile.img,
   profileName: user.userProfile.profile,
 });
-export default connect(mapStateToProps)(UserProfile);
+export default connect(mapStateToProps, mapDispatchToProps)(UserProfile);
