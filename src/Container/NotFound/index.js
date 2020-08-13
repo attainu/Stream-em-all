@@ -2,9 +2,11 @@ import React from 'react';
 import logo from '../../Assets/svg/logo.svg';
 import styled from 'styled-components';
 import './index.css';
+import { useHistory } from 'react-router-dom';
 // import Footer from '../../Components/LPFooter';
 
 const ErrorPage404 = () => {
+  const history = useHistory();
   return (
     <div>
       <div className='header-container'>
@@ -17,7 +19,9 @@ const ErrorPage404 = () => {
             Sorry, we can't find that page. You'll find lots to explore <br />{' '}
             on the home page.
           </p>
-          <button className='btn-home'>Netflix Home</button>
+          <button onClick={() => history.push('/')} className='btn-home'>
+            Netflix Home
+          </button>
           <p className='error'>
             Error code <span>NSES-404</span>
           </p>
