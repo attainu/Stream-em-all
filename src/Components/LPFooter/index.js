@@ -4,26 +4,60 @@ import styled from 'styled-components';
 import { Icon } from 'react-icons-kit';
 import { earth } from 'react-icons-kit/icomoon/earth';
 import { circleDown } from 'react-icons-kit/icomoon/circleDown';
-const Footer = () => {
+const Footer = ({ props }) => {
   return (
-    <FooterContainer>
+    <FooterContainer
+      style={{
+        background: props ? '#EAF0F1' : 'rgba(0, 0, 0, 0.7)',
+        color: props ? 'rgb(0,0,0)' : 'rgba(255, 255, 255)',
+      }}
+    >
       <div className='contact'>
-        Question ? <Link to='/'>Call +91-9876543210 </Link>
+        Question ?{' '}
+        <Link
+          style={{
+            color: props ? 'rgb(0,0,0)' : 'rgba(255, 255, 255)',
+          }}
+          to='/'
+        >
+          Call +91-9876543210{' '}
+        </Link>
       </div>
       <div className='footer-columns'>
         <ul>
           <li>
-            <Link to='/'>Gift Card Terms</Link>
+            <Link
+              style={{
+                color: props ? 'rgb(0,0,0)' : 'rgba(255, 255, 255)',
+              }}
+              to='/'
+            >
+              Gift Card Terms
+            </Link>
           </li>
         </ul>
         <ul>
           <li>
-            <Link to='/'>Term of Use</Link>
+            <Link
+              style={{
+                color: props ? 'rgb(0,0,0)' : 'rgba(255, 255, 255)',
+              }}
+              to='/'
+            >
+              Term of Use
+            </Link>
           </li>
         </ul>
         <ul>
           <li>
-            <Link to='/'>Privacy Statement</Link>
+            <Link
+              style={{
+                color: props ? 'rgb(0,0,0)' : 'rgba(255, 255, 255)',
+              }}
+              to='/'
+            >
+              Privacy Statement
+            </Link>
           </li>
         </ul>
         <ul>
@@ -43,10 +77,8 @@ const Footer = () => {
 export default Footer;
 
 const FooterContainer = styled.div`
-  background: rgba(0, 0, 0, 0.7);
   padding-top: 2rem;
   padding-bottom: 3rem;
-  color: #fff;
 
   .footer-columns {
     width: 70%;
@@ -76,9 +108,6 @@ const FooterContainer = styled.div`
   .developers {
     margin-left: 40%;
     font-size: 1.3rem;
-  }
-  .name {
-    color: #fff;
   }
 
   //Language button
