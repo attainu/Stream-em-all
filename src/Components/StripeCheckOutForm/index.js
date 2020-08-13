@@ -11,6 +11,7 @@ import useResponsiveFontSize from './UseResponsiveFontSize';
 
 const useOptions = () => {
   const fontSize = useResponsiveFontSize();
+  // eslint-disable-next-line
   const options = useMemo(
     () =>
       ({

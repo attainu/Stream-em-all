@@ -127,7 +127,6 @@ const ManageProfile = ({
   const handleClick = (img, data) => {
     setProfile({ img: img, profile: data });
   };
-
   if (!currentUser) {
     return <Redirect to='/signin' />;
   }

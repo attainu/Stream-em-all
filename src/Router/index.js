@@ -10,7 +10,7 @@ const SignIn = lazy(() => import('../Container/SignIn'));
 const SignUp = lazy(() => import('../Container/SignUp'));
 const NotFound = lazy(() => import('../Container/NotFound'));
 const LandingPage = lazy(() => import('../Container/LandingPage'));
-const EditProOne = lazy(() => import('../Container/EditProOne'));
+const EditProOne = lazy(() => import('../Container/EditManageProfile'));
 const Stripe = lazy(() => import('../Container/Stripe'));
 const Plan = lazy(() => import('../Container/Plan'));
 const PrePlan = lazy(() => import('../Container/PrePlan'));
