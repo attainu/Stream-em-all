@@ -5,8 +5,10 @@ import { firestore } from '../../Firebase';
 import AddIcon from '@material-ui/icons/Add';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import PlayIcon from '../../Assets/image/play-button.svg';
+import { useHistory } from 'react-router-dom';
 
 const MovieDetails = ({ movie, currentUser, userProfile }) => {
+  const history = useHistory();
   const [toggle, setToggle] = useState(false);
   const handleAdd = () => (
     setToggle((prevState) => !prevState),
@@ -62,7 +64,10 @@ const MovieDetails = ({ movie, currentUser, userProfile }) => {
       <p className='modal__overview'>
         {movie.overview.slice(0, 327)} {movie.overview.length > 327 && '....'}
       </p>
-      <button className='modal__btn modal__btn--red'>
+      <button
+        className='modal__btn modal__btn--red'
+        onClick={() => history.push('/preplan')}
+      >
         <img src={PlayIcon} className='modal__btn--icon' alt='' />
         Play
       </button>

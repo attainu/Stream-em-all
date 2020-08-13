@@ -4,8 +4,10 @@ import Footer from '../../Components/LPFooter';
 import { Icon } from 'react-icons-kit';
 import { checkCircleO } from 'react-icons-kit/fa/checkCircleO';
 import { ic_check } from 'react-icons-kit/md/ic_check';
+import { useHistory } from 'react-router-dom';
 
 const PrePlanCard = () => {
+  const history = useHistory();
   return (
     <div>
       <MainContainer>
@@ -30,7 +32,9 @@ const PrePlanCard = () => {
             ads and no extra fees. Ever.
           </span>
         </div>
-        <button className='btn'>SEE THE PLANS</button>
+        <button className='btn' onClick={() => history.push('/plan')}>
+          SEE THE PLANS
+        </button>
       </MainContainer>
       <Footer props={'#fff'} />
     </div>
