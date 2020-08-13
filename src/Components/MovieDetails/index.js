@@ -1,5 +1,5 @@
 /* eslint-disable no-sequences */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { firestore } from '../../Firebase';
 import AddIcon from '@material-ui/icons/Add';
@@ -17,6 +17,22 @@ const MovieDetails = ({ movie, currentUser, userProfile }) => {
       .doc(`${movie.id}`)
       .set(movie)
   );
+  useEffect(() => {
+    firestore
+      .collection(currentUser.uid)
+      .doc(userProfile.profile)
+      .collection('list')
+      .doc(`${movie.id}`)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          setToggle(true);
+        } else {
+          //console.log('No such document!');
+        }
+      })
+      .catch((err) => console.log(err));
+  }, [currentUser.uid, movie.id, userProfile.profile]);
   const handleRemove = () => (
     setToggle((prevState) => !prevState),
     firestore
@@ -43,7 +59,9 @@ const MovieDetails = ({ movie, currentUser, userProfile }) => {
           : ''}
         {movie.number_of_seasons ? ' Seasons: ' + movie.number_of_seasons : ''}
       </p>
-      <p className='modal__overview'>{movie.overview}</p>
+      <p className='modal__overview'>
+        {movie.overview.slice(0, 327)} {movie.overview.length > 327 && '....'}
+      </p>
       <button className='modal__btn modal__btn--red'>
         <img src={PlayIcon} className='modal__btn--icon' alt='' />
         Play

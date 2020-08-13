@@ -11,7 +11,7 @@ const MyLoader = (props) => (
     }}
   >
     <ContentLoader
-      speed={1}
+      speed={0.5}
       width={900}
       height={500}
       viewBox='0 0 400 160'
