@@ -3,8 +3,9 @@ import StripeCheckout from 'react-stripe-checkout';
 
 const stripekey =
   'pk_test_51HFF8bFYHbXxM4QyMVsFylhJIM1mlpFbJlpB91d6FGrLEx7jCoJJOmMfGcCa17NQplRuxaQctdjggM5jzSGmK76S00mJhxOEkS';
+//=< not in use setProduct
 const Stripe = () => {
-  const [product, setProduct] = useState({
+  const [product] = useState({
     name: 'Package Price',
     price: 450,
     productBy: 'Netflix',
