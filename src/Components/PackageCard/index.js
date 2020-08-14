@@ -3,8 +3,9 @@ import './index.css';
 // import Footer from '../../Components/LPFooter';
 import styled from 'styled-components';
 import logo from '../../Assets/svg/logo.svg';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 const PackageCard = () => {
+  const history = useHistory();
   return (
     <Fragment>
       <div className='package-card'>
@@ -70,7 +71,9 @@ const PackageCard = () => {
               <p>Stream in Standard Definition. Watch on 1 device at a time.</p>
             </div>
           </div>
-          <button className='btn'>Continue</button>
+          <button className='btn' onClick={() => history.push('/emailverify')}>
+            Continue
+          </button>
           <p className='terms'>
             HD and Ultra HD availability subject to your internet service and
             device
