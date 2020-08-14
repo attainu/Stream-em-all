@@ -22,7 +22,7 @@ const AppRouter = () => {
         <Route exact path='/signin' component={SignIn} />
         <Route exact path='/signup' component={SignUp} />
         <PrivateRoute exact path='/editmanage' component={Editmanage} />
-        <PrivateRoute exact path='/payment' component={Stripe} />
+        <Route exact path='/payment' component={Stripe} />
         <PrivateRoute exact path='/plan' component={Plan} />
         <PrivateRoute exact path='/preplan' component={PrePlan} />
         <PrivateRoute exact path='/manage' component={ManageProfile} />

@@ -1,19 +1,56 @@
 import React from 'react';
-import { Elements } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
-import CheckOutForm from '../../Components/StripeCheckOutForm';
-const stripePromise = loadStripe(
-  'pk_test_51HFF8bFYHbXxM4QyMVsFylhJIM1mlpFbJlpB91d6FGrLEx7jCoJJOmMfGcCa17NQplRuxaQctdjggM5jzSGmK76S00mJhxOEkS'
-);
+import { CardElement, ElementsConsumer } from '@stripe/react-stripe-js';
 
-function Stripe() {
-  return (
-    <div>
-      <Elements stripe={stripePromise}>
-        <CheckOutForm />
-      </Elements>
-    </div>
-  );
+class CheckoutForm extends React.Component {
+  handleSubmit = async (event) => {
+    // Block native form submission.
+    event.preventDefault();
+
+    const { stripe, elements } = this.props;
+
+    if (!stripe || !elements) {
+      // Stripe.js has not loaded yet. Make sure to disable
+      // form submission until Stripe.js has loaded.
+      return;
+    }
+
+    // Get a reference to a mounted CardElement. Elements knows how
+    // to find your CardElement because there can only ever be one of
+    // each type of element.
+    const cardElement = elements.getElement(CardElement);
+
+    const { error, paymentMethod } = await stripe.createPaymentMethod({
+      type: 'card',
+      card: cardElement,
+    });
+
+    if (error) {
+      console.log('[error]', error);
+    } else {
+      console.log('[PaymentMethod]', paymentMethod);
+    }
+  };
+
+  render() {
+    const { stripe } = this.props;
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <CardElement />
+        <button type='submit' disabled={!stripe}>
+          Pay
+        </button>
+      </form>
+    );
+  }
 }
 
-export default Stripe;
+const InjectedCheckoutForm = () => {
+  return (
+    <ElementsConsumer>
+      {({ elements, stripe }) => (
+        <CheckoutForm elements={elements} stripe={stripe} />
+      )}
+    </ElementsConsumer>
+  );
+};
+export default InjectedCheckoutForm;
