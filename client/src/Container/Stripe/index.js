@@ -1,56 +1,53 @@
-import React from 'react';
-import { CardElement, ElementsConsumer } from '@stripe/react-stripe-js';
+import React, { useState } from 'react';
+import StripeCheckout from 'react-stripe-checkout';
 
-class CheckoutForm extends React.Component {
-  handleSubmit = async (event) => {
-    // Block native form submission.
-    event.preventDefault();
+const stripekey =
+  'pk_test_51HFF8bFYHbXxM4QyMVsFylhJIM1mlpFbJlpB91d6FGrLEx7jCoJJOmMfGcCa17NQplRuxaQctdjggM5jzSGmK76S00mJhxOEkS';
+const Stripe = () => {
+  const [product, setProduct] = useState({
+    name: 'Package Price',
+    price: 450,
+    productBy: 'Netflix',
+  });
 
-    const { stripe, elements } = this.props;
-
-    if (!stripe || !elements) {
-      // Stripe.js has not loaded yet. Make sure to disable
-      // form submission until Stripe.js has loaded.
-      return;
-    }
-
-    // Get a reference to a mounted CardElement. Elements knows how
-    // to find your CardElement because there can only ever be one of
-    // each type of element.
-    const cardElement = elements.getElement(CardElement);
-
-    const { error, paymentMethod } = await stripe.createPaymentMethod({
-      type: 'card',
-      card: cardElement,
-    });
-
-    if (error) {
-      console.log('[error]', error);
-    } else {
-      console.log('[PaymentMethod]', paymentMethod);
-    }
+  const makePayment = (token) => {
+    const body = {
+      token,
+      product,
+    };
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+    return fetch('http://localhost:5000/paymemt', {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(body),
+    })
+      .then((response) => {
+        console.log('Response ', response);
+        const { status } = response;
+        console.log('Status', status);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
-
-  render() {
-    const { stripe } = this.props;
-    return (
-      <form onSubmit={this.handleSubmit}>
-        <CardElement />
-        <button type='submit' disabled={!stripe}>
-          Pay
-        </button>
-      </form>
-    );
-  }
-}
-
-const InjectedCheckoutForm = () => {
+  console.log();
   return (
-    <ElementsConsumer>
-      {({ elements, stripe }) => (
-        <CheckoutForm elements={elements} stripe={stripe} />
-      )}
-    </ElementsConsumer>
+    <StripeCheckout
+      image='https://dwglogo.com/wp-content/uploads/2019/02/Netflix_N_logo.png'
+      token={makePayment}
+      stripeKey={stripekey}
+      name='Netflix 450'
+      currency='INR'
+      amount={product.price * 100}
+      key={stripekey}
+      email='akashdutta1993official@gmail.com'
+      allowRememberMe={false}
+    >
+      <button className='btn'>Pay</button>
+    </StripeCheckout>
   );
 };
-export default InjectedCheckoutForm;
+
+export default Stripe;
