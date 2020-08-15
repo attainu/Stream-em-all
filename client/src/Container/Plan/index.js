@@ -11,7 +11,7 @@ const Plan = ({ currentUser }) => {
     planName: 'Netflix Premium',
     amount: 1250,
   });
-  const [product, setProduct] = useState({
+  const [product] = useState({
     name: seletedPlan.planName,
     price: seletedPlan.amount,
     productBy: 'Netflix',

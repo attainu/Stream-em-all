@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './index.css';
 import PrePlancard from '../../Components/PrePlanCard';
 import Logo from '../../Components/Logo';
@@ -29,8 +29,7 @@ const PrePlan = ({ currentUser }) => {
   const handleVerify = async () => {
     try {
       const user = auth.currentUser;
-      const res = await user.sendEmailVerification();
-      console.log(res);
+      await user.sendEmailVerification();
     } catch (err) {
       console.log(err.message);
     }
@@ -46,6 +45,7 @@ const PrePlan = ({ currentUser }) => {
     </div>
   );
 };
+
 const mapStateToProps = ({ user }) => ({
   currentUser: user.currentUser,
 });

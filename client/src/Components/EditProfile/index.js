@@ -39,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'block',
     maxWidth: '100%',
     maxHeight: '100%',
+    objectFit: 'cover',
   },
 }));
 
@@ -50,7 +51,6 @@ const EditProfile = ({ props, setProfile, currentUser }) => {
   const [remove, setDelete] = useState(true);
   const [file, setFile] = useState(null);
   const [fileerror, setError] = useState(null);
-  const [url, setUrl] = useState(null);
   useEffect(() => {
     const fethcdata = () => {
       firestore

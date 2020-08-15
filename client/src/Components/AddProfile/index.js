@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Button,
@@ -40,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'block',
     maxWidth: '100%',
     maxHeight: '100%',
+    objectFit: 'cover',
   },
 }));
 
@@ -50,7 +51,6 @@ const AddProfile = ({ props, setProfile, currentUser }) => {
   const [Image, setImage] = useState('https://i.ibb.co/WKrPzZd/iu.jpg');
   const [file, setFile] = useState(null);
   const [fileerror, setError] = useState(null);
-  const [url, setUrl] = useState(null);
 
   const types = ['image/png', 'image/jpeg'];
   const handleChange = (e) => {
@@ -75,7 +75,7 @@ const AddProfile = ({ props, setProfile, currentUser }) => {
           .doc('userprofile')
           .collection('profiles')
           .add({
-            img: url || Image,
+            img: Image,
             profile: title,
           })
           .then(() => {
@@ -140,7 +140,7 @@ const AddProfile = ({ props, setProfile, currentUser }) => {
 
                   <Grid item>
                     {fileerror && <h2>{fileerror}</h2>}
-                    {file && <ProgressBar file={file} setUrl={setUrl} />}
+                    {file && <ProgressBar file={file} setUrl={setImage} />}
                     <Button variant='contained' color='secondary'>
                       <form>
                         upload

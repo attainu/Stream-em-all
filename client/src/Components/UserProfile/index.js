@@ -107,7 +107,11 @@ const UserProfile = ({ img, profileName, setUserProfile, currentUser }) => {
                 >
                   {profile.map((data, index) => (
                     <MenuItem key={index} onClick={() => handleClick(data)}>
-                      <img src={data.img} style={{ width: '35px' }} alt='' />
+                      <img
+                        src={data.img}
+                        style={{ width: '35px', objectFit: 'cover' }}
+                        alt=''
+                      />
                       &nbsp;
                       <h4 onClick={() => setOpen(false)}>{data.profile}</h4>
                     </MenuItem>

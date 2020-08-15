@@ -2,12 +2,12 @@ import React, { useEffect } from 'react';
 import useStorage from '../../hooks/useStorage';
 
 const ProgressBar = ({ file, setUrl }) => {
-  const { url, error, progress } = useStorage(file);
+  const { url } = useStorage(file); //, error, progress
   useEffect(() => {
     if (url) {
       setUrl(url);
     }
-  }, [url]);
+  }, [url, setUrl]);
   return <div>{file.name}</div>;
 };
 

@@ -5,12 +5,12 @@ import { Icon } from 'react-icons-kit';
 import { checkCircleO } from 'react-icons-kit/fa/checkCircleO';
 import { ic_check } from 'react-icons-kit/md/ic_check';
 import { useHistory } from 'react-router-dom';
+import { auth } from '../../Firebase';
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
 
 const PrePlanCard = ({ currentUser }) => {
   const history = useHistory();
-  useEffect(() => {}, []);
   const handleSeePlan = () =>
     currentUser.emailVerified
       ? history.push('/plan')
@@ -21,7 +21,10 @@ const PrePlanCard = ({ currentUser }) => {
           footer: '<h3>! Verify Your Email first</h3>',
         }).then((result) => {
           if (result.value) {
+            auth.signOut();
             window.open(`https://mail.google.com`, '_blank');
+          } else {
+            auth.signOut();
           }
         });
 
