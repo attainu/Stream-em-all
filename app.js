@@ -16,13 +16,6 @@ app.use(cors());
 app.get('/', (req, res) => {
   res.send('i am working');
 });
-//=> serve static websites
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('client/build'));
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-  });
-}
 
 app.post('/paymemt', (req, res) => {
   const { product, token } = req.body;
@@ -56,8 +49,7 @@ app.post('/paymemt', (req, res) => {
 });
 
 // server
-
-const port = process.env.PORT || 4001;
+const port = process.env.PORT || 5001;
 app.listen(port, () => {
   console.log(`Server started on port ${port}`);
 });
