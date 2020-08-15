@@ -11,7 +11,6 @@ const SignUp = lazy(() => import('../Container/SignUp'));
 const NotFound = lazy(() => import('../Container/NotFound'));
 const LandingPage = lazy(() => import('../Container/LandingPage'));
 const Editmanage = lazy(() => import('../Container/EditManageProfile'));
-const Stripe = lazy(() => import('../Container/Stripe'));
 const Plan = lazy(() => import('../Container/Plan'));
 const PrePlan = lazy(() => import('../Container/PrePlan'));
 const AppRouter = () => {
@@ -22,7 +21,6 @@ const AppRouter = () => {
         <Route exact path='/signin' component={SignIn} />
         <Route exact path='/signup' component={SignUp} />
         <PrivateRoute exact path='/editmanage' component={Editmanage} />
-        <Route exact path='/payment' component={Stripe} />
         <PrivateRoute exact path='/plan' component={Plan} />
         <PrivateRoute exact path='/preplan' component={PrePlan} />
         <PrivateRoute exact path='/manage' component={ManageProfile} />

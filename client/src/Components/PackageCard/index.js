@@ -1,90 +1,159 @@
-import React, { Fragment } from 'react';
-import './index.css';
-// import Footer from '../../Components/LPFooter';
+import React, { Fragment, useState } from 'react';
 import styled from 'styled-components';
-import logo from '../../Assets/svg/logo.svg';
-import { Link, useHistory } from 'react-router-dom';
-const PackageCard = () => {
-  const history = useHistory();
+import Logo from '../Logo';
+// import { useHistory } from 'react-router-dom';
+import StripeCheckout from 'react-stripe-checkout';
+import './index.css';
+
+const PackageCard = ({
+  seletedPlan,
+  setSeletedPlan,
+  token,
+  stripeKey,
+  name,
+  amount,
+  data,
+  email,
+}) => {
+  // const history = useHistory();
+  const [checkRadio, setCheckedRadio] = useState(1);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(seletedPlan);
+  };
   return (
     <Fragment>
       <div className='package-card'>
-        <HeaderComponent className='header-container'>
-          <div className='header-top-package'>
-            <Logo src={logo} />
-            <Link to='signin' className='signIn-btn'>
-              Sign Out
-            </Link>
-          </div>
-        </HeaderComponent>
-
+        <Logo />
         <MainContainer>
           <div className='top-details'>
             <p>STEP 2 OF 3</p>
             <h2> Choose the plan that is right for you</h2>
             <p>Downgrade or upgrade at any time.</p>
           </div>
-          <div className='premium'>
-            <input type='radio' id='premium' name='gender' value='premium' />
-            <div className='label'>
-              <label className='title' for='premium'>
-                Premium
-              </label>
-              <br />
-              <label for='premium'>INR 1250 /month</label>
-            </div>
-            <hr />
-            <div className='details'>
-              <h1 className='first'>4K</h1>
-              <p>Stream in Ultra HD. Watch on 4 devices at a time.</p>
-            </div>
-          </div>
-
-          <div className='standerd'>
-            <input type='radio' id='standerd' name='gender' value='standerd' />
-            <div className='label'>
-              <label className='title' for='standerd'>
-                Standerd
-              </label>
-              <br />
-              <label for='standerd'>INR 850 /month</label>
-            </div>
-            <div className='details'>
+          <form onSubmit={handleSubmit}>
+            <div
+              className='premium'
+              onClick={() => {
+                return (
+                  setCheckedRadio(1),
+                  setSeletedPlan({ planName: 'Netflix Premium', amount: 1250 })
+                );
+              }}
+            >
+              <input
+                type='radio'
+                id='premium'
+                className='radio'
+                name='gender'
+                checked={checkRadio === 1 ? true : false}
+                onChange={(e) => setSeletedPlan(e.target.value)}
+                value={{ planName: 'Netflix Premium', amount: 1250 }}
+              />
+              <span></span>
+              <div className='label'>
+                <label className='title' htmlFor='premium'>
+                  Premium
+                </label>
+                <br />
+                <label htmlFor='premium'>INR 1250 /month</label>
+              </div>
               <hr />
-              <h1 className='second'>HD</h1>
-              <p>Stream in High Definition. Watch on 2 devices at a time.</p>
+              <div className='details'>
+                <h1 className='first'>4K</h1>
+                <p>Stream in Ultra HD. Watch on 4 devices at a time.</p>
+              </div>
             </div>
-          </div>
 
-          <div className='basic'>
-            <input type='radio' id='basic' name='gender' value='basic' />
-            <div className='label'>
-              <label className='title' for='basic'>
-                Basic
-              </label>
-              <br />
-              <label for='basic'>INR 450 /month</label>
+            <div
+              className='Standard'
+              onClick={() =>
+                setCheckedRadio(2) &
+                setSeletedPlan({ planName: 'Netflix Standard', amount: 850 })
+              }
+            >
+              <input
+                type='radio'
+                id='Standard'
+                className='radio'
+                checked={checkRadio === 2 ? true : false}
+                name='gender'
+                value={{ planName: 'Netflix Standard', amount: 850 }}
+                onChange={(e) => setSeletedPlan(e.target.value)}
+              />
+              <span></span>
+              <div className='label'>
+                <label className='title' htmlFor='Standard'>
+                  Standard
+                </label>
+                <br />
+                <label htmlFor='Standard'>INR 850 /month</label>
+              </div>
+              <div className='details'>
+                <hr />
+                <h1 className='second'>HD</h1>
+                <p>Stream in High Definition. Watch on 2 devices at a time.</p>
+              </div>
             </div>
-            <hr />
-            <div className='details'>
-              <h1 className='third'>SD</h1>
-              <p>Stream in Standard Definition. Watch on 1 device at a time.</p>
+
+            <div
+              className='basic'
+              onClick={() =>
+                setCheckedRadio(3) &
+                setSeletedPlan({ planName: 'Netflix Basic', amount: 450 })
+              }
+            >
+              <input
+                type='radio'
+                id='basic'
+                className='radio'
+                name='gender'
+                checked={checkRadio === 3 ? true : false}
+                value={{ planName: 'Netflix Basic', amount: 450 }}
+                onChange={(e) => setSeletedPlan(e.target.value)}
+              />
+              <span></span>
+              <div className='label'>
+                <label className='title' htmlFor='basic'>
+                  Basic
+                </label>
+                <br />
+                <label htmlFor='basic'>INR 450 /month</label>
+              </div>
+              <hr />
+              <div className='details'>
+                <h1 className='third'>SD</h1>
+                <p>
+                  Stream in Standard Definition. Watch on 1 device at a time.
+                </p>
+              </div>
             </div>
-          </div>
-          <button className='btn' onClick={() => history.push('/emailverify')}>
-            Continue
-          </button>
+            <StripeCheckout
+              image='https://dwglogo.com/wp-content/uploads/2019/02/Netflix_N_logo.png'
+              token={token}
+              stripeKey={stripeKey}
+              name={name}
+              currency='INR'
+              amount={amount}
+              key={data}
+              email={email}
+              allowRememberMe={false}
+            >
+              <button type='submit' className='btn'>
+                Continue
+              </button>
+            </StripeCheckout>
+          </form>
           <p className='terms'>
             HD and Ultra HD availability subject to your internet service and
             device
             <br />
-            capabilities. Not all content available in HD or Ultra HD. See{' '}
+            capabilities. Not all content available in HD or Ultra HD.
             <span>
-              <a href='/'>
-                Terms of <br /> Use{' '}
-              </a>
+              <br />
+              <span>See Terms of Use for more details.</span>
             </span>
-            for more details.
           </p>
         </MainContainer>
       </div>
@@ -95,20 +164,10 @@ const PackageCard = () => {
 
 export default PackageCard;
 
-const Logo = styled.img`
-  width: 10rem;
-  height: 3.5rem;
-  position: absolute;
-  top: 7%;
-  left: 7%;
-  transform: translate(-50%, -50%);
-  z-index: 1;
-`;
-
 const MainContainer = styled.div`
   margin-bottom: 5rem;
   .premium,
-  .standerd,
+  .Standard,
   .basic {
     width: 23rem;
     border-radius: 0.5rem;
@@ -183,28 +242,6 @@ const MainContainer = styled.div`
     & h2 {
       margin-top: 0.5rem;
       margin-bottom: 0.5rem;
-    }
-  }
-`;
-
-const HeaderComponent = styled.div`
-  .signIn-btn {
-    right: 0;
-    margin: 2rem 3% 0;
-    padding: 0.4374rem 1.0625rem;
-    font-weight: 400;
-    line-height: normal;
-    border-radius: 0.1875rem;
-    font-size: 1rem;
-    color: #fff;
-    background: var(--main-red);
-    position: absolute;
-    translate: transform(-50%, -50%);
-    cursor: pointer;
-    transition: background 0.2s ease-in;
-    z-index: 1;
-    &:hover {
-      background: var(--main-red-hover);
     }
   }
 `;

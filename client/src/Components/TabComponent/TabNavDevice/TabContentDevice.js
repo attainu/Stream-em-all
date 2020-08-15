@@ -3,7 +3,10 @@ import styled from 'styled-components';
 import ImgTv from '../../../Assets/images/tab-tv.png';
 import ImgMacBook from '../../../Assets/images/tab-macbook.png';
 import ImgTab from '../../../Assets/images/tab-tablet.png';
+import { useHistory } from 'react-router-dom';
+
 const TabContentDoor = () => {
+  const history = useHistory();
   return (
     <TabContainer>
       <div className='tab-content-door'>
@@ -13,7 +16,12 @@ const TabContentDoor = () => {
             Watch TV shows and movies anytime, anywhere - <br />
             personalized for you
           </span>
-          <button className='try-now-btn'>Try it now</button>
+          <button
+            className='try-now-btn'
+            onClick={() => history.push('/signup')}
+          >
+            Try it now
+          </button>
         </div>
         {/*tab bottom content*/}
         <div className='tab-bottom-content'>

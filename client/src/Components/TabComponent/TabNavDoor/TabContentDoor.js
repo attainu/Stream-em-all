@@ -1,7 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import Img from '../../../Assets/images/tab-1-pic.png';
+import { useHistory } from 'react-router-dom';
+
 const TabContentDevice = () => {
+  const history = useHistory();
   return (
     <TabContentContainer>
       <div className='container'>
@@ -11,7 +14,9 @@ const TabContentDevice = () => {
             Cancel online anytime
           </span>
           <br />
-          <button className='try-now-btn'>Try it now</button>
+          <button className='try-now-btn'
+          onClick={() => history.push('/signup')}
+          >Try it now</button>
           <img src={Img} alt='' />
         </div>
       </div>

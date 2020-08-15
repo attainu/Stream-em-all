@@ -1,13 +1,30 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import Footer from '../../Components/LPFooter';
 import { Icon } from 'react-icons-kit';
 import { checkCircleO } from 'react-icons-kit/fa/checkCircleO';
 import { ic_check } from 'react-icons-kit/md/ic_check';
 import { useHistory } from 'react-router-dom';
+import { connect } from 'react-redux';
+import Swal from 'sweetalert2';
 
-const PrePlanCard = () => {
+const PrePlanCard = ({ currentUser }) => {
   const history = useHistory();
+  useEffect(() => {}, []);
+  const handleSeePlan = () =>
+    currentUser.emailVerified
+      ? history.push('/plan')
+      : Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Please Verify Your Email!',
+          footer: '<h3>! Verify Your Email first</h3>',
+        }).then((result) => {
+          if (result.value) {
+            window.open(`https://mail.google.com`, '_blank');
+          }
+        });
+
   return (
     <div>
       <MainContainer>
@@ -32,7 +49,7 @@ const PrePlanCard = () => {
             ads and no extra fees. Ever.
           </span>
         </div>
-        <button className='btn' onClick={() => history.push('/plan')}>
+        <button className='btn' onClick={() => handleSeePlan()}>
           SEE THE PLANS
         </button>
       </MainContainer>
@@ -40,14 +57,16 @@ const PrePlanCard = () => {
     </div>
   );
 };
-
-export default PrePlanCard;
+const mapStateToProps = ({ user }) => ({
+  currentUser: user.currentUser,
+});
+export default connect(mapStateToProps)(PrePlanCard);
 
 const MainContainer = styled.div`
   color: black;
   display: grid;
   justify-content: center;
-  margin-top: 15rem;
+  padding-top: 15rem;
   margin-left: 9rem;
 
   p {

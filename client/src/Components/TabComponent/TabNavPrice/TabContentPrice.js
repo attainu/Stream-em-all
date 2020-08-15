@@ -3,14 +3,21 @@ import styled from 'styled-components';
 import { Icon } from 'react-icons-kit';
 import { cross } from 'react-icons-kit/icomoon/cross';
 import { checkmark } from 'react-icons-kit/icomoon/checkmark';
+import { useHistory } from 'react-router-dom';
 const TabContentPrice = () => {
+  const history = useHistory();
   return (
     <TabContainer>
       <div className='tab-content-price'>
         <div className='tab-top-content'>
           <span>Choose one plan and watch everything on Netflix</span>
           <br />
-          <button className='try-now-btn'>Try it now</button>
+          <button
+            className='try-now-btn'
+            onClick={() => history.push('/signup')}
+          >
+            Try it now
+          </button>
         </div>
         {/*Table*/}
         <div className='tab-bottom-content'>
