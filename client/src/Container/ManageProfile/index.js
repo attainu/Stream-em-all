@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
     width: '200px',
     height: '200px',
     cursor: 'pointer',
+    objectFit: 'cover',
   },
   manageButton: {
     border: '3px solid rgb(140,140,140)',

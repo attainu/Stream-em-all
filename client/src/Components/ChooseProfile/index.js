@@ -30,7 +30,6 @@ export default function DialogSelect({ open, setOpen, Image, setImage }) {
   const handleClose = () => {
     setOpen(false);
   };
-  console.log(Image);
   return (
     <div>
       <Dialog

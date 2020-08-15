@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Button,
@@ -15,6 +15,7 @@ import { connect } from 'react-redux';
 import ChooseProfile from '../ChooseProfile';
 import upload from '../../Assets/images/upload.svg';
 import Swal from 'sweetalert2';
+import ProgressBar from '../ProgressBar';
 import './index.scss';
 
 const useStyles = makeStyles((theme) => ({
@@ -48,7 +49,8 @@ const AddProfile = ({ props, setProfile, currentUser }) => {
   const [open, setOpen] = useState(false);
   const [Image, setImage] = useState('https://i.ibb.co/WKrPzZd/iu.jpg');
   const [file, setFile] = useState(null);
-  const [error, setError] = useState(null);
+  const [fileerror, setError] = useState(null);
+  const [url, setUrl] = useState(null);
 
   const types = ['image/png', 'image/jpeg'];
   const handleChange = (e) => {
@@ -73,7 +75,7 @@ const AddProfile = ({ props, setProfile, currentUser }) => {
           .doc('userprofile')
           .collection('profiles')
           .add({
-            img: Image,
+            img: url || Image,
             profile: title,
           })
           .then(() => {
@@ -93,7 +95,7 @@ const AddProfile = ({ props, setProfile, currentUser }) => {
       <ChooseProfile
         open={open}
         Image={Image}
-        setImage={setImage}
+        setImage={file ? setImage : null}
         setOpen={setOpen}
       />
       <Logo />
@@ -137,9 +139,8 @@ const AddProfile = ({ props, setProfile, currentUser }) => {
                   )}
 
                   <Grid item>
-                    {error && <h2>{error}</h2>}
-                    {file && <h2>{file.name}</h2>}
-                    {file && <h2>{file.name}</h2>}
+                    {fileerror && <h2>{fileerror}</h2>}
+                    {file && <ProgressBar file={file} setUrl={setUrl} />}
                     <Button variant='contained' color='secondary'>
                       <form>
                         upload

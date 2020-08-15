@@ -14,6 +14,7 @@ import { firestore } from '../../Firebase';
 import { connect } from 'react-redux';
 import ChooseProfile from '../ChooseProfile';
 import Swal from 'sweetalert2';
+import ProgressBar from '../ProgressBar';
 import './index.scss';
 
 const useStyles = makeStyles((theme) => ({
@@ -47,6 +48,9 @@ const EditProfile = ({ props, setProfile, currentUser }) => {
   const [title, setTitle] = useState(profile);
   const [Image, setImage] = useState(img);
   const [remove, setDelete] = useState(true);
+  const [file, setFile] = useState(null);
+  const [fileerror, setError] = useState(null);
+  const [url, setUrl] = useState(null);
   useEffect(() => {
     const fethcdata = () => {
       firestore
@@ -62,6 +66,7 @@ const EditProfile = ({ props, setProfile, currentUser }) => {
     };
     fethcdata();
   }, [currentUser.uid]);
+
   const updateProfile = () => {
     return (Image !== img || title !== profile) && title !== ''
       ? Swal.fire({
@@ -131,6 +136,13 @@ const EditProfile = ({ props, setProfile, currentUser }) => {
       }
     });
   };
+  const types = ['image/png', 'image/jpeg'];
+  const handleChange = (e) => {
+    const selected = e.target.files[0];
+    return selected && types.includes(selected.type)
+      ? (setFile(selected), setError(''))
+      : (setFile(null), setError('please select an image file (png/jpeg)'));
+  };
   const classes = useStyles();
   return (
     <div className='epMainDiv'>
@@ -168,21 +180,33 @@ const EditProfile = ({ props, setProfile, currentUser }) => {
                     />
                   </Grid>
                   <Grid item>
-                    <Grid item xs>
-                      <Button
-                        variant='contained'
-                        onClick={() => setOpen(true)}
-                        color='secondary'
-                      >
-                        Choose
-                      </Button>
-                    </Grid>
+                    {!file && (
+                      <Grid item>
+                        <Button
+                          variant='contained'
+                          onClick={() => setOpen(true)}
+                          color='secondary'
+                        >
+                          Choose from Default
+                        </Button>
+                      </Grid>
+                    )}
                     <Grid item xs>
                       <p>or</p>
                     </Grid>
                     <Grid item xs>
+                      {fileerror && <h2>{fileerror}</h2>}
+                      {file && <ProgressBar file={file} setUrl={setImage} />}
                       <Button variant='contained' color='secondary'>
-                        upload
+                        <form>
+                          upload
+                          <input
+                            type='file'
+                            onChange={handleChange}
+                            name=''
+                            id=''
+                          />
+                        </form>
                       </Button>
                     </Grid>
                   </Grid>
