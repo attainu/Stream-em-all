@@ -1,19 +1,19 @@
-.header-container {
+.nt404 {
   width: 100vw;
   height: 100vh;
   position: relative;
-  background: radial-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)),
+  background: radial-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
     url(../../Assets/images/404.png) no-repeat center center/cover;
 }
 
-.header-container::after {
+.nt404::after {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.3);
   box-shadow: inset 4.375rem 3.125rem 11.875rem #000,
     inset -4.375rem -3.125rem -11.875rem #000;
 }

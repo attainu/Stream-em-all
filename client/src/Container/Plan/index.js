@@ -25,7 +25,7 @@ const Plan = ({ currentUser }) => {
     const headers = {
       'Content-Type': 'application/json',
     };
-    return fetch('http://localhost:5000/paymemt', {
+    return fetch('http://localhost:5001/paymemt', {
       method: 'POST',
       headers,
       body: JSON.stringify(body),

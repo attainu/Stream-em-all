@@ -1,49 +1,35 @@
 import React from 'react';
-import logo from '../../Assets/svg/logo.svg';
+import Logo from '../../Components/Logo';
 import styled from 'styled-components';
 import './index.css';
 import { useHistory } from 'react-router-dom';
-// import Footer from '../../Components/LPFooter';
 
 const ErrorPage404 = () => {
   const history = useHistory();
   return (
-    <div>
-      <div className='header-container'>
-        <div className='header-top'>
-          <Logo src={logo} alt='' className='logo' />
-        </div>
-        <Body className='body'>
-          <h1>Lost your way ?</h1>
-          <p>
-            Sorry, we can't find that page. You'll find lots to explore <br />{' '}
-            on the home page.
-          </p>
-          <button onClick={() => history.push('/')} className='btn-home'>
-            Netflix Home
-          </button>
-          <p className='error'>
-            Error code <span>NSES-404</span>
-          </p>
-        </Body>
+    <div className='nt404'>
+      <div style={{ zIndex: 1 }}>
+        <Logo />
       </div>
+
+      <Body className='body'>
+        <h1>Lost your way ?</h1>
+        <p>
+          Sorry, we can't find that page. You'll find lots to explore <br /> on
+          the home page.
+        </p>
+        <button onClick={() => history.push('/')} className='btn-home'>
+          Netflix Home
+        </button>
+        <p className='error'>
+          Error code <span>NSES-404</span>
+        </p>
+      </Body>
     </div>
   );
 };
 
 export default ErrorPage404;
-
-// Logo
-
-const Logo = styled.img`
-  width: 11rem;
-  position: absolute;
-  top: 7%;
-  left: 7%;
-  transform: translate(-50%, -50%);
-  margin-left: 0;
-  z-index: 1;
-`;
 
 const Body = styled.div`
   display: grid;
