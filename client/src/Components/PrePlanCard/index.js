@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Footer from '../../Components/LPFooter';
 import { Icon } from 'react-icons-kit';

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import './index.css';
 import PrePlancard from '../../Components/PrePlanCard';
 import Logo from '../../Components/Logo';
