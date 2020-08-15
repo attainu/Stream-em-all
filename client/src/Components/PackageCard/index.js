@@ -28,7 +28,7 @@ const PackageCard = ({
         <Logo />
         <MainContainer>
           <div className='top-details'>
-            <p>STEP 2 OF 3</p>
+            <p>STEP 1 OF 1</p>
             <h2> Choose the plan that is right for you</h2>
             <p>Downgrade or upgrade at any time.</p>
           </div>

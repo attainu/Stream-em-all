@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const stripe = require('stripe')(
-  'sk_test_51HFaHGAbjDYuiy9ULXxDilWIzLFT8CHfhoXCeU3meDNFSTXERemsIEI2GZmA0yF5dckk4IESd2m5GQrxqyaB3PjI00nHBmIT9j'
+  'sk_test_51HFF8bFYHbXxM4QybwCTJuBKfaKAlCsgQq0clswJC1ZXWwbziZtkl5cqmbWSYeTYWG8Ml2UALHJBYumzqjsyOCma00PsFAoFSi'
 );
 const path = require('path');
 const { v4: uuidv4 } = require('uuid');

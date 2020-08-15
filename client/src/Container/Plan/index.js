@@ -5,7 +5,7 @@ import Footer from '../../Components/LPFooter';
 import { connect } from 'react-redux';
 
 const stripekey =
-  'pk_test_51HFaHGAbjDYuiy9UXAxLEtJtBUButgsH5JXvRk3fnqMfylFGteoTzYtyp6z1EEH8Egv4gmHlFbvwHv2d4oGgvXsb00u1mci8G7';
+  'pk_test_51HFF8bFYHbXxM4QyCgBnncjVHgDpdnaWhbUdK34GqX017fzipaUgI9ERGNcgNo3Y5XlyeFUgbnOSMJHJdSCAeH1i006HAKUp58';
 const Plan = ({ currentUser }) => {
   const [seletedPlan, setSeletedPlan] = useState({
     planName: 'Netflix Premium',
