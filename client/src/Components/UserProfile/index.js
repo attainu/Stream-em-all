@@ -109,7 +109,7 @@ const UserProfile = ({ img, profileName, setUserProfile, currentUser }) => {
                     <MenuItem key={index} onClick={() => handleClick(data)}>
                       <img
                         src={data.img}
-                        style={{ width: '35px', objectFit: 'cover' }}
+                        style={{ width: '2rem', height: '2rem' }}
                         alt=''
                       />
                       &nbsp;

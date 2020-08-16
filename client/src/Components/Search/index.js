@@ -5,6 +5,7 @@ import getSearchData from '../../Redux/Search/searchActionGenerator';
 import { InputBase } from '@material-ui/core';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
+import './index.scss';
 
 const useStyles = makeStyles((theme) => ({
   search: {
@@ -60,7 +61,7 @@ const Search = ({ getSearchData }) => {
     return value ? getSearchData(value) : null;
   };
   return (
-    <div className='Search' style={{ paddingLeft: '40vw' }}>
+    <div className='Search'>
       <form onSubmit={handleSubmit}>
         <div className={classes.search}>
           <div className={classes.searchIcon}>
