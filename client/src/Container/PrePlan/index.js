@@ -38,6 +38,7 @@ const PrePlan = ({ currentUser }) => {
   if (currentUser.emailVerified) {
     return <Redirect to='/plan' />;
   }
+
   return (
     <div className='pre-plan'>
       <Logo />

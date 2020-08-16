@@ -13,6 +13,7 @@ const LandingPage = lazy(() => import('../Container/LandingPage'));
 const Editmanage = lazy(() => import('../Container/EditManageProfile'));
 const Plan = lazy(() => import('../Container/Plan'));
 const PrePlan = lazy(() => import('../Container/PrePlan'));
+const Video = lazy(() => import('../Container/Video'));
 const AppRouter = () => {
   return (
     <div>
@@ -22,6 +23,7 @@ const AppRouter = () => {
         <Route exact path='/signup' component={SignUp} />
         <PrivateRoute exact path='/editmanage' component={Editmanage} />
         <PrivateRoute exact path='/plan' component={Plan} />
+        <PrivateRoute exact path='/video' component={Video} />
         <PrivateRoute exact path='/preplan' component={PrePlan} />
         <PrivateRoute exact path='/manage' component={ManageProfile} />
         <PrivateRoute exact path='/movie' component={Movie} />

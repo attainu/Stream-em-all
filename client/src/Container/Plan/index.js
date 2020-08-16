@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PackageCard from '../../Components/PackageCard';
 import Footer from '../../Components/LPFooter';
-// import StripeCheckout from 'react-stripe-checkout';
+import { firestore } from '../../Firebase';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 const stripekey =
@@ -11,6 +12,16 @@ const Plan = ({ currentUser }) => {
     planName: 'Netflix Premium',
     amount: 1250,
   });
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    const fethcdata = () => {
+      firestore.collection(currentUser.uid).onSnapshot((snapshot) => {
+        setData(snapshot.docs.map((doc) => doc.data()));
+      });
+    };
+    fethcdata();
+  }, [currentUser.uid]);
+
   const product = {
     name: seletedPlan.planName,
     price: seletedPlan.amount,
@@ -38,26 +49,27 @@ const Plan = ({ currentUser }) => {
       })
       .then((response) => {
         console.log('Response ', response);
-        console.log('Response recipt url ', response.receipt_url);
         console.log('Response recipt url ', response.result.receipt_url);
+        if (response) {
+          return firestore
+            .collection(currentUser.uid)
+            .add({
+              subscriptionStatus: true,
+              resUrl: response.result.receipt_url,
+            })
+            .then(() => {});
+        }
       })
       .catch((error) => {
         console.log(error);
       });
   };
+
+  if (data[0]) {
+    return <Redirect to='/video' />;
+  }
   return (
     <div>
-      {/* <StripeCheckout
-        image='https://dwglogo.com/wp-content/uploads/2019/02/Netflix_N_logo.png'
-        token={makePayment}
-        stripeKey={stripekey}
-        name={seletedPlan.planName}
-        currency='INR'
-        amount={seletedPlan.amount * 100}
-        key={stripekey}
-        email={currentUser.email}
-        allowRememberMe={false}
-      > */}
       <PackageCard
         seletedPlan={seletedPlan}
         setSeletedPlan={setSeletedPlan}
@@ -69,7 +81,6 @@ const Plan = ({ currentUser }) => {
         email={currentUser.email}
       />
       <Footer props={'#fff'} />
-      {/* </StripeCheckout> */}
     </div>
   );
 };
