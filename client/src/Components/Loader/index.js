@@ -7,13 +7,15 @@ const MyLoader = (props) => (
       display: 'flex',
       justifyContent: 'center',
       height: '100vh',
+      width: '100vw',
       alignItems: 'center',
+      marginLeft:'23%'
     }}
   >
     <ContentLoader
-      speed={0.5}
-      width={900}
-      height={500}
+      speed={0.7}
+      width={500}
+      height={900}
       viewBox='0 0 400 160'
       backgroundColor='#ff0000'
       foregroundColor='#000000'

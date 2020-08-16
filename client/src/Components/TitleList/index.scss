@@ -94,4 +94,12 @@ $bp-Phone: 500px;
     min-height: 35vh;
     object-fit: cover;
   }
+  .swiper-wrapper:hover .swiper-slide {
+    &:hover {
+      transform: scale(1.1);
+      .playLogo {
+        display: none;
+      }
+    }
+  }
 }

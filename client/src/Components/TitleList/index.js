@@ -42,9 +42,9 @@ const TitleList = ({ slide, title }) => {
       <Swiper
         id='main'
         loop={true}
-        slidesPerView={window.screen.width <= 600 ? 2 : 4}
+        slidesPerView={window.screen.width <= 500 ? 2 : 4}
         spaceBetween={7}
-        navigation={window.screen.width >= 600 && true}
+        navigation={window.screen.width >= 500 && true}
       >
         {output}
       </Swiper>

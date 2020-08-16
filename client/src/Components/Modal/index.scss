@@ -95,3 +95,45 @@ $color-modal-grey-2: rgb(122, 122, 122);
 .hide {
   visibility: hidden;
 }
+$bp-Phone: 500px;
+@media (max-width: $bp-Phone) {
+  .modal {
+    position: fixed;
+    z-index: 500;
+    width: 100vw;
+    top: 40%;
+    left: 0;
+    color: #fff;
+    height: 40vh;
+    box-shadow: 0 1.5rem 4rem rgba($color-dark, 0.15);
+    transition: all 0.3s;
+    // width: 100vw;
+    // height: 50vh;
+    // top: 20vh;
+    &__container {
+      background: linear-gradient(90deg, #000 50%, transparent);
+      width: 70%;
+      padding-top: 2rem;
+      height: 99%;
+      padding-left: 2rem;
+    }
+    &__title {
+      font-size: 2rem;
+    }
+
+    &__rating {
+      font-size: 1rem;
+      color: $color-green-modal;
+    }
+
+    &__info {
+      padding-top: 1rem;
+      font-size: 0.9rem;
+    }
+
+    &__episode {
+      padding-top: 0.5rem;
+      font-size: 1.5rem;
+    }
+  }
+}

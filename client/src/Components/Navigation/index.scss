@@ -29,3 +29,13 @@
     cursor: pointer;
   }
 }
+$bp-Phone: 500px;
+@media (max-width: $bp-Phone) {
+  .Navigation {
+    margin-left: 7vw;
+    ul {
+      height: 100px;
+      padding: 0 50px;
+    }
+  }
+}

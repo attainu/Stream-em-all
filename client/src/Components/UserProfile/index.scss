@@ -36,3 +36,10 @@
   background: rgba(1, 1, 1, 0.8);
   color: #fff;
 }
+$bp-Phone: 500px;
+@media (max-width: $bp-Phone) {
+  .UserProfile {
+    display: flex;
+    justify-content: flex-end;
+  }
+}

@@ -62,7 +62,10 @@ const MovieDetails = ({ movie, currentUser, userProfile }) => {
         {movie.number_of_seasons ? ' Seasons: ' + movie.number_of_seasons : ''}
       </p>
       <p className='modal__overview'>
-        {movie.overview.slice(0, 327)} {movie.overview.length > 327 && '....'}
+        {window.screen.width <= 500
+          ? movie.overview.slice(0, 120)
+          : movie.overview.slice(0, 327)}{' '}
+        {movie.overview.length > 327 && '....'}
       </p>
       <button
         className='modal__btn modal__btn--red'
