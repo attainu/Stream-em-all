@@ -74,3 +74,22 @@
 .Button[data-primary='true']:hover {
   background: #e50914;
 }
+$bp-Phone: 500px;
+@media (max-width: $bp-Phone) {
+  .Hero .content {
+    top: 40vh;
+  }
+  .Hero .content .logo {
+    max-width: 280px;
+    left: -5px;
+  }
+  .Hero .content p {
+    max-width: 380px;
+  }
+  .Button {
+    img {
+      width: 5vw;
+      margin-right: 1rem;
+    }
+  }
+}

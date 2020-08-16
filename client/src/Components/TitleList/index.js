@@ -10,7 +10,7 @@ import Logo from '../Logo2';
 import play from '../../Assets/image/play.png';
 
 SwiperCore.use(Navigation);
-const TitleList = ({ slide, title, height }) => {
+const TitleList = ({ slide, title }) => {
   const [movie, setMovie] = useState('');
   const [isToggle, settoggle] = useState(false);
   const handleClick = (value) => {
@@ -26,7 +26,7 @@ const TitleList = ({ slide, title, height }) => {
             <img className='playLogo' src={play} alt='' />
             <img
               src={`${IMAGE_BASE_URL}${GRID_IMAGE_SIZE}${data.backdrop_path}`}
-              style={{ maxWidth: '100%', minHeight: '100%' }}
+              className='SliderImage'
               alt=''
             />
             <h4 className='playText'>{data.title || data.name}</h4>
@@ -42,9 +42,9 @@ const TitleList = ({ slide, title, height }) => {
       <Swiper
         id='main'
         loop={true}
-        slidesPerView={4}
+        slidesPerView={window.screen.width <= 600 ? 2 : 4}
         spaceBetween={7}
-        navigation
+        navigation={window.screen.width >= 600 && true}
       >
         {output}
       </Swiper>

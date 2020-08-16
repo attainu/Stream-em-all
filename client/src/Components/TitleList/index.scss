@@ -82,3 +82,16 @@
     transform: rotate(180deg);
   }
 }
+.SliderImage {
+  max-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+}
+$bp-Phone: 500px;
+@media (max-width: $bp-Phone) {
+  .SliderImage {
+    max-width: 50vw;
+    min-height: 35vh;
+    object-fit: cover;
+  }
+}
