@@ -11,11 +11,11 @@ const Plan = ({ currentUser }) => {
     planName: 'Netflix Premium',
     amount: 1250,
   });
-  const [product] = useState({
+  const product = {
     name: seletedPlan.planName,
     price: seletedPlan.amount,
     productBy: 'Netflix',
-  });
+  };
 
   const makePayment = (token) => {
     const body = {
@@ -31,9 +31,15 @@ const Plan = ({ currentUser }) => {
       body: JSON.stringify(body),
     })
       .then((response) => {
-        console.log('Response ', response);
+        const data = response.json();
         const { status } = response;
         console.log('Status', status);
+        return data;
+      })
+      .then((response) => {
+        console.log('Response ', response);
+        console.log('Response recipt url ', response.receipt_url);
+        console.log('Response recipt url ', response.result.receipt_url);
       })
       .catch((error) => {
         console.log(error);
