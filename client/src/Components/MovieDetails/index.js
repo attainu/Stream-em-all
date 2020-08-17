@@ -7,7 +7,7 @@ import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import PlayIcon from '../../Assets/image/play-button.svg';
 import { useHistory } from 'react-router-dom';
 
-const MovieDetails = ({ movie, currentUser, userProfile }) => {
+const MovieDetails = ({ movie, currentUser, userProfile, myList }) => {
   const history = useHistory();
   const [toggle, setToggle] = useState(false);
   const handleAdd = () => (
@@ -20,21 +20,8 @@ const MovieDetails = ({ movie, currentUser, userProfile }) => {
       .set(movie)
   );
   useEffect(() => {
-    firestore
-      .collection(currentUser.uid)
-      .doc(userProfile.profile)
-      .collection('list')
-      .doc(`${movie.id}`)
-      .get()
-      .then((doc) => {
-        if (doc.exists) {
-          setToggle(true);
-        } else {
-          //console.log('No such document!');
-        }
-      })
-      .catch((err) => console.log(err));
-  }, [currentUser.uid, movie.id, userProfile.profile]);
+    myList.includes(movie) && setToggle(true);
+  }, [movie, myList, setToggle]);
   const handleRemove = () => (
     setToggle((prevState) => !prevState),
     firestore
@@ -44,7 +31,6 @@ const MovieDetails = ({ movie, currentUser, userProfile }) => {
       .doc(`${movie.id}`)
       .delete()
   );
-
   return (
     <div className='modal__container'>
       <h1 className='modal__title'>{movie.title || movie.name}</h1>
@@ -91,5 +77,6 @@ const MovieDetails = ({ movie, currentUser, userProfile }) => {
 const mapStateToProps = ({ user }) => ({
   currentUser: user.currentUser,
   userProfile: user.userProfile,
+  myList: user.myList,
 });
 export default connect(mapStateToProps)(MovieDetails);

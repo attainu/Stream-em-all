@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MyList = ({ currentUser, userProfile, myList }) => {
+const MyList = ({ userProfile, myList }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const person = userProfile.profile;

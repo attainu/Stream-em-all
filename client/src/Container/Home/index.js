@@ -1,13 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Movie from '../../Components/Movies';
 import Header from '../../Components/Header';
 import Hero from '../../Components/Hero';
 import Footer from '../../Components/Footer';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
+import { getMyList } from '../../Redux/User/userActionGenerator';
 import { Redirect } from 'react-router-dom';
 
-const Home = ({ currentUser }) => {
-  
+const Home = ({ currentUser, userProfile, myList }) => {
+  const dispatch = useDispatch();
+  const person = userProfile.profile;
+
+  useEffect(() => {
+    dispatch(getMyList(person));
+  }, [dispatch, person]);
   if (!currentUser) {
     return <Redirect to='/signin' />;
   }
@@ -31,5 +37,7 @@ const Home = ({ currentUser }) => {
 };
 const mapStateToProps = ({ user }) => ({
   currentUser: user.currentUser,
+  userProfile: user.userProfile,
+  myList: user.myList,
 });
 export default connect(mapStateToProps)(Home);
