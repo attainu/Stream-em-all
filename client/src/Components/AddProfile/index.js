@@ -10,12 +10,12 @@ import {
 } from '@material-ui/core';
 import Logo from '../Logo';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import { firestore } from '../../Firebase';
 import { connect } from 'react-redux';
 import ChooseProfile from '../ChooseProfile';
 import upload from '../../Assets/images/upload.svg';
 import Swal from 'sweetalert2';
 import ProgressBar from '../ProgressBar';
+import { addoneProfiles } from '../../Utils/addProfile';
 import './index.scss';
 
 const useStyles = makeStyles((theme) => ({
@@ -68,25 +68,17 @@ const AddProfile = ({ props, setProfile, currentUser }) => {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes, Add it!',
-    }).then((result) => {
+    }).then(async (result) => {
       if (result.value) {
-        firestore
-          .collection(currentUser.uid)
-          .doc('userprofile')
-          .collection('profiles')
-          .add({
-            img: Image,
-            profile: title,
-          })
-          .then(() => {
-            Swal.fire({
-              showConfirmButton: false,
-              icon: 'success',
-              timer: 1000,
-              title: 'Your Profile has been Added.',
-            });
-            setProfile('');
+        await addoneProfiles(Image, title).then(() => {
+          Swal.fire({
+            showConfirmButton: false,
+            icon: 'success',
+            timer: 1000,
+            title: 'Your Profile has been Added.',
           });
+          setProfile('');
+        });
       }
     });
   };
@@ -95,7 +87,7 @@ const AddProfile = ({ props, setProfile, currentUser }) => {
       <ChooseProfile
         open={open}
         Image={Image}
-        setImage={file ? setImage : null}
+        setImage={setImage}
         setOpen={setOpen}
       />
       <Logo />

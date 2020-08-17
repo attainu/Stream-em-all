@@ -35,3 +35,12 @@ export default () => {
       })
   );
 };
+export const addoneProfiles = (Image, title) =>
+  firestore
+    .collection(auth.currentUser.uid)
+    .doc('userprofile')
+    .collection('profiles')
+    .add({
+      img: Image,
+      profile: title,
+    });
