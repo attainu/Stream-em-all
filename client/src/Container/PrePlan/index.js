@@ -38,10 +38,7 @@ const PrePlan = ({ currentUser, subscriptionStatus }) => {
   };
   useEffect(() => {
     dispatch(setStatus());
-    if (subscriptionStatus) {
-      return <Redirect to='/video' />;
-    }
-  }, [dispatch, subscriptionStatus]);
+  }, [dispatch]);
 
   if (currentUser.emailVerified) {
     return <Redirect to='/plan' />;
