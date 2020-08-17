@@ -11,8 +11,9 @@ export const setUserProfile = (Profile) => ({
   payload: Profile,
 });
 
-export const setSubStatus = () => ({
+export const setSubStatus = (payload) => ({
   type: status,
+  payload,
 });
 
 export const setStatus = () => (dispatch) => {
@@ -20,11 +21,8 @@ export const setStatus = () => (dispatch) => {
     (snapshot) => {
       const data = snapshot.docs.map((doc) => doc.data());
       if (data[0]) {
-        console.log(data);
-        console.log(data[0]);
-        console.log(data[0].resUrl);
-        console.log(data.resUrl);
-        dispatch(setSubStatus());
+
+        dispatch(setSubStatus(data[0].resUrl));
       }
     },
     (err) => {

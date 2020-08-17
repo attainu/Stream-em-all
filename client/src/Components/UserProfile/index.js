@@ -1,8 +1,11 @@
 import React, { useEffect, useState, useRef } from 'react';
 import './index.scss';
-import { connect } from 'react-redux';
-import { auth, firestore } from '../../Firebase';
-import { setUserProfile } from '../../Redux/User/userActionGenerator';
+import { connect, useDispatch } from 'react-redux';
+import { auth } from '../../Firebase';
+import {
+  setUserProfile,
+  setStatus,
+} from '../../Redux/User/userActionGenerator';
 import { useHistory } from 'react-router-dom';
 import {
   ClickAwayListener,
@@ -13,10 +16,16 @@ import {
   MenuList,
 } from '@material-ui/core';
 
-const UserProfile = ({ img, profileName, setUserProfile, currentUser }) => {
+const UserProfile = ({
+  img,
+  profileName,
+  setUserProfile,
+  paymentReciept,
+  Profiles,
+}) => {
   const history = useHistory();
-  const [profile, setProfile] = useState([]);
   const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
   const anchorRef = useRef(null);
 
   const handleToggle = () => {
@@ -48,25 +57,13 @@ const UserProfile = ({ img, profileName, setUserProfile, currentUser }) => {
 
     prevOpen.current = open;
   }, [open]);
-  useEffect(() => {
-    const fethcdata = () => {
-      firestore
-        .collection(currentUser.uid)
-        .doc('userprofile')
-        .collection('profiles')
-        .onSnapshot((snapshot) => {
-          setProfile(snapshot.docs.map((doc) => doc.data()));
-        });
-    };
-    fethcdata();
-  }, [currentUser.uid]);
+
   const handleClick = (data) => {
     setUserProfile(data);
   };
-  // useEffect(() => {
-  //   setUserProfile(profile);
-  //   profile && history.push('/movie');
-  // }, [history, profile, setUserProfile]);
+  useEffect(() => {
+    dispatch(setStatus());
+  }, [dispatch]);
   return (
     <div className='UserProfile'>
       <div>
@@ -105,7 +102,7 @@ const UserProfile = ({ img, profileName, setUserProfile, currentUser }) => {
                   id='menu-list-grow'
                   onKeyDown={handleListKeyDown}
                 >
-                  {profile.map((data, index) => (
+                  {Profiles.map((data, index) => (
                     <MenuItem key={index} onClick={() => handleClick(data)}>
                       <img
                         src={data.img}
@@ -120,6 +117,13 @@ const UserProfile = ({ img, profileName, setUserProfile, currentUser }) => {
                   <MenuItem onClick={() => history.push('/manage')}>
                     Manage Profile
                   </MenuItem>
+                  {paymentReciept && (
+                    <MenuItem
+                      onClick={() => window.open(paymentReciept, '_blank')}
+                    >
+                      Payment Reciept
+                    </MenuItem>
+                  )}
                   <MenuItem onClick={() => auth.signOut()}>Logout</MenuItem>
                 </MenuList>
               </ClickAwayListener>
@@ -133,9 +137,11 @@ const UserProfile = ({ img, profileName, setUserProfile, currentUser }) => {
 const mapDispatchToProps = (dispatch) => ({
   setUserProfile: (user) => dispatch(setUserProfile(user)),
 });
-const mapStateToProps = ({ user }) => ({
+const mapStateToProps = ({ user, profiles }) => ({
   currentUser: user.currentUser,
   img: user.userProfile.img,
   profileName: user.userProfile.profile,
+  paymentReciept: user.paymentReciept,
+  Profiles: profiles.Profiles,
 });
 export default connect(mapStateToProps, mapDispatchToProps)(UserProfile);

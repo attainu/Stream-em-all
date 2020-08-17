@@ -42,9 +42,7 @@ const Plan = ({ currentUser, subscriptionStatus }) => {
       const { status } = response;
       console.log('Status', status);
       const response_2 = await data;
-      console.log('Response ', response_2);
       window.open(`${response_2.result.receipt_url}`, '_blank');
-      console.log('Response recipt url ', response_2.result.receipt_url);
       if (response_2) {
         return firestore.collection(currentUser.uid).add({
           subscriptionStatus: true,
@@ -57,9 +55,9 @@ const Plan = ({ currentUser, subscriptionStatus }) => {
     }
   };
 
-  if (subscriptionStatus) {
-    return <Redirect to='/video' />;
-  }
+  // if (subscriptionStatus) {
+  //   return <Redirect to='/video' />;
+  // }
   return (
     <div>
       <PackageCard

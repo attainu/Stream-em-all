@@ -5,6 +5,7 @@ const INITIAL_STATE = {
   currentUser: null,
   userProfile: null,
   subscriptionStatus: false,
+  paymentReciept: null,
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -24,6 +25,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         subscriptionStatus: true,
+        paymentReciept: payload,
       };
     default:
       return state;
