@@ -38,10 +38,7 @@ app.get('/', (req, res) => {
 
 app.post('/paymemt', (req, res) => {
   const { product, token } = req.body;
-  console.log('Product', product);
-  console.log('Price', product.price);
   const idempotencyKey = uuidv4();
-
   return stripe.charges
     .create(
       {
