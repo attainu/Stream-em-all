@@ -8,6 +8,7 @@ import { firestore, auth } from '../../Firebase';
 import Logo from '../../Components/Logo';
 import Swal from 'sweetalert2';
 import './index.scss';
+import addProfile from '../../Utils/addProfile';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -88,50 +89,13 @@ const ManageProfile = ({
               currentUser.providerData[0].providerId === 'facebook.com' ||
               currentUser.providerData[0].providerId === 'google.com'
             ) {
-              firestore
-                .collection(currentUser.uid)
-                .doc('userprofile')
-                .collection('profiles')
-                .add({
-                  img:
-                    currentUser.photoURL || 'https://i.ibb.co/vvK8FX6/iu-3.jpg',
-                  profile: currentUser.displayName,
-                });
-              firestore
-                .collection(currentUser.uid)
-                .doc('userprofile')
-                .collection('profiles')
-                .add({
-                  img: 'https://i.ibb.co/WKrPzZd/iu.jpg',
-                  profile: 'Mommy',
-                });
-              firestore
-                .collection(currentUser.uid)
-                .doc('userprofile')
-                .collection('profiles')
-                .add({
-                  img: 'https://i.ibb.co/JpdSW1q/iu-4.jpg',
-                  profile: 'Jack',
-                });
-              firestore
-                .collection(currentUser.uid)
-                .doc('userprofile')
-                .collection('profiles')
-                .add({
-                  img: 'https://i.ibb.co/ZGwhrNH/iu-2.jpg',
-                  profile: 'Dad',
-                });
+              addProfile();
             }
           }
         });
     };
     fethcdata();
-  }, [
-    currentUser.displayName,
-    currentUser.photoURL,
-    currentUser.providerData,
-    currentUser.uid,
-  ]);
+  }, [currentUser.providerData]);
   useEffect(() => {
     const fethcdata = () => {
       firestore
@@ -222,7 +186,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(withRouter(ManageProfile));
-// https://i.ibb.co/ZGwhrNH/iu-2.jpg
-// https://i.ibb.co/JpdSW1q/iu-4.jpg
-// https://i.ibb.co/vvK8FX6/iu-3.jpg
-// https://i.ibb.co/WKrPzZd/iu.jpg
