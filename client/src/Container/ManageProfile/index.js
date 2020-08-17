@@ -55,7 +55,7 @@ const ManageProfile = ({
   const classes = useStyles();
   const [profile, setProfile] = useState('');
   const dispatch = useDispatch();
-  // const [users, setUsers] = useState([]);
+
   useEffect(() => {
     const updateEmail = async () => {
       if (currentUser.email === null) {
@@ -131,13 +131,13 @@ const ManageProfile = ({
           </Typography>
         </Grid>
         <Grid container item lg={8} sm={8} className={classes.row}>
-          {profiles.map((data, index) => (
+          {profiles.map(({ data, docid }) => (
             <Grid
               item
               lg={3}
               className={classes.row}
               sm={12}
-              key={index}
+              key={docid}
               style={{
                 display: 'flex',
                 flexDirection: 'column',

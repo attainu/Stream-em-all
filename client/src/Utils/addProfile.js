@@ -44,3 +44,22 @@ export const addoneProfiles = (Image, title) =>
       img: Image,
       profile: title,
     });
+export const deleteoneProfile = (docid) =>
+  firestore
+    .collection(auth.currentUser.uid)
+    .doc('userprofile')
+    .collection('profiles')
+    .doc(docid)
+    .delete();
+export const updateoneProfile = (docid, Image, title) =>
+  firestore
+    .collection(auth.currentUser.uid)
+    .doc('userprofile')
+    .collection('profiles')
+    .doc(docid)
+    .update({
+      profile: title,
+      img: Image,
+    });
+export const deleteRestData = (profile) =>
+  firestore.collection(auth.currentUser.uid).doc(profile).delete();

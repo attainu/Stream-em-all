@@ -15,6 +15,11 @@ import { connect } from 'react-redux';
 import ChooseProfile from '../ChooseProfile';
 import Swal from 'sweetalert2';
 import ProgressBar from '../ProgressBar';
+import {
+  deleteoneProfile,
+  deleteRestData,
+  updateoneProfile,
+} from '../../Utils/addProfile';
 import './index.scss';
 
 const useStyles = makeStyles((theme) => ({
@@ -43,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const EditProfile = ({ props, setProfile, currentUser }) => {
+const EditProfile = ({ props, setProfile, currentUser, profiles }) => {
   const [open, setOpen] = useState(false);
   const { img, profile, docid } = props;
   const [title, setTitle] = useState(profile);
@@ -52,20 +57,8 @@ const EditProfile = ({ props, setProfile, currentUser }) => {
   const [file, setFile] = useState(null);
   const [fileerror, setError] = useState(null);
   useEffect(() => {
-    const fethcdata = () => {
-      firestore
-        .collection(currentUser.uid)
-        .doc('userprofile')
-        .collection('profiles')
-        .onSnapshot((snapshot) => {
-          const data = snapshot.docs.map((doc) => doc.data());
-          if (data.length === 1) {
-            setDelete(false);
-          }
-        });
-    };
-    fethcdata();
-  }, [currentUser.uid]);
+    profiles.length === 1 && setDelete(false);
+  }, [setDelete, profiles]);
 
   const updateProfile = () => {
     return (Image !== img || title !== profile) && title !== ''
@@ -79,24 +72,15 @@ const EditProfile = ({ props, setProfile, currentUser }) => {
           confirmButtonText: 'Yes, Update it!',
         }).then((result) => {
           if (result.value) {
-            firestore
-              .collection(currentUser.uid)
-              .doc('userprofile')
-              .collection('profiles')
-              .doc(docid)
-              .update({
-                profile: title,
-                img: Image,
-              })
-              .then(() => {
-                Swal.fire({
-                  showConfirmButton: false,
-                  icon: 'success',
-                  timer: 1000,
-                  title: 'Your Profile has been Updated.',
-                });
-                setProfile('');
+            updateoneProfile(docid, Image, title).then(() => {
+              Swal.fire({
+                showConfirmButton: false,
+                icon: 'success',
+                timer: 1000,
+                title: 'Your Profile has been Updated.',
               });
+              setProfile('');
+            });
           }
         })
       : setProfile('');
@@ -110,29 +94,19 @@ const EditProfile = ({ props, setProfile, currentUser }) => {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes, delete it!',
-    }).then((result) => {
+    }).then(async (result) => {
       if (result.value) {
-        firestore
-          .collection(currentUser.uid)
-          .doc('userprofile')
-          .collection('profiles')
-          .doc(docid)
-          .delete()
-          .then(() => {
-            firestore
-              .collection(currentUser.uid)
-              .doc(profile)
-              .delete()
-              .then(() => {
-                Swal.fire({
-                  showConfirmButton: false,
-                  icon: 'success',
-                  timer: 1000,
-                  title: 'Your file has been deleted.',
-                });
-                setProfile('');
-              });
+        await deleteoneProfile(docid).then(() => {
+          deleteRestData(profile).then(() => {
+            Swal.fire({
+              showConfirmButton: false,
+              icon: 'success',
+              timer: 1000,
+              title: 'Your file has been deleted.',
+            });
+            setProfile('');
           });
+        });
       }
     });
   };
@@ -250,8 +224,9 @@ const EditProfile = ({ props, setProfile, currentUser }) => {
   );
 };
 
-const mapStateToProps = ({ user }) => ({
+const mapStateToProps = ({ user, profiles }) => ({
   currentUser: user.currentUser,
   userProfile: user.userProfile,
+  profiles: profiles.Profiles,
 });
 export default connect(mapStateToProps)(EditProfile);

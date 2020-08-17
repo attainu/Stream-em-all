@@ -102,8 +102,8 @@ const UserProfile = ({
                   id='menu-list-grow'
                   onKeyDown={handleListKeyDown}
                 >
-                  {Profiles.map((data, index) => (
-                    <MenuItem key={index} onClick={() => handleClick(data)}>
+                  {Profiles.map(({ data, docid }) => (
+                    <MenuItem key={docid} onClick={() => handleClick(data)}>
                       <img
                         src={data.img}
                         style={{ width: '2rem', height: '2rem' }}

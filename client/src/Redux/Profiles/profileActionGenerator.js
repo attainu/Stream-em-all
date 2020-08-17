@@ -13,14 +13,17 @@ export const getProfiles = () => (dispatch) => {
     .collection('profiles')
     .onSnapshot(
       (snapshot) => {
-        dispatch(getProfileAction(snapshot.docs.map((doc) => doc.data())));
+        dispatch(
+          getProfileAction(
+            snapshot.docs.map((doc) => ({ docid: doc.id, data: doc.data() }))
+          )
+        );
       },
       (err) => {
         console.log(`Encountered error: ${err}`);
       }
     );
 };
-
 
 // firestore
 //   .collection(currentUser.uid)

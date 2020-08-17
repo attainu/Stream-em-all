@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Typography } from '@material-ui/core';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { withRouter, Redirect } from 'react-router-dom';
-import { firestore } from '../../Firebase';
 import addicon from '../../Assets/images/addicon2.svg';
+import { getProfiles } from '../../Redux/Profiles/profileActionGenerator';
 import Logo from '../../Components/Logo';
 import EditIcon from '../../Components/Editoption';
 import EditProTwo from '../../Components/EditProfile';
@@ -37,29 +37,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const EditManageProfile = ({ history, currentUser, userProfile }) => {
+const EditManageProfile = ({ history, currentUser, userProfile, profiles }) => {
   const classes = useStyles();
   const [profile, setProfile] = useState('');
-  const [user, setUser] = useState([]);
+  const dispatch = useDispatch();
   useEffect(() => {
-    const fethcdata = () => {
-      firestore
-        .collection(currentUser.uid)
-        .doc('userprofile')
-        .collection('profiles')
-        .onSnapshot((snapshot) => {
-          setUser(
-            snapshot.docs.map((doc) => ({ docid: doc.id, data: doc.data() }))
-          );
-        });
-    };
-    fethcdata();
-  }, [currentUser.uid]);
+    dispatch(getProfiles());
+  }, [dispatch]);
 
   const handleClick = (img, data, docid) => {
     setProfile({ img: img, profile: data, docid: docid });
   };
-
+  console.log(profiles);
   if (!currentUser) {
     return <Redirect to='/signin' />;
   }
@@ -79,7 +68,7 @@ const EditManageProfile = ({ history, currentUser, userProfile }) => {
           </Typography>
         </Grid>
         <Grid container item lg={9} sm={8} className={classes.row}>
-          {user.map(({ data, docid }, index) => (
+          {profiles.map(({ data, docid }, index) => (
             <Grid
               item
               lg={3}
@@ -95,7 +84,7 @@ const EditManageProfile = ({ history, currentUser, userProfile }) => {
               </Typography>
             </Grid>
           ))}
-          {user.length < 4 && (
+          {profiles.length < 4 && (
             <Grid
               item
               lg={3}
@@ -147,12 +136,9 @@ const EditManageProfile = ({ history, currentUser, userProfile }) => {
     <EditProTwo props={profile} setProfile={setProfile} />
   );
 };
-const mapStateToProps = ({ user }) => ({
+const mapStateToProps = ({ user, profiles }) => ({
   currentUser: user.currentUser,
   userProfile: user.userProfile,
+  profiles: profiles.Profiles,
 });
 export default connect(mapStateToProps)(withRouter(EditManageProfile));
-// https://i.ibb.co/ZGwhrNH/iu-2.jpg
-// https://i.ibb.co/JpdSW1q/iu-4.jpg
-// https://i.ibb.co/vvK8FX6/iu-3.jpg
-// https://i.ibb.co/WKrPzZd/iu.jpg
