@@ -54,21 +54,19 @@ app.post('/paymemt', (req, res) => {
       res.status(200).json({
         result,
       });
-      console.log('charge>', result);
       const mailOptions = {
         from: 'Subscription <admin@netflixv2.com>',
         to: token.email,
         subject: 'Netflix-V2 subscription!',
-        text: ' You have purchased a subscription!',
+        text: ` You have purchased a subscription! 🚀
+        to Download your Payment Reciept click below =>
+        ${result.receipt_url}`,
       };
-      console.log('mailOptions>', mailOptions);
+
       transporter.sendMail(mailOptions, function (error, info) {
         console.log('error1>', error);
-        console.log('info>', info);
         if (error) {
           console.log(error);
-        } else {
-          console.log('Email sent: ' + info.response);
         }
       });
     })

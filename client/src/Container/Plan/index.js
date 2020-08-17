@@ -3,24 +3,20 @@ import PackageCard from '../../Components/PackageCard';
 import Footer from '../../Components/LPFooter';
 import { firestore } from '../../Firebase';
 import { Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
+import { setStatus } from '../../Redux/User/userActionGenerator';
 
 const stripekey =
   'pk_test_51HFF8bFYHbXxM4QyCgBnncjVHgDpdnaWhbUdK34GqX017fzipaUgI9ERGNcgNo3Y5XlyeFUgbnOSMJHJdSCAeH1i006HAKUp58';
-const Plan = ({ currentUser }) => {
+const Plan = ({ currentUser, subscriptionStatus }) => {
+  const dispatch = useDispatch();
   const [seletedPlan, setSeletedPlan] = useState({
     planName: 'Netflix Premium',
     amount: 1250,
   });
-  const [data, setData] = useState([]);
   useEffect(() => {
-    const fethcdata = () => {
-      firestore.collection(currentUser.uid).onSnapshot((snapshot) => {
-        setData(snapshot.docs.map((doc) => doc.data()));
-      });
-    };
-    fethcdata();
-  }, [currentUser.uid]);
+    dispatch(setStatus());
+  });
 
   const product = {
     name: seletedPlan.planName,
@@ -28,7 +24,7 @@ const Plan = ({ currentUser }) => {
     productBy: 'Netflix',
   };
 
-  const makePayment = (token) => {
+  const makePayment = async (token) => {
     const body = {
       token,
       product,
@@ -36,36 +32,32 @@ const Plan = ({ currentUser }) => {
     const headers = {
       'Content-Type': 'application/json',
     };
-    return fetch('http://localhost:5001/paymemt', {
-      method: 'POST',
-      headers,
-      body: JSON.stringify(body),
-    })
-      .then((response) => {
-        const data = response.json();
-        const { status } = response;
-        console.log('Status', status);
-        return data;
-      })
-      .then((response) => {
-        console.log('Response ', response);
-        console.log('Response recipt url ', response.result.receipt_url);
-        if (response) {
-          return firestore
-            .collection(currentUser.uid)
-            .add({
-              subscriptionStatus: true,
-              resUrl: response.result.receipt_url,
-            })
-            .then(() => {});
-        }
-      })
-      .catch((error) => {
-        console.log(error);
+    try {
+      const response = await fetch('http://localhost:5001/paymemt', {
+        method: 'POST',
+        headers,
+        body: JSON.stringify(body),
       });
+      const data = response.json();
+      const { status } = response;
+      console.log('Status', status);
+      const response_2 = await data;
+      console.log('Response ', response_2);
+      window.open(`${response_2.result.receipt_url}`, '_blank');
+      console.log('Response recipt url ', response_2.result.receipt_url);
+      if (response_2) {
+        return firestore.collection(currentUser.uid).add({
+          subscriptionStatus: true,
+          resUrl: response_2.result.receipt_url,
+        });
+      }
+    }
+    catch (error) {
+      console.log(error);
+    }
   };
 
-  if (data[0]) {
+  if (subscriptionStatus) {
     return <Redirect to='/video' />;
   }
   return (
@@ -86,5 +78,6 @@ const Plan = ({ currentUser }) => {
 };
 const mapStateToProps = ({ user }) => ({
   currentUser: user.currentUser,
+  subscriptionStatus: user.subscriptionStatus,
 });
 export default connect(mapStateToProps)(Plan);

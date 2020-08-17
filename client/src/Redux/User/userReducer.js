@@ -1,9 +1,10 @@
 import userActions from './userActionTypes';
-const { logIn, userProfile } = userActions;
+const { logIn, userProfile, status } = userActions;
 
 const INITIAL_STATE = {
   currentUser: null,
   userProfile: null,
+  subscriptionStatus: false,
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -18,6 +19,11 @@ const userReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         userProfile: payload,
+      };
+    case status:
+      return {
+        ...state,
+        subscriptionStatus: true,
       };
     default:
       return state;

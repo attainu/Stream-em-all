@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './index.css';
 import PrePlancard from '../../Components/PrePlanCard';
 import Logo from '../../Components/Logo';
 import { auth } from '../../Firebase';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import { setStatus } from '../../Redux/User/userActionGenerator';
 import Swal from 'sweetalert2';
 
-const PrePlan = ({ currentUser }) => {
+const PrePlan = ({ currentUser, subscriptionStatus }) => {
+  const dispatch = useDispatch();
   if (!currentUser.emailVerified) {
     Swal.fire({
       title: 'you need to verify your email',
@@ -34,11 +36,19 @@ const PrePlan = ({ currentUser }) => {
       console.log(err.message);
     }
   };
+  useEffect(() => {
+    dispatch(setStatus());
+    if (subscriptionStatus) {
+      return <Redirect to='/video' />;
+    }
+  }, [dispatch, subscriptionStatus]);
 
   if (currentUser.emailVerified) {
     return <Redirect to='/plan' />;
   }
-
+  if (subscriptionStatus) {
+    return <Redirect to='/video' />;
+  }
   return (
     <div className='pre-plan'>
       <Logo />
@@ -49,5 +59,6 @@ const PrePlan = ({ currentUser }) => {
 
 const mapStateToProps = ({ user }) => ({
   currentUser: user.currentUser,
+  subscriptionStatus: user.subscriptionStatus,
 });
 export default connect(mapStateToProps)(PrePlan);

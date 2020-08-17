@@ -102,7 +102,7 @@ const ManageProfile = ({
 
   useEffect(() => {
     dispatch(getProfiles());
-  });
+  }, [dispatch]);
 
   useEffect(() => {
     setUserProfile(profile);
