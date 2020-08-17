@@ -1,6 +1,6 @@
 import { firestore, auth } from '../../Firebase';
 import userActions from './userActionTypes';
-const { logIn, userProfile, status } = userActions;
+const { logIn, userProfile, status, getList } = userActions;
 
 export const setUser = (user) => ({
   type: logIn,
@@ -51,4 +51,18 @@ export const Payment = async (body) => {
   } catch (error) {
     console.log(error);
   }
+};
+
+const getMyListonly = (payload) => ({
+  type: getList,
+  payload,
+});
+export const getMyList = (person) => (dispatch) => {
+  firestore
+    .collection(auth.currentUser.uid)
+    .doc(person)
+    .collection('list')
+    .onSnapshot((snapshot) => {
+      dispatch(getMyListonly(snapshot.docs.map((doc) => doc.data())));
+    });
 };

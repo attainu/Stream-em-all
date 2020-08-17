@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PackageCard from '../../Components/PackageCard';
 import Footer from '../../Components/LPFooter';
-import { firestore } from '../../Firebase';
 import { Redirect } from 'react-router-dom';
 import { connect, useDispatch } from 'react-redux';
 import { setStatus, Payment } from '../../Redux/User/userActionGenerator';

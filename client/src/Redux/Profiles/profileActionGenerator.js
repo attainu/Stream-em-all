@@ -24,11 +24,3 @@ export const getProfiles = () => (dispatch) => {
       }
     );
 };
-
-// firestore
-//   .collection(currentUser.uid)
-//   .doc('userprofile')
-//   .collection('profiles')
-//   .onSnapshot((snapshot) => {
-//     setUsers(snapshot.docs.map((doc) => doc.data()));
-//   });

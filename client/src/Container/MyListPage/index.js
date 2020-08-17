@@ -1,10 +1,10 @@
-import React, { useEffect, useState, Fragment } from 'react';
-import { firestore } from '../../Firebase';
+import React, { useEffect, Fragment } from 'react';
 import Header from '../../Components/Header';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import GridCard from '../../Components/GridCard';
+import { getMyList } from '../../Redux/User/userActionGenerator';
 import './index.scss';
 
 const useStyles = makeStyles((theme) => ({
@@ -14,29 +14,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MyList = ({ currentUser, userProfile }) => {
-  const [movie, setMovie] = useState([]);
+const MyList = ({ currentUser, userProfile, myList }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const person = userProfile.profile;
 
   useEffect(() => {
-    const fethcdata = () => {
-      firestore
-        .collection(currentUser.uid)
-        .doc(person)
-        .collection('list')
-        .onSnapshot((snapshot) => {
-          setMovie(snapshot.docs.map((doc) => doc.data()));
-        });
-    };
-    fethcdata();
-  }, [currentUser.uid, person]);
+    dispatch(getMyList(person));
+  }, [dispatch, person]);
   return (
     <Fragment>
       <Header />
       <div className={classes.root}>
         <Grid container className='grid' spacing={3}>
-          {movie.map((data, index) => (
+          {myList.map((data, index) => (
             <GridCard key={index} movie={data} />
           ))}
         </Grid>
@@ -47,5 +38,6 @@ const MyList = ({ currentUser, userProfile }) => {
 const mapStateToProps = ({ user }) => ({
   currentUser: user.currentUser,
   userProfile: user.userProfile,
+  myList: user.myList,
 });
 export default connect(mapStateToProps)(MyList);

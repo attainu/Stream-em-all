@@ -5,11 +5,11 @@ import { connect, useDispatch } from 'react-redux';
 import { setUserProfile, setUser } from '../../Redux/User/userActionGenerator';
 import { getProfiles } from '../../Redux/Profiles/profileActionGenerator';
 import { withRouter, Redirect } from 'react-router-dom';
-import { firestore, auth } from '../../Firebase';
+import { auth } from '../../Firebase';
 import Logo from '../../Components/Logo';
 import Swal from 'sweetalert2';
 import './index.scss';
-import addProfile from '../../Utils/addProfile';
+import { ManageggProfile } from '../../Utils/addProfile';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -80,25 +80,8 @@ const ManageProfile = ({
     });
   }, [setupdatedUser]);
   useEffect(() => {
-    const fethcdata = () => {
-      firestore
-        .collection(currentUser.uid)
-        .doc('userprofile')
-        .collection('profiles')
-        .onSnapshot((snapshot) => {
-          const data = snapshot.docs.map((doc) => doc.data());
-          if (data.length === 0) {
-            if (
-              currentUser.providerData[0].providerId === 'facebook.com' ||
-              currentUser.providerData[0].providerId === 'google.com'
-            ) {
-              addProfile();
-            }
-          }
-        });
-    };
-    fethcdata();
-  }, [currentUser]);
+    ManageggProfile();
+  });
 
   useEffect(() => {
     dispatch(getProfiles());
