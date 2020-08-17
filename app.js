@@ -50,8 +50,11 @@ app.post('/paymemt', (req, res) => {
       },
       { idempotencyKey }
     )
-    .then((charge) => {
-      console.log('charge>', charge);
+    .then((result) => {
+      res.status(200).json({
+        result,
+      });
+      console.log('charge>', result);
       const mailOptions = {
         from: 'Subscription <admin@netflixv2.com>',
         to: token.email,
