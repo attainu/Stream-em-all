@@ -95,7 +95,7 @@ const ManageProfile = ({
         });
     };
     fethcdata();
-  }, [currentUser.providerData]);
+  }, [currentUser]);
   useEffect(() => {
     const fethcdata = () => {
       firestore
