@@ -4,6 +4,8 @@ import ImgTv from '../../../Assets/images/tab-tv.png';
 import ImgMacBook from '../../../Assets/images/tab-macbook.png';
 import ImgTab from '../../../Assets/images/tab-tablet.png';
 import { useHistory } from 'react-router-dom';
+// media query
+import { generateMedia } from 'styled-media-query';
 
 const TabContentDoor = () => {
   const history = useHistory();
@@ -55,7 +57,12 @@ const TabContentDoor = () => {
 export default TabContentDoor;
 
 // Styled Component
-
+const customMedia = generateMedia({
+  lgDesktop: '84rem',
+  mdDesktop: '70rem',
+  tablet: '60rem',
+  mobile: '46rem',
+});
 const TabContainer = styled.div`
   background: var(--main-deep-dark);
   .tab-content-door {
@@ -83,6 +90,11 @@ const TabContainer = styled.div`
     &:hover {
       background: var(--main-red-hover);
     }
+    ${customMedia.lessThan('lgDesktop')`
+    grid-column: 1/-1;
+    font-size: .9rem;
+    margin: 0 10%;
+ `}
   }
 
   // tab top content
@@ -92,12 +104,25 @@ const TabContainer = styled.div`
     justify-content: center;
     align-item: center;
     padding: 2.5rem 9;
+    ${customMedia.lessThan('lgDesktop')`
+      grid-template-columns: repeat(2, 1fr)
+    `}
+
+    ${customMedia.lessThan('tablet')`
+      grid-template-columns:  1fr;
+      text-align: center;
+       row-gap: 1.5rem;
+    `}
   }
   span {
     grid-column: 1/8;
     margin-top: 5rem;
     font-size: 1.3rem;
     line-height: 1.8rem;
+    ${customMedia.lessThan('tablet')`
+    grid-column: 1/-1;
+    font-size: 1.2rem;
+  `}
   }
   img {
     width: 18rem;
@@ -110,6 +135,12 @@ const TabContainer = styled.div`
     grid-gap: 2rem;
     text-align: center;
     margin-top: 4rem;
+    ${customMedia.lessThan('tablet')`
+     grid-template-columns: 100%;
+     align-items: center;
+     padding-left: 0;
+     padding-right: 0;
+  `}
   }
   p {
     color: var(--main-grey);

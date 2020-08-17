@@ -4,6 +4,9 @@ import styled from 'styled-components';
 import { Icon } from 'react-icons-kit';
 import { earth } from 'react-icons-kit/icomoon/earth';
 import { circleDown } from 'react-icons-kit/icomoon/circleDown';
+// media query
+import { generateMedia } from 'styled-media-query';
+
 const Footer = ({ props }) => {
   return (
     <FooterContainer
@@ -76,6 +79,13 @@ const Footer = ({ props }) => {
 
 export default Footer;
 
+//media query
+const customMedia = generateMedia({
+  lgDesktop: '84em',
+  mdDesktop: '71rem',
+  tablet: '60em',
+  mobile: '46',
+});
 const FooterContainer = styled.div`
   padding-top: 2rem;
   padding-bottom: 3rem;
@@ -87,6 +97,9 @@ const FooterContainer = styled.div`
     overflow: auto;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+    ${customMedia.lessThan('tablet')`
+     grid-template-columns: repeat(2, 1fr);
+`}
   }
   ul li {
     list-style: none;

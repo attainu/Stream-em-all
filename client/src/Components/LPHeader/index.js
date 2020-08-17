@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Icon } from 'react-icons-kit';
 import { ic_keyboard_arrow_right } from 'react-icons-kit/md/ic_keyboard_arrow_right';
+// media query
+import { generateMedia } from 'styled-media-query';
 const Header = () => {
   return (
     <HeaderComponent className='header-container'>
@@ -31,6 +33,13 @@ const Header = () => {
 export default Header;
 
 // ########### STYLED COMPONENT ##########
+//media query
+const customMedia = generateMedia({
+  lgDesktop: '84em',
+  mdDesktop: '71rem',
+  tablet: '60em',
+  mobile: '46',
+});
 
 //Logo
 const Logo = styled.img`
@@ -41,6 +50,9 @@ const Logo = styled.img`
   left: 10%;
   transform: translate(-50%, -50%);
   z-index: 1;
+  ${customMedia.lessThan('tablet')`
+      left: 25%
+  `}
 `;
 // Header-Container
 const HeaderComponent = styled.div`
@@ -62,6 +74,9 @@ const HeaderComponent = styled.div`
     &:hover {
       background: var(--main-red-hover);
     }
+    ${customMedia.lessThan('tablet')`
+    right: 5%
+`}
   }
   // Header Top
   .header-top {
@@ -99,6 +114,22 @@ const HeaderComponent = styled.div`
     &:hover {
       background: var(--main-red-hover);
     }
+    ${customMedia.lessThan('lgDesktop')`
+    font-size: 2rem;
+    
+    margin: 0 33%;
+  `}
+  ${customMedia.lessThan('mdDesktop')`
+    font-size: 1.7rem;
+    
+    margin: 0 25%;
+ `}
+    ${customMedia.lessThan('tablet')`
+    font-size: 1rem;
+    padding: 1rem;
+    margin: 0 15%;
+  `}
+
   }
 
   .Icon {
@@ -114,6 +145,9 @@ const Tittle = styled.h1`
   font-size: 5rem;
   font-weight: 700;
   line-height: 1.1em;
+  ${customMedia.lessThan('tablet')`
+  font-size: 3rem;
+`}
 `;
 
 // Sub tittle
@@ -123,4 +157,7 @@ const SubTittle = styled.h2`
   font-weight: 400;
   line-height: 1.1em;
   text-transform: uppercase;
+  ${customMedia.lessThan('tablet')`
+  font-size: 1.2rem;
+`}
 `;

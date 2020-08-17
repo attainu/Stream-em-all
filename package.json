@@ -23,6 +23,7 @@
   "dependencies": {
     "concurrently": "^5.2.0",
     "express": "^4.17.1",
+    "nodemailer": "^6.4.11",
     "stripe": "^8.76.0",
     "uuid": "^8.3.0"
   },

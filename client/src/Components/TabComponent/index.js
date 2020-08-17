@@ -28,6 +28,12 @@ const TabComponent = () => {
                 No commitments <br /> Cancel online anytime
               </strong>
             </p>
+            <span
+              className='mediaQ mediaQdevice'
+              style={{ marginTop: '.5rem' }}
+            >
+              Cancel
+            </span>
           </Tab>
 
           <Tab
@@ -38,6 +44,12 @@ const TabComponent = () => {
             <p className='TabNavDevice'>
               <strong>Watch anytime</strong>
             </p>
+            <span
+              className='mediaQ mediaQdevice'
+              style={{ marginTop: '-2rem' }}
+            >
+              Device
+            </span>
           </Tab>
 
           <Tab
@@ -48,6 +60,7 @@ const TabComponent = () => {
             <p>
               <strong>Pick your price</strong>
             </p>
+            <span className='mediaQ'>Price</span>
           </Tab>
         </TabList>
 

@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import Img from '../../../Assets/images/tab-1-pic.png';
 import { useHistory } from 'react-router-dom';
+// media query
+import { generateMedia } from 'styled-media-query';
 
 const TabContentDevice = () => {
   const history = useHistory();
@@ -9,14 +11,17 @@ const TabContentDevice = () => {
     <TabContentContainer>
       <div className='container'>
         <div className='tab-content-device'>
-          <span className='content-text'>
+          <span className='content-text' style={{ marginBottom: '2rem' }}>
             If you decide Netflix isn't for you - no problem. No commitment.
             Cancel online anytime
           </span>
           <br />
-          <button className='try-now-btn'
-          onClick={() => history.push('/signup')}
-          >Try it now</button>
+          <button
+            className='try-now-btn'
+            onClick={() => history.push('/signup')}
+          >
+            Try it now
+          </button>
           <img src={Img} alt='' />
         </div>
       </div>
@@ -27,6 +32,11 @@ const TabContentDevice = () => {
 export default TabContentDevice;
 
 // Main Container
+const customMedia = generateMedia({
+  lgDesktop: '84rem',
+  tablet: '60rem',
+  mobile: '46rem',
+});
 
 const TabContentContainer = styled.div`
   background: var(--main-deep-dark);
@@ -37,6 +47,11 @@ const TabContentContainer = styled.div`
     width: 31.5rem;
     margin-top: -12rem;
     margin-left: 5rem;
+    ${customMedia.lessThan('lgDesktop')`
+    margin-top: -5rem;
+    margin-left: -0.01rem;
+    width: 17rem;
+  `}
   }
 
   .tab-content-device {
@@ -46,6 +61,9 @@ const TabContentContainer = styled.div`
     align-items: center;
     font-size: 2rem;
     padding: 2.5rem;
+    ${customMedia.lessThan('lgDesktop')`
+      grid-template-columns:  100%
+    `}
   }
 
   .try-now-btn {
@@ -68,8 +86,19 @@ const TabContentContainer = styled.div`
     &:hover {
       background: var(--main-red-hover);
     }
+    ${customMedia.lessThan('lgDesktop')`
+    grid-column: 1/-1;
+    font-size: .9rem;
+    margin: 0 10%;
+    margin-top: -10rem;
+`}
   }
   .content-text {
-    margin-top: 5rem;
+    margin-top: 2rem;
+    ${customMedia.lessThan('lgDesktop')`
+    grid-column: 1/-1;
+    font-size: 1.2rem;
+    margin-bottom: -5rem;
+ `}
   }
 `;

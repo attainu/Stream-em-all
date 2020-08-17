@@ -4,6 +4,9 @@ import { Icon } from 'react-icons-kit';
 import { cross } from 'react-icons-kit/icomoon/cross';
 import { checkmark } from 'react-icons-kit/icomoon/checkmark';
 import { useHistory } from 'react-router-dom';
+// media query
+import { generateMedia } from 'styled-media-query';
+
 const TabContentPrice = () => {
   const history = useHistory();
   return (
@@ -119,6 +122,11 @@ const TabContentPrice = () => {
 export default TabContentPrice;
 
 // styled component
+const customMedia = generateMedia({
+  lgDesktop: '84rem',
+  tablet: '60rem',
+  mobile: '46rem',
+});
 
 const TabContainer = styled.div`
   background: var(--main-deep-dark);
@@ -148,6 +156,11 @@ const TabContainer = styled.div`
     &:hover {
       background: var(--main-red-hover);
     }
+    ${customMedia.lessThan('lgDesktop')`
+      grid-column: 1/-1;
+      font-size: .9rem;
+      margin: 0 10%;
+ `}
   }
 
   // tab top content
@@ -157,17 +170,28 @@ const TabContainer = styled.div`
     justify-content: center;
     align-item: center;
     padding: 2.5rem 9;
+    ${customMedia.lessThan('lgDesktop')`
+     grid-template-columns: 1fr;
+     row-gap: 1.5rem;
+     text-align: center;
+  `}
   }
   span {
     grid-column: 3/9;
     margin-top: 5rem;
     font-size: 1.3rem;
     line-height: 1.8rem;
+    ${customMedia.lessThan('lgDesktop')`
+    grid-column: 1/-1;
+ `}
   }
 
   // Tab bottom content(Table)
   .tab-bottom-content {
     margin: 2rem auto;
+    ${customMedia.lessThan('lgDesktop')`
+    margin-left: -2rem;
+`}
   }
 
   table {

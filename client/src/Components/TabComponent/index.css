@@ -57,6 +57,7 @@ ul li :hover svg path {
   height: 9rem;
   fill: var(--main-grey);
 }
+
 /* TabNavPrice */
 
 .tab-icon-price {
@@ -67,4 +68,44 @@ ul li :hover svg path {
 
 .tab-door {
   margin-bottom: 1.8rem;
+}
+
+/* all media query */
+@media (max-width: 760px) {
+  .tab-icon-door {
+    width: 1.4rem;
+    height: 1.4rem;
+    fill: var(--main-grey);
+  }
+}
+@media (max-width: 760px) {
+  .tab-icon-device {
+    width: 4rem;
+    height: 4rem;
+    fill: var(--main-grey);
+  }
+}
+@media (max-width: 760px) {
+  .tab-icon-price {
+    width: 2rem;
+    height: 2rem;
+    fill: var(--main-grey);
+  }
+}
+
+@media (min-width: 760px) {
+  .mediaQ {
+    display: none;
+  }
+}
+
+@media (max-width: 760px) {
+  p {
+    display: none;
+  }
+
+  .mediaQdevice {
+    display: block;
+    margin-bottom: 0.4rem;
+  }
 }
