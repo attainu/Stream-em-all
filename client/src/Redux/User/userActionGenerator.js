@@ -21,7 +21,6 @@ export const setStatus = () => (dispatch) => {
     (snapshot) => {
       const data = snapshot.docs.map((doc) => doc.data());
       if (data[0]) {
-
         dispatch(setSubStatus(data[0].resUrl));
       }
     },
@@ -29,4 +28,27 @@ export const setStatus = () => (dispatch) => {
       console.log(`Encountered error: ${err}`);
     }
   );
+};
+export const Payment = async (body) => {
+  const headers = {
+    'Content-Type': 'application/json',
+  };
+  try {
+    const response = await fetch('http://localhost:5001/paymemt', {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(body),
+    });
+    const data = response.json();
+    const response_2 = await data;
+    window.open(`${response_2.result.receipt_url}`, '_blank');
+    if (response_2) {
+      return firestore.collection(auth.currentUser.uid).add({
+        subscriptionStatus: true,
+        resUrl: response_2.result.receipt_url,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+  }
 };

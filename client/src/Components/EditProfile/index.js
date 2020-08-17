@@ -10,7 +10,6 @@ import {
 } from '@material-ui/core';
 import Logo from '../Logo';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { firestore } from '../../Firebase';
 import { connect } from 'react-redux';
 import ChooseProfile from '../ChooseProfile';
 import Swal from 'sweetalert2';
