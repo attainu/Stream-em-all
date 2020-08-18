@@ -48,7 +48,7 @@ const EditManageProfile = ({ history, currentUser, userProfile, profiles }) => {
   const handleClick = (img, data, docid) => {
     setProfile({ img: img, profile: data, docid: docid });
   };
-  console.log(profiles);
+
   if (!currentUser) {
     return <Redirect to='/signin' />;
   }

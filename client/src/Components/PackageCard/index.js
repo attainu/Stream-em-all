@@ -20,7 +20,6 @@ const PackageCard = ({
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(seletedPlan);
   };
   return (
     <Fragment>
