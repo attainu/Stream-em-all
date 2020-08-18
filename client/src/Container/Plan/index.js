@@ -6,7 +6,7 @@ import { connect, useDispatch } from 'react-redux';
 import { setStatus, Payment } from '../../Redux/User/userActionGenerator';
 
 const stripekey =
-  'pk_test_51HFF8bFYHbXxM4QyCgBnncjVHgDpdnaWhbUdK34GqX017fzipaUgI9ERGNcgNo3Y5XlyeFUgbnOSMJHJdSCAeH1i006HAKUp58';
+  'pk_test_51HGgblCk2FgipfrGhNHKuaLsUXl31XMr4UjVCHc7n2rVkCiz8QP8j49fFGIaKXSyu6wRgDh7be2yAPFPKkvdNfuP0019HfzmWe';
 const Plan = ({ currentUser, subscriptionStatus }) => {
   const dispatch = useDispatch();
   const [seletedPlan, setSeletedPlan] = useState({

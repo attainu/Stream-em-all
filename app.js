@@ -3,7 +3,7 @@ const cors = require('cors');
 const nodemailer = require('nodemailer');
 const path = require('path');
 const stripe = require('stripe')(
-  'sk_test_51HFF8bFYHbXxM4QybwCTJuBKfaKAlCsgQq0clswJC1ZXWwbziZtkl5cqmbWSYeTYWG8Ml2UALHJBYumzqjsyOCma00PsFAoFSi'
+  'sk_test_51HGgblCk2FgipfrGCCHbf3mZTSYdmpE7HTZ7mKkpKZ1VqZSDOEXxJefR0FSsl2VZn7ItcTIVMIajm4bFRKOQ9NXy00UjwRld3Y'
 );
 const { v4: uuidv4 } = require('uuid');
 
