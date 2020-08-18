@@ -2,9 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const nodemailer = require('nodemailer');
 const path = require('path');
-const stripe = require('stripe')(
-  'sk_test_51HGgblCk2FgipfrGCCHbf3mZTSYdmpE7HTZ7mKkpKZ1VqZSDOEXxJefR0FSsl2VZn7ItcTIVMIajm4bFRKOQ9NXy00UjwRld3Y'
-);
+require('dotenv').config();
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const { v4: uuidv4 } = require('uuid');
 
 const app = express();
@@ -19,8 +18,8 @@ const transporter = nodemailer.createTransport(
     host: 'smtp.mailtrap.io',
     port: 2525,
     auth: {
-      user: 'be9929b70dd679',
-      pass: '892ff6656bb4a9',
+      user: process.env.USER,
+      pass: process.env.PASS,
     },
   }
   // {

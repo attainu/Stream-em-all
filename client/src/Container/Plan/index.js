@@ -5,8 +5,7 @@ import { Redirect } from 'react-router-dom';
 import { connect, useDispatch } from 'react-redux';
 import { setStatus, Payment } from '../../Redux/User/userActionGenerator';
 
-const stripekey =
-  'pk_test_51HGgblCk2FgipfrGhNHKuaLsUXl31XMr4UjVCHc7n2rVkCiz8QP8j49fFGIaKXSyu6wRgDh7be2yAPFPKkvdNfuP0019HfzmWe';
+const stripekey = process.env.STRIPE_PUBLIC_KEY;
 const Plan = ({ currentUser, subscriptionStatus }) => {
   const dispatch = useDispatch();
   const [seletedPlan, setSeletedPlan] = useState({
