@@ -38,7 +38,7 @@ const PackageCard = ({
               onClick={() => {
                 return (
                   setCheckedRadio(1),
-                  setSeletedPlan({ planName: 'Netflix Premium', amount: 1250 })
+                  setSeletedPlan({ planName: 'Netflix Premium', amount: 12500 })
                 );
               }}
             >
@@ -49,7 +49,7 @@ const PackageCard = ({
                 name='gender'
                 checked={checkRadio === 1 ? true : false}
                 onChange={(e) => setSeletedPlan(e.target.value)}
-                value={{ planName: 'Netflix Premium', amount: 1250 }}
+                value={{ planName: 'Netflix Premium', amount: 12500 }}
               />
               <span></span>
               <div className='label'>
@@ -57,7 +57,7 @@ const PackageCard = ({
                   Premium
                 </label>
                 <br />
-                <label htmlFor='premium'>INR 1250 /month</label>
+                <label htmlFor='premium'>INR 12500 /Lifetime (4 Display)</label>
               </div>
               <hr />
               <div className='details'>
@@ -70,7 +70,7 @@ const PackageCard = ({
               className='Standard'
               onClick={() =>
                 setCheckedRadio(2) &
-                setSeletedPlan({ planName: 'Netflix Standard', amount: 850 })
+                setSeletedPlan({ planName: 'Netflix Standard', amount: 8500 })
               }
             >
               <input
@@ -79,7 +79,7 @@ const PackageCard = ({
                 className='radio'
                 checked={checkRadio === 2 ? true : false}
                 name='gender'
-                value={{ planName: 'Netflix Standard', amount: 850 }}
+                value={{ planName: 'Netflix Standard', amount: 8500 }}
                 onChange={(e) => setSeletedPlan(e.target.value)}
               />
               <span></span>
@@ -88,7 +88,7 @@ const PackageCard = ({
                   Standard
                 </label>
                 <br />
-                <label htmlFor='Standard'>INR 850 /month</label>
+                <label htmlFor='Standard'>INR 8500 /Lifetime (2 Display)</label>
               </div>
               <div className='details'>
                 <hr />
@@ -101,7 +101,7 @@ const PackageCard = ({
               className='basic'
               onClick={() =>
                 setCheckedRadio(3) &
-                setSeletedPlan({ planName: 'Netflix Basic', amount: 450 })
+                setSeletedPlan({ planName: 'Netflix Basic', amount: 4500 })
               }
             >
               <input
@@ -110,7 +110,7 @@ const PackageCard = ({
                 className='radio'
                 name='gender'
                 checked={checkRadio === 3 ? true : false}
-                value={{ planName: 'Netflix Basic', amount: 450 }}
+                value={{ planName: 'Netflix Basic', amount: 4500 }}
                 onChange={(e) => setSeletedPlan(e.target.value)}
               />
               <span></span>
@@ -119,7 +119,7 @@ const PackageCard = ({
                   Basic
                 </label>
                 <br />
-                <label htmlFor='basic'>INR 450 /month</label>
+                <label htmlFor='basic'>INR 4500 /Lifetime (1 Display)</label>
               </div>
               <hr />
               <div className='details'>

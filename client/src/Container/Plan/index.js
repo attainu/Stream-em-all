@@ -11,7 +11,7 @@ const Plan = ({ currentUser, subscriptionStatus }) => {
   const dispatch = useDispatch();
   const [seletedPlan, setSeletedPlan] = useState({
     planName: 'Netflix Premium',
-    amount: 1250,
+    amount: 12500,
   });
   useEffect(() => {
     dispatch(setStatus());
@@ -30,9 +30,9 @@ const Plan = ({ currentUser, subscriptionStatus }) => {
     });
   };
 
-  // if (subscriptionStatus) {
-  //   return <Redirect to='/video' />;
-  // }
+  if (subscriptionStatus) {
+    return <Redirect to='/video' />;
+  }
   return (
     <div>
       <PackageCard
