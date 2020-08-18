@@ -73,7 +73,7 @@ const EditManageProfile = ({ history, currentUser, userProfile, profiles }) => {
               item
               lg={3}
               className={classes.row}
-              sm={12}
+              sm={3}
               key={index}
               id='editmainimage'
               onClick={() => handleClick(data.img, data.profile, docid)}
@@ -87,9 +87,10 @@ const EditManageProfile = ({ history, currentUser, userProfile, profiles }) => {
           {profiles.length < 4 && (
             <Grid
               item
+              
               lg={3}
               className={classes.row}
-              sm={12}
+              sm={3}
               id='editmainimage'
             >
               <div

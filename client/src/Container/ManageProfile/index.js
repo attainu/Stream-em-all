@@ -27,10 +27,14 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
   },
   img: {
-    width: '200px',
-    height: '200px',
+    width: '100px',
+    height: '190px',
     cursor: 'pointer',
     objectFit: 'cover',
+    [theme.breakpoints.up('sm')]: {
+      width: '200px',
+      height: '200px',
+    },
   },
   manageButton: {
     border: '3px solid rgb(140,140,140)',
@@ -108,18 +112,19 @@ const ManageProfile = ({
         justify='center'
         alignItems='center'
       >
-        <Grid className={classes.row} container item lg={5}>
+        <Grid className={classes.row} container item xs={5} lg={5} sm={5}>
           <Typography align='center' variant='h3' gutterBottom>
             Who's Watching ?
           </Typography>
         </Grid>
-        <Grid container item lg={8} sm={8} className={classes.row}>
+        <Grid container item xs={12} lg={8} sm={8} className={classes.row}>
           {profiles.map(({ data, docid }) => (
             <Grid
               item
+              xs={3}
               lg={3}
+              sm={3}
               className={classes.row}
-              sm={12}
               key={docid}
               style={{
                 display: 'flex',
@@ -136,8 +141,15 @@ const ManageProfile = ({
             </Grid>
           ))}
         </Grid>
-        <Grid container className={classes.row} item lg={8}>
-          <Grid container item className={classes.manageButton} lg={3}>
+        <Grid container className={classes.row} item xs={8} lg={8} sm={8}>
+          <Grid
+            container
+            item
+            className={classes.manageButton}
+            xs={8}
+            lg={8}
+            sm={8}
+          >
             <Typography
               align='center'
               onClick={() => history.push('/editmanage')}

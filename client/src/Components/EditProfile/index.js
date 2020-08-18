@@ -29,7 +29,6 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(2),
     margin: 'auto',
-    minWidth: 500,
     minHeight: 200,
     background: '#221f1f',
     color: '#fff',
@@ -37,6 +36,9 @@ const useStyles = makeStyles((theme) => ({
   image: {
     width: 170,
     height: 170,
+    // [theme.breakpoints.up('sm')]: {
+
+    // },
   },
   img: {
     margin: 'auto',
