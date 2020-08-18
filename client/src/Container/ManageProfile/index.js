@@ -84,12 +84,12 @@ const ManageProfile = ({
     });
   }, [setupdatedUser]);
   useEffect(() => {
-    ManageggProfile();
-  }, []);
-
-  useEffect(() => {
     dispatch(getProfiles());
   }, [dispatch]);
+  useEffect(() => {
+    ManageggProfile();
+    // eslint-disable-next-line
+  }, [ManageggProfile]);
 
   useEffect(() => {
     setUserProfile(profile);
