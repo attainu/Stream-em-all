@@ -34,11 +34,14 @@ export const Payment = async (body) => {
     'Content-Type': 'application/json',
   };
   try {
-    const response = await fetch('http://localhost:5001/paymemt', {
-      method: 'POST',
-      headers,
-      body: JSON.stringify(body),
-    });
+    const response = await fetch(
+      `https://stream-em-all.herokuapp.com/paymemt`,
+      {
+        method: 'POST',
+        headers,
+        body: JSON.stringify(body),
+      }
+    );
     const data = response.json();
     const response_2 = await data;
     window.open(`${response_2.result.receipt_url}`, '_blank');

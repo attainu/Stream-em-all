@@ -1,13 +1,17 @@
 {
-  "name": "Streamemall",
+  "name": "streamemall",
   "version": "1.0.0",
   "description": "Project by Akash Dutta and Amar Gupta",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
     "server": "nodemon app.js",
     "client": "npm run start --prefix client",
-    "dev": "concurrently \"npm run client\" \"npm run server\""
+    "dev": "concurrently \"npm run client\" \"npm run server\"",
+    "build": "cd client && npm run build",
+    "install-client": "cd client && npm install",
+    "heroku-postbuild": "npm run install-client && npm run build"
   },
   "repository": {
     "type": "git",
@@ -22,13 +26,14 @@
   "homepage": "https://github.com/attainu/Stream-em-all#readme",
   "dependencies": {
     "concurrently": "^5.2.0",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "nodemailer": "^6.4.11",
+    "path": "^0.12.7",
     "stripe": "^8.76.0",
     "uuid": "^8.3.0"
   },
   "devDependencies": {
-    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "nodemon": "^2.0.4"
   }

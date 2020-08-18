@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const nodemailer = require('nodemailer');
+const path = require('path');
 const stripe = require('stripe')(
   'sk_test_51HFF8bFYHbXxM4QybwCTJuBKfaKAlCsgQq0clswJC1ZXWwbziZtkl5cqmbWSYeTYWG8Ml2UALHJBYumzqjsyOCma00PsFAoFSi'
 );
@@ -31,11 +32,12 @@ const transporter = nodemailer.createTransport(
   // }
 );
 
-// routes=>
-app.get('/', (req, res) => {
-  res.send('i am working');
-});
-
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
 app.post('/paymemt', (req, res) => {
   const { product, token } = req.body;
   const idempotencyKey = uuidv4();
@@ -64,7 +66,6 @@ app.post('/paymemt', (req, res) => {
       };
 
       transporter.sendMail(mailOptions, function (error, info) {
-        console.log('error1>', error);
         if (error) {
           console.log(error);
         }
@@ -74,7 +75,9 @@ app.post('/paymemt', (req, res) => {
 });
 
 // server
-const port = process.env.PORT || 5001;
-app.listen(port, () => {
-  console.log(`Server started on port ${port}`);
+
+const server_port = process.env.PORT || 80;
+const server_host = '0.0.0.0';
+app.listen(server_port, server_host, () => {
+  console.log(`Server started on port ${server_port}`);
 });

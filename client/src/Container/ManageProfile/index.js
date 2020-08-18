@@ -85,7 +85,7 @@ const ManageProfile = ({
   }, [setupdatedUser]);
   useEffect(() => {
     ManageggProfile();
-  });
+  }, []);
 
   useEffect(() => {
     dispatch(getProfiles());
