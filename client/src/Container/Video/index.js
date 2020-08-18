@@ -7,10 +7,12 @@ const Video = () => {
     <Fragment>
       <Logo />
       <ReactPlayer
-        url={'https://youtu.be/zTitoHKsyJg'}
+        url={'https://youtu.be/6ZfuNTqbHE8'}
         controls={true}
-        width={'100vh'}
-        height={'100vh'}
+        width={'100vw'}
+        height={'90vh'}
+        playing={true}
+        style={{ marginTop: '7vh' }}
       />
     </Fragment>
   );
