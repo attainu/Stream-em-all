@@ -12,23 +12,14 @@ app.use(express.json());
 app.use(cors());
 
 // initializing nodemailer
-const transporter = nodemailer.createTransport(
-  {
-    host: 'smtp.mailtrap.io',
-    port: 2525,
-    auth: {
-      user: process.env.USER,
-      pass: process.env.PASS,
-    },
-  }
-  // {
-  //   service: 'SendGrid',
-  //   auth: {
-  //     api_user: 'akashdutta93@gmail.com',
-  //     api_key: 'akashmaroon5',
-  //   },
-  // }
-);
+const transporter = nodemailer.createTransport({
+  host: 'smtp.mailtrap.io',
+  port: 2525,
+  auth: {
+    user: process.env.USER,
+    pass: process.env.PASS,
+  },
+});
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
