@@ -1,0 +1,14 @@
+.grid:hover .gridItem {
+  transition: 250ms all;
+  opacity: 0.3;
+  &:hover {
+    opacity: 1;
+    margin: 1rem;
+    transform: scale(1.15);
+    z-index: 1;
+    .myoverlay {
+      display: block;
+      z-index: 0;
+    }
+  }
+}

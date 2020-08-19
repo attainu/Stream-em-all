@@ -1,0 +1,9 @@
+.Search {
+  padding-left: 40vw !important;
+}
+$bp-Phone: 500px;
+@media (max-width: $bp-Phone) {
+  .Search {
+    padding-left: 20vw !important;
+  }
+}

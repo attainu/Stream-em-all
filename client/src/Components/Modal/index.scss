@@ -1,0 +1,139 @@
+$color-dark: #171818;
+$color-background: #111111;
+$color-green-modal: rgb(92, 223, 92);
+$color-red-2: #f80616de;
+$color-modal-grey-2: rgb(122, 122, 122);
+
+.modal {
+  position: fixed;
+  z-index: 500;
+  width: 100%;
+  top: 0;
+  left: 0;
+  color: #fff;
+  height: 55vh;
+  opacity: 0;
+  box-shadow: 0 1.5rem 4rem rgba($color-dark, 0.15);
+  transition: all 0.3s;
+
+  &__container {
+    background: linear-gradient(90deg, #000 50%, transparent);
+    width: 70%;
+    padding-top: 3rem;
+    height: 100%;
+    padding-left: 5rem;
+  }
+
+  &__title {
+    font-size: 3rem;
+  }
+
+  &__rating {
+    font-size: 1.5rem;
+    color: $color-green-modal;
+  }
+
+  &__info {
+    padding-top: 1.6rem;
+    font-size: 1.3rem;
+  }
+
+  &__episode {
+    padding-top: 0.5rem;
+    font-size: 2rem;
+  }
+
+  &__overview {
+    color: $color-modal-grey-2;
+    padding-top: 1rem;
+    font-size: 1rem;
+    hyphens: auto;
+    width: 60%;
+    line-height: 1.2;
+  }
+
+  &__btn {
+    text-transform: uppercase;
+    font-weight: 500;
+    cursor: pointer;
+    background-color: transparent;
+    color: #fff;
+    border: 0.5px solid $color-modal-grey-2;
+    border-radius: 2px;
+    font-size: 1rem;
+    margin-top: 1rem;
+    margin-right: 1rem;
+    padding: 0.5rem 1rem;
+    transition: all 0.2s;
+
+    &:hover {
+      transform: scale(1.09);
+    }
+
+    &--red {
+      background-color: $color-red-2;
+      border: none;
+    }
+
+    &--icon {
+      fill: #fff;
+      padding-right: 1rem;
+      height: 1.4rem;
+      width: 1.4rem;
+    }
+  }
+}
+
+.show {
+  transition: 0.5s 0.3s ease-out;
+  top: 25%;
+  left: 0;
+  visibility: visible;
+  opacity: 1;
+}
+
+.hide {
+  visibility: hidden;
+}
+$bp-Phone: 500px;
+@media (max-width: $bp-Phone) {
+  .modal {
+    position: fixed;
+    z-index: 500;
+    width: 100vw;
+    top: 40%;
+    left: 0;
+    color: #fff;
+    height: 40vh;
+    box-shadow: 0 1.5rem 4rem rgba($color-dark, 0.15);
+    transition: all 0.3s;
+    // width: 100vw;
+    // height: 50vh;
+    // top: 20vh;
+    &__container {
+      background: linear-gradient(90deg, #000 50%, transparent);
+      width: 70%;
+      padding-top: 2rem;
+      height: 99%;
+      padding-left: 2rem;
+    }
+    &__title {
+      font-size: 2rem;
+    }
+
+    &__rating {
+      font-size: 1rem;
+      color: $color-green-modal;
+    }
+
+    &__info {
+      padding-top: 1rem;
+      font-size: 0.9rem;
+    }
+
+    &__episode {
+      padding-top: 0.5rem;
+      font-size: 1.5rem;
+    }
+  }
+}

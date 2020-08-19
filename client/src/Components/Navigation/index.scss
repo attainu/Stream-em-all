@@ -1,0 +1,41 @@
+.Navigation {
+  margin-left: 7vw;
+  a {
+    text-decoration: none;
+    color: #fff;
+  }
+  ul {
+    display: flex;
+    height: 37px;
+    align-items: center;
+    padding: 0 10px;
+    list-style: none;
+    li {
+      font-weight: 400;
+      padding: 7px 10px;
+      font-size: 14px;
+      transition: background 0.125s ease;
+      border-radius: 3px;
+      &:hover {
+        background: #e50914;
+        cursor: pointer;
+      }
+    }
+  }
+}
+.active {
+  li {
+    background: #e50914;
+    cursor: pointer;
+  }
+}
+$bp-Phone: 500px;
+@media (max-width: $bp-Phone) {
+  .Navigation {
+    margin-left: 7vw;
+    ul {
+      height: 100px;
+      padding: 0 50px;
+    }
+  }
+}

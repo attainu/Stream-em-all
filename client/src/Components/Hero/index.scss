@@ -1,0 +1,95 @@
+.Hero {
+  width: 100%;
+  position: relative;
+  background-size: cover;
+  min-height: 800px;
+}
+.Hero .content {
+  position: relative;
+  z-index: 4;
+  width: 500px;
+  left: 10vw;
+  top: 15vw;
+}
+.Hero .content .logo {
+  max-width: 400px;
+  display: block;
+  position: relative;
+  left: -5px;
+}
+.Hero .content p {
+  width: 100%;
+}
+.Hero .content .button-wrapper {
+  display: flex;
+  width: 400px;
+  margin-top: 30px;
+}
+.Hero .content .button-wrapper .Button:first-child {
+  margin-right: 10px;
+}
+.Hero .overlay {
+  /* FF3.6-15 */
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #221f1f 0%, rgba(34, 31, 31, 0) 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6000000', endColorstr='#00000000',GradientType=0 );
+  /* IE6-9 */
+  height: 100%;
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  left: 0;
+  width: 100%;
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+.Button {
+  background: #e1e1e1;
+  display: flex;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: #000;
+  padding: 20px;
+  box-sizing: border-box;
+  border: 2px solid rgba(245, 245, 241, 0.2);
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: border 0.125s ease, background 0.125s ease;
+  img {
+    width: 1vw;
+    margin-right: 1rem;
+  }
+}
+.Button:hover {
+  border: 2px solid #e50914;
+  color: #e50914;
+}
+.Button[data-primary='true'] {
+  border: 2px solid #e50914;
+}
+.Button[data-primary='true']:hover {
+  background: #e50914;
+}
+$bp-Phone: 500px;
+@media (max-width: $bp-Phone) {
+  .Hero .content {
+    top: 40vh;
+  }
+  .Hero .content .logo {
+    max-width: 280px;
+    left: -5px;
+  }
+  .Hero .content p {
+    max-width: 380px;
+  }
+  .Button {
+    img {
+      width: 5vw;
+      margin-right: 1rem;
+    }
+  }
+}

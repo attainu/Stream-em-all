@@ -1,0 +1,38 @@
+.epMainDiv {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #221f1f;
+}
+.editTitle {
+  width: 100%;
+  font-size: 1.5rem;
+  height: 1.9rem;
+  padding: 0.4rem;
+  background: #999;
+  color: #fff;
+  outline: 0;
+  border: 0;
+  &::placeholder {
+    color: #fff;
+  }
+}
+
+.cancelButton {
+  margin-left: 1rem !important;
+  color: #999 !important;
+  border: 2px solid #999 !important;
+  min-width: 7rem !important;
+}
+$bp-Phone: 500px;
+@media (max-width: $bp-Phone) {
+  .epMainDiv {
+    height: 100vh;
+    width: 80vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #221f1f;
+  }
+}

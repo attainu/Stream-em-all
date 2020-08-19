@@ -1,0 +1,111 @@
+/* TabComponent */
+.TabList {
+  list-style-type: none;
+}
+
+.TabList .TabNavDevice {
+  margin-top: -5rem;
+}
+
+.TabComponent {
+  padding-top: 1rem;
+}
+
+.TabList {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  color: var(--main-grey);
+  margin: 0 12%;
+}
+ul li:hover {
+  color: #fff;
+  cursor: pointer;
+}
+
+ul li :hover svg path {
+  fill: #fff;
+}
+
+/* Active navs */
+.active {
+  border-bottom: 4px solid var(--main-red);
+}
+.tab-selected {
+  color: #fff;
+}
+.tab-selected svg path {
+  fill: #fff;
+}
+
+/* ALL NAV BARS */
+/* TabNavDoor */
+
+.tab-icon-door {
+  width: 2.8rem;
+  height: 2.8rem;
+  fill: var(--main-grey);
+}
+
+/* TabNavDevice */
+
+.tab-icon-device {
+  width: 9rem;
+  height: 9rem;
+  fill: var(--main-grey);
+}
+
+/* TabNavPrice */
+
+.tab-icon-price {
+  width: 4rem;
+  height: 4rem;
+  fill: var(--main-grey);
+}
+
+.tab-door {
+  margin-bottom: 1.8rem;
+}
+
+/* all media query */
+@media (max-width: 760px) {
+  .tab-icon-door {
+    width: 1.4rem;
+    height: 1.4rem;
+    fill: var(--main-grey);
+  }
+}
+@media (max-width: 760px) {
+  .tab-icon-device {
+    width: 4rem;
+    height: 4rem;
+    fill: var(--main-grey);
+  }
+}
+@media (max-width: 760px) {
+  .tab-icon-price {
+    width: 2rem;
+    height: 2rem;
+    fill: var(--main-grey);
+  }
+}
+
+@media (min-width: 760px) {
+  .mediaQ {
+    display: none;
+  }
+}
+
+@media (max-width: 760px) {
+  p {
+    display: none;
+  }
+
+  .mediaQdevice {
+    display: block;
+    margin-bottom: 0.4rem;
+  }
+}

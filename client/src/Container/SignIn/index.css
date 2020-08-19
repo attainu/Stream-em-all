@@ -1,0 +1,24 @@
+.main-login-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background: radial-gradient(rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.1)),
+    url(../../Assets/images/bg.jpg) no-repeat center center/cover;
+}
+
+.main-login-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  box-shadow: inset 70px 50px 190px #000, inset -70px -50px -190px;
+}
+
+.header-top {
+  position: relative;
+  height: 14vh;
+  z-index: 1;
+}
