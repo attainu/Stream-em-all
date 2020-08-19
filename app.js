@@ -8,7 +8,7 @@ const { v4: uuidv4 } = require('uuid');
 
 const app = express();
 
-// middleware
+// middlewar
 app.use(express.json());
 app.use(cors());
 
