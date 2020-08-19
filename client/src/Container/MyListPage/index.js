@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import GridCard from '../../Components/GridCard';
 import { getMyList } from '../../Redux/User/userActionGenerator';
+import Swal from 'sweetalert2';
 import './index.scss';
 
 const useStyles = makeStyles((theme) => ({
@@ -18,7 +19,18 @@ const MyList = ({ userProfile, myList }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const person = userProfile.profile;
-
+  console.log(myList);
+  useEffect(() => {
+    if (myList.length === 0) {
+      Swal.fire({
+        showConfirmButton: false,
+        icon: 'error',
+        timer: 1000,
+        title: 'Oops...',
+        text: 'Please Add items!',
+      });
+    }
+  }, [myList]);
   useEffect(() => {
     dispatch(getMyList(person));
   }, [dispatch, person]);
