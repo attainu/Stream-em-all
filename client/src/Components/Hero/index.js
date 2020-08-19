@@ -1,9 +1,11 @@
 import React from 'react';
 import Add from '../../Assets/image/add.svg';
 import Play from '../../Assets/image/play-button.svg';
+import { useHistory } from 'react-router-dom';
 import './index.scss';
 
 const Hero = ({ url, url2, title, desc }) => {
+  const history = useHistory();
   return (
     <div
       id='hero'
@@ -25,13 +27,16 @@ const Hero = ({ url, url2, title, desc }) => {
 
         <p>{desc}</p>
         <div className='button-wrapper'>
-          <span className='Button primary'>
+          <span
+            className='Button primary'
+            onClick={() => history.push('/preplan')}
+          >
             <img src={Play} alt='' />
             Play
           </span>
-          <span className='Button'>
+          <span className='Button' onClick={() => history.push('/preplan')}>
             <img src={Add} alt='' />
-            Add To List
+            Watch More
           </span>
         </div>
       </div>
